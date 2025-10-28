@@ -1,0 +1,18 @@
+# IntelliJ IDEA
+*.iml
+.idea/
+/out/
+
+# Java compiled files
+*.class
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
