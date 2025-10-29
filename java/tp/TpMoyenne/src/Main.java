@@ -22,7 +22,8 @@ public class Main {
         // Liste des matières
         Course[] courses = new Course[]{frenchCourse, mathsCourse, gymCourse};
 
-        System.out.println("Moyenne générale : " + calculateGpa(courses));
+        // Afficher la moyenne générale
+        System.out.println("Moyenne générale : " + Math.round(calculateGpa(courses) * 100.0) / 100.0 + "/20");
     }
 
     // Fonction pour calculer la moyenne générale (gpa en anglais)
@@ -38,10 +39,17 @@ public class Main {
 
         // Boucler sur la liste des matières
         for(int i = 0; i < numberOfCourses; i++) {
-            for(int j = 0; j < courses[i].grades.length; j++) {
+
+            // Je stocke la matière dans une variable pour une meilleure lisibilité du code
+            Course course = courses[i];
+
+            // Afficher la moyenne de chaque matière
+            System.out.println("Moyenne " + course.name + " : " + Math.round(course.calculateCourseAverage() * 100.0) / 100.0 + "/20");
+
+            for(int j = 0; j < course.grades.length; j++) {
                 // Pour chaque matière, calculer sa moyenne
-                // et stocker la moyenne de toutes les matières dans une variable sumAverageGrades
-                sumAverageGrades += courses[i].calculateCourseAverage(courses[i].grades);
+                // et stocker la somme des moyennes de toutes les matières dans une variable sumAverageGrades
+                sumAverageGrades += course.calculateCourseAverage();
 
                 // Incrémenter le nombre total de notes à chaque itération
                 totalNumberOfGrades++;

@@ -8,7 +8,7 @@ public class Course {
     }
 
     // Méthode pour calculer la moyenne de la matière
-    public float calculateCourseAverage(float[] grades) {
+    public float calculateCourseAverage() {
         // Longueur du tableau de notes de la matière
         int numberOfGrades = grades.length;
         // Créer une variable sum : somme des notes
