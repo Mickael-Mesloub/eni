@@ -1,32 +1,17 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class TpMoyenneApp {
     public static void main(String[] args) {
 
         // ArrayList de notes de Français
-        ArrayList<Float> frenchGrades = new ArrayList<Float>() {{
-            add(12F);
-            add(8F);
-            add(13F);
-            add(6F);
-        }};
+        ArrayList<Float> frenchGrades = new ArrayList<Float>(List.of(12f,8f,13f,6f));
 
         // ArrayList de notes de Maths
-        ArrayList<Float> mathsGrades = new ArrayList<Float>() {{
-            add(4F);
-            add(9F);
-            add(16F);
-            add(18F);
-        }};
+        ArrayList<Float> mathsGrades = new ArrayList<Float>(List.of(4f,9f,16f,18f));
 
         // ArrayList de notes de Sport
-        ArrayList<Float> gymGrades = new ArrayList<Float>() {{
-            add(15F);
-            add(13F);
-            add(17F);
-            add(2F);
-            add(6F);
-        }};
+        ArrayList<Float> gymGrades = new ArrayList<Float>(List.of(15f,13f,17f,2f,6f));
 
         // Instance de Course pour Français
         Course frenchCourse = new Course("Français", frenchGrades);
@@ -38,11 +23,7 @@ public class TpMoyenneApp {
         Course gymCourse = new Course("Sport", gymGrades);
 
         // Liste des matières
-        ArrayList<Course> courses = new ArrayList<Course>() {{
-            add(frenchCourse);
-            add(mathsCourse);
-            add(gymCourse);
-        }};
+        ArrayList<Course> courses = new ArrayList<Course>(List.of(frenchCourse, mathsCourse, gymCourse));
 
         // Afficher la moyenne générale
         System.out.println("Moyenne générale : " + Math.round(calculateGpa(courses) * 100.0) / 100.0 + "/20");
