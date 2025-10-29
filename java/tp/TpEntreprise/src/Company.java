@@ -10,14 +10,14 @@ public class Company {
     }
 
     public void showCompanyInfo() {
-        String companyInfo = String.format("%s (%s - %s), %d salarié(e)s", name, address.cp, address.city, employees.length);
+        StringBuilder companyInfo = new StringBuilder(String.format("%s (%s - %s), %d salarié(e)s", name, address.cp, address.city, employees.length));
 
         // Boucler sur les employees pour afficher la liste au format :
         // salarié [i] : "lastName firstName" age ans
 
-        for(int i = 0; i < employees.length; i++) {
+        for (int i = 0; i < employees.length; i++) {
             Employee employee = employees[i];
-            companyInfo += String.format("\n - salarié %d : \"%s %s\" %d ans", i + 1, employee.firstName, employee.lastName, employee.age);
+            companyInfo.append(String.format("\n - salarié %d : \"%s %s\" %d ans", i + 1, employee.firstName, employee.lastName, employee.age));
         }
 
         System.out.println(companyInfo);
