@@ -1,4 +1,4 @@
-public class Main {
+public class TpMoyenneApp {
     public static void main(String[] args) {
 
         // Tableau de notes de Français
