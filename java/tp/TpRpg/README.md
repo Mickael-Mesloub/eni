@@ -28,7 +28,7 @@ Dans une application **Java Console** (avec le `void main`), le but du TP :
 ## ⚔️ Fonction `attack`
 La fonction `attack` va retirer des HP.
 
-## 💀 Fonction `isLoose`
+## 💀 Fonction `isLooser`
 Elle permet de savoir si une équipe a perdu, donc si tous les combattant(e)s de l'équipe ont les HP à 0.
 
 ## 🏆 Fonction `getWinnerTeam`
