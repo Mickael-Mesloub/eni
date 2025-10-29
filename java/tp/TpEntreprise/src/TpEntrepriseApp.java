@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class TpEntrepriseApp {
     public static void main(String[] args) {
 
@@ -7,19 +9,28 @@ public class TpEntrepriseApp {
         Employee orangesEmployee1 = new Employee("Grieeman", "Natacha", 32);
         Employee orangesEmployee2 = new Employee("Dupont", "Jean-Luc", 37);
 
-        Employee[] orangesEmployees = new Employee[]{orangesEmployee1, orangesEmployee2};
+        ArrayList<Employee> orangesEmployees = new ArrayList<Employee>() {{
+            add(orangesEmployee1);
+            add(orangesEmployee2);
+        }};
 
         // GoGoDev
         Employee gogodevEmployee = new Employee("Brechet", "Stephane", 29);
 
-        Employee[] gogodevEmployees = new Employee[]{gogodevEmployee};
+        ArrayList<Employee> gogodevEmployees = new ArrayList<Employee>() {{
+            add(gogodevEmployee);
+        }};
 
         // Next Digital
         Employee nextdigitalEmployee1 = new Employee("Lemoine", "Sasha", 24);
         Employee nextdigitalEmployee2 = new Employee("Durand", "Esteban", 31);
         Employee nextdigitalEmployee3 = new Employee("Laporte", "Mélanie", 34);
 
-        Employee[] nextdigitalEmployees = new Employee[]{nextdigitalEmployee1, nextdigitalEmployee2, nextdigitalEmployee3};
+        ArrayList<Employee> nextdigitalEmployees = new ArrayList<Employee>() {{
+            add(nextdigitalEmployee1);
+            add(nextdigitalEmployee2);
+            add(nextdigitalEmployee3);
+        }};
 
         // Instances des adresses
         Address orangesAddress = new Address("44300", "Nantes");
@@ -31,15 +42,19 @@ public class TpEntrepriseApp {
         Company gogodev = new Company("GoGoDev", gogodevAddress, gogodevEmployees);
         Company nextdigital = new Company("NextDigital", nextdigitalAddress, nextdigitalEmployees);
 
-        Company[] companies = new Company[]{oranges, gogodev, nextdigital};
+        ArrayList<Company> companies = new ArrayList<Company>() {{
+            add(oranges);
+            add(gogodev);
+            add(nextdigital);
+        }};
 
         getCompaniesInfo(companies);
     }
 
-    static void getCompaniesInfo(Company[] companies) {
+    static void getCompaniesInfo(ArrayList<Company> companies) {
         // Boucler sur les entreprises pour afficher leurs infos
-        for (int i = 0; i < companies.length; i++) {
-            companies[i].showCompanyInfo();
+        for (Company company : companies) {
+            company.showCompanyInfo();
         }
     }
 }
