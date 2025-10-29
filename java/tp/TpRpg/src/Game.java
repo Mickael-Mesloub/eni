@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game {
     public Team playerTeam;
     public Team enemyTeam;
@@ -8,7 +11,12 @@ public class Game {
     }
 
     // TODO: implémenter la logique
-    public void getWinnerTeam(){
-        System.out.println("Winner team");
+    public Team getWinnerTeam(){
+        Team winner = (playerTeam.isLooser()) ? enemyTeam : playerTeam;
+
+        System.out.println(String.format("\uD83C\uDFC6 %s won!",winner.name));
+
+        return winner;
+
     }
 }

@@ -15,7 +15,7 @@ Dans une application **Java Console** (avec le `void main`), le but du TP :
 
 ### `Team`
 * battlers: List<Battler>
-* isWinner: boolean
+* isLooser(): boolean
 
 ### `Game`
 * playerTeam: Team
@@ -44,6 +44,6 @@ Dans ces deux équipes, il n'y aura qu'une seule instance de combattant.
 
 Dans la fonction `play` de `Game`, vous allez mettre la logique du combat.
 
-En gros, vous allez **boucler tant qu’une partie n’a pas perdu** pour faire attaquer les combattants entre eux à l’aide de la méthode `attack`.
+En gros, vous allez **boucler tant qu’une équipe n’a pas perdu** pour faire attaquer les combattants entre eux à l’aide de la méthode `attack`.
 
 Lorsqu’on sort de la boucle, on affiche le vainqueur.
