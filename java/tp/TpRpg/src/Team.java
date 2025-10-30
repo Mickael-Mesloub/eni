@@ -9,13 +9,12 @@ public class Team {
         this.battlers = battlers;
     }
 
-    public boolean isLooser(){
-        boolean result = false;
-
+    public boolean isLoser() {
+        // Si tous les combattants sont morts, l'équipe a perdu
         for(Battler battler : battlers) {
-            result = battler.hp == 0;
+            return battler.hp <= 0;
         }
 
-        return result;
+        return false;
     }
 }

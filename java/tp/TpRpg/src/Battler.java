@@ -9,20 +9,20 @@ public class Battler {
         this.power = power;
     }
 
-    // TODO: refactor : param = Team.
-    //  Boucler sur team et attack le joueur le plus faible (le moins d'HP)
     public void attack(Battler opponent){
-        // Permet d'attaquer un adversaire : opponent.looseHP(power)
-        String message = (String.format("⚔\uFE0F %s attacks %s!", name, opponent.name));
-        System.out.println(message);
+        // Permet d'attaquer un adversaire : opponent.loseHP(power)
+        System.out.println(String.format("⚔️ %s attacks %s", name, opponent.name));
         opponent.loseHP(power);
     }
 
-    // TODO: retirer de la liste le joueur qui a le moins d'HP
-    public void loseHP(int amount) {
-        // Fait descendre les points de vie d'un montant n (= amount)
-        hp -= amount;
-        String message = String.format("\uD83D\uDC94 %s lost %dHP.", name,amount);
-        System.out.println(message);
+    public void loseHP(int damage) {
+        // Fait descendre les points de vie d'un montant n (= damage)
+        hp -= damage;
+        System.out.println(String.format("🤕 %s lost %d HP", name, damage));
+
+        // Si le combattant n'a plus d'hp, il est mort
+        if(hp <= 0) {
+            System.out.println(String.format("☠️ %s is dead!", name));
+        }
     }
 }

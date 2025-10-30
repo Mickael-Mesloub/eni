@@ -12,19 +12,27 @@ public class Game {
         teams = new ArrayList<Team>(List.of(playerTeam, enemyTeam));
     }
 
-    // TODO: implémenter la logique
+    // TODO: fix enemy team attacking after battler is dead
     public void play(){
-
+       if(!playerTeam.isLoser() || !enemyTeam.isLoser()) {
+           playerTeam.battlers.getFirst().attack(enemyTeam.battlers.getFirst());
+           enemyTeam.battlers.getFirst().attack(playerTeam.battlers.getFirst());
+       }
     }
 
-    // TODO: implémenter la logique
-    // pour chaque team, vérifier si isLooser(); Si oui, alors l'autre team gagne. Tant que les 2 sont false, winner vaut null
-    public Team getWinnerTeam(){
-        Team winner = (playerTeam.isLooser()) ? enemyTeam : playerTeam;
+    // TODO: refactor ?
+    public Team getWinnerTeam() {
+        Team winner = null;
 
-        System.out.println(String.format("\uD83C\uDFC6 %s won!",winner.name));
+        if(playerTeam.isLoser()) {
+            winner = enemyTeam;
+            System.out.println(String.format("🏆 %s won!", enemyTeam.name));
+        } else if(enemyTeam.isLoser()) {
+            winner = playerTeam;
+            System.out.println(String.format("🏆 %s won!", playerTeam.name));
+        }
 
         return winner;
-
     }
+
 }
