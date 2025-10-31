@@ -6,16 +6,27 @@ public class Game {
     public Team enemyTeam;
     ArrayList<Team> teams;
 
-    public Game(Team playerTeam, Team enemyTeam) {
-        this.playerTeam = playerTeam;
-        this.enemyTeam = enemyTeam;
-        teams = new ArrayList<Team>(List.of(playerTeam, enemyTeam));
+    public Game(Team _playerTeam, Team _enemyTeam) {
+        this.playerTeam = _playerTeam;
+        this.enemyTeam = _enemyTeam;
+        teams = new ArrayList<Team>(List.of(_playerTeam, _enemyTeam));
     }
 
     // TODO: add initiative system : player with the highest amount of initiative strikes first
     // TODO: add random stats (hp, power)
     // TODO: add dealing random attack damage
 
+    /**
+     * Système d'initiative
+     * Chaque combattant a un montant d'initiative
+     * Avant d'attaquer, je dois vérifier QUI attaque en premier
+     * Dans la team 1 je récupère celui qui a le plus d'initiative
+     * Idem dans la team 2
+     * Puis je compare celui qui a le plus d'initiative entre ces 2 combattants
+     * Celui qui a le plus est celui qui attaque en premier
+     * Je dois aussi vérifier quelle équipe a attaqué en dernier
+     * Si c'est l'équipe A, alors c'est au tour de l'équipe B d'attaquer
+     */
 
     // Méthode pour lancer une partie
     public void play() {
@@ -25,22 +36,18 @@ public class Game {
         // Tant qu'aucune team n'est déclarée vainqueur, on continue
         while (getWinnerTeam() == null) {
 
-            // TODO: replace with battler with highest initiative amount
-            // Instances des combattants : on récupère le premier de la liste de chaque équipe
-            Battler playerTeamBattler = playerTeam.battlers.stream().findFirst().orElse(null);
-            Battler enemyTeamBattler = enemyTeam.battlers.stream().findFirst().orElse(null);
-
-            // Si on ne trouve aucun combattant, fin de partie
-            if (playerTeamBattler == null || enemyTeamBattler == null) return;
+            // Pour chaque équipe, on récupère le battler avec le plus d'initiative
+            Battler playerBattlerWithMostInitiative = playerTeam.getBattlerWithMostInitiative();
+            Battler enemyBattlerWithMostInitiative = enemyTeam.getBattlerWithMostInitiative();
 
             // On vérifie que le joueur peut attaquer (= qu'il n'est pas mort et que son ennemi non plus). Si OK, attaque
-            if(playerTeamBattler.canAttack(enemyTeamBattler)) {
-                playerTeamBattler.attack(enemyTeam);
+            if(playerBattlerWithMostInitiative.canAttack(enemyBattlerWithMostInitiative)) {
+                playerBattlerWithMostInitiative.attack(enemyTeam);
             }
 
             // Cf au-dessus, si l'ennemi peut attaquer le joueur, il attaque
-            if(enemyTeamBattler.canAttack(playerTeamBattler)) {
-                enemyTeamBattler.attack(playerTeam);
+            if(enemyBattlerWithMostInitiative.canAttack(playerBattlerWithMostInitiative)) {
+                enemyBattlerWithMostInitiative.attack(playerTeam);
             }
 
             System.out.println("\n ------------------ \n");

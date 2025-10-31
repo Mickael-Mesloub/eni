@@ -2,11 +2,13 @@ public class Battler {
     public String name;
     public int hp;
     public int power;
+    public int initiative;
 
-    public Battler(String name, int hp, int power) {
-        this.name = name;
-        this.hp = hp;
-        this.power = power;
+    public Battler(String _name, int _hp, int _power, int _initiative) {
+        name = _name;
+        hp = _hp;
+        power = _power;
+        initiative = _initiative;
     }
 
     // Méthode pour attaquer une équipe ennemie
@@ -27,8 +29,8 @@ public class Battler {
         // Si le combattant meurt, le retirer de la liste des combattants de son équipe + affiche un message
         if(isDead()) {
             defenderTeam.removeDeadBattler(this);
-            System.out.println(String.format("☠️ %s is dead!", this.name));
-            System.out.println(String.format("%s is out of the game!", this.name));
+            System.out.println(String.format("☠️ %s is dead!", name));
+            System.out.println(String.format("%s is out of the game!", name));
         }
     }
 
