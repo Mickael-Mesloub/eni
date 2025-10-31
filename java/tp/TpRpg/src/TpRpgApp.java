@@ -4,16 +4,24 @@ import java.util.List;
 public class TpRpgApp {
     public static void main(String[] args) {
 
-        Battler me = new Battler("sUp3rK3v", 50, 20);
-        Battler opponent = new Battler("n0obl@rd", 60, 6);
+        // Instances des combattants de la team Gentil
+        Battler me = new Battler("Gentil-1", 50, 50);
+        Battler gentil = new Battler("Gentil-2", 100, 50);
 
-        Team playerTeam = new Team("Player Team", new ArrayList<Battler>(List.of(me)));
-        Team enemyTeam = new Team("Enemy Team", new ArrayList<Battler>(List.of(opponent)));
+        // Instances des combattants de la team Méchant
+        Battler opponent = new Battler("Méchant-1", 60, 50);
+        Battler mechant = new Battler("Méchant-2", 88, 50);
 
+        // Instance de l'équipe Gentil
+        Team playerTeam = new Team("Gentil Team", new ArrayList<Battler>(List.of(me, gentil)));
+
+        // Instance de l'équipe Méchant
+        Team enemyTeam = new Team("Méchant Team", new ArrayList<Battler>(List.of(opponent, mechant)));
+
+        // Instance de la partie
         Game game = new Game(playerTeam, enemyTeam);
 
-        while(game.getWinnerTeam() == null) {
-            game.play();
-        }
+        // Lancer une partie
+        game.play();
     }
 }

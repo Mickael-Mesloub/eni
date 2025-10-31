@@ -9,12 +9,14 @@ public class Team {
         this.battlers = battlers;
     }
 
+    // Méthode pour déterminer si l'équipe est perdante : true si la liste battlers est vide (= tous les battlers morts)
     public boolean isLoser() {
-        // Si tous les combattants sont morts, l'équipe a perdu
-        for(Battler battler : battlers) {
-            return battler.hp <= 0;
-        }
-
-        return false;
+       return battlers.isEmpty();
     }
+
+    // Méthode pour retirer un combattant mort de la liste
+    public void removeDeadBattler(Battler deadBattler) {
+        battlers.remove(deadBattler);
+    }
+
 }
