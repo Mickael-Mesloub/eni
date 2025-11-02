@@ -15,7 +15,7 @@ public class Battler {
     public void attack(Team defenderTeam) {
         // TODO: target enemy with lowest hp amount
         // Taper le premier ennemi de la liste
-        Battler defender = defenderTeam.battlers.get(0);
+        Battler defender = defenderTeam.battlers.getFirst();
             strike(defender, defenderTeam);
     }
 
@@ -24,13 +24,13 @@ public class Battler {
 
         // Fait descendre les points de vie d'un montant n (= damage) + affiche un message
         hp -= damage;
-        System.out.println(String.format("🤕 %s lost %d HP. %d HP remaining", name, damage, hp));
+        System.out.printf("\n 🤕 %s lost %d HP. %d HP remaining", name, damage, hp);
 
         // Si le combattant meurt, le retirer de la liste des combattants de son équipe + affiche un message
         if(isDead()) {
             defenderTeam.removeDeadBattler(this);
-            System.out.println(String.format("☠️ %s is dead!", name));
-            System.out.println(String.format("%s is out of the game!", name));
+            System.out.printf("\n ☠️ %s is dead!", name);
+            System.out.printf("\n %s is out of the game!", name);
         }
     }
 
@@ -39,15 +39,10 @@ public class Battler {
         return hp <= 0;
     }
 
-    // TODO: need more tests to determine if this is useful or not
-    public boolean canAttack(Battler opponent) {
-        return !isDead() && !opponent.isDead();
-    }
-
     // Méthode pour infliger des dégâts à l'ennemi
     public void strike(Battler opponent, Team defenderTeam) {
         // Permet d'attaquer un adversaire : opponent.loseHP(power)
-        System.out.println(String.format("⚔️ %s attacks %s", name, opponent.name));
+        System.out.printf("\n ⚔️ %s attacks %s", name, opponent.name);
         opponent.loseHP(power, defenderTeam);
     }
 }

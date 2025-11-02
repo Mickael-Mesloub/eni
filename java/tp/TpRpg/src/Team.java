@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class Team {
     public String name;
@@ -19,12 +18,4 @@ public class Team {
     public void removeDeadBattler(Battler deadBattler) {
         battlers.remove(deadBattler);
     }
-
-    // Récupère le battler avec le plus d'initiative pour définir l'ordre d'attaque
-    public Battler getBattlerWithMostInitiative(){
-        return battlers.stream().max(Comparator.comparing((battler -> battler.initiative))).get();
-    }
-
-    // Retourne true si cette équipe a attaqué en dernier
-//    public boolean isLastAttacker(){}
 }

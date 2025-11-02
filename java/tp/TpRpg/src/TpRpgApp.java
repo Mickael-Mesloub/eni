@@ -6,7 +6,7 @@ public class TpRpgApp {
 
         // Instances des combattants de la team Gentil
         Battler me = new Battler("Gentil-1", 50, 50, 100);
-        Battler gentil = new Battler("Gentil-2", 100, 50,50);
+        Battler gentil = new Battler("Gentil-2", 500, 30,500);
 
         // Instances des combattants de la team Méchant
         Battler opponent = new Battler("Méchant-1", 60, 50, 200);
