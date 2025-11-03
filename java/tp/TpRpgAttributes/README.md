@@ -152,3 +152,19 @@ habitat : grotte
 - Ajouter une méthode pour **modifier ou supprimer un attribut**
 - Trier la liste des personnages selon un critère (nom, type, etc.)
 - Compter le nombre de héros et de monstres dans la liste
+
+## Évolution du projet - Combat de héros contre les monstres (mix avec TP RPG)
+- Créer des équipes de monstres et de héros : 5v5
+- Ajouter des compétences aux monstres et héros
+- Tous les personnages ont 1 compétence
+- Les héros ont des compétences liées à leur métier
+- Les monstres, eux, ont des compétences liées à leur pouvoir
+- Les métiers et les pouvoirs définissent le nombre d'hp qu'elles font perdre (remplace power)
+- La méthode **attack()** appelle la méthode de la compétence du métier du héros ou du pouvoir du monstre
+
+### Logique du combat
+1. Choisissez votre équipe
+2. Vous décidez de l'ordre de passage des combattants de votre équipe
+3. L'ordre de l'équipe adverse est décidé au hasard
+4. Tour à tour, dans l'ordre d'initiative (votre équipe, l'autre équipe, en boucle), les personnages jouent leur action
+5. Une fois que tout le monde est passé, on boucle.

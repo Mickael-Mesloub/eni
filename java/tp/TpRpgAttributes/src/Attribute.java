@@ -15,7 +15,11 @@ public class Attribute {
         return value;
     }
 
-    public void show() {
-        System.out.println(String.format("Name : %s \n Value : %s", name, value));
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }
