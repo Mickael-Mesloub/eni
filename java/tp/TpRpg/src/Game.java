@@ -31,28 +31,28 @@ public class Game {
             // On récupère les 2 combattants avec le plus d'ini : celui de la playerTeam et celui de l'enemyTeam
             ArrayList<Battler> bothTeamFastestBattlers = new ArrayList<Battler>(List.of(playerBattlerWithMostInitiative, enemyBattlerWithMostInitiative));
 
-            // Entre ces 2 combattants, je détermine celui qui a le plus d'ini (= celui qui va attaquer en premier) pour savoir quelle équipe commence
+            // Entre ces 2 combattants, je détermine celui qui a le plus d'ini (= celui qui va attaquer en premier) pour savoir quelle équipe commence.
             Battler firstAttacker = getAttacker(bothTeamFastestBattlers);
 
             // On vérifie dans quelle équipe se trouve le firstAttacker pour qu'il attaque l'autre équipe
             // Si firstAttacker est dans playerTeam
             if (playerTeam.battlers.contains(firstAttacker)) {
-                // Alors, l'équipe playerTeam commence la partie et attaque en premier
-               playPlayerTeamTurn(firstAttacker);
+                // Alors, l'équipe playerTeam commence la partie et attaque enemyTeam en premier
+               playTeamTurn(firstAttacker, playerTeam, enemyTeam);
             } else {
-                // Sinon : si firstAttacker n'est pas dans playerTeam, alors il est dans enemyTeam et c'est donc au tour d'enemyTeam de jouer
-                playEnemyTeamTurn(firstAttacker);
+                // Sinon : si firstAttacker n'est pas dans playerTeam, alors il est dans enemyTeam et c'est donc au tour d'enemyTeam de jouer.
+                playTeamTurn(firstAttacker, enemyTeam, playerTeam);
             }
 
             // S'il n'y a pas d'équipe gagnante, on continue
             if (getWinnerTeam() == null) {
-                // Tour suivant : si l'équipe playerTeam a commencé à attaquer en premier
+                // Tour suivant : si l'équipe playerTeam a joué en dernier
                 if (playerTeam.battlers.contains(firstAttacker)) {
-                    // Alors, c'est au tour de enemyTeam de riposter
-                    playEnemyTeamTurn(enemyBattlerWithMostInitiative);
+                    // Alors, c'est au tour d'enemyTeam de riposter
+                    playTeamTurn(enemyBattlerWithMostInitiative, enemyTeam, playerTeam);
                 } else {
-                    // Sinon, cela signifie que l'équipe enemyTeam a commencé, donc c'est au tour de playerTeam de riposter
-                    playPlayerTeamTurn(playerBattlerWithMostInitiative);
+                    // Sinon, cela signifie que l'équipe enemyTeam a joué en dernier, donc c'est au tour de playerTeam de jouer son tour.
+                    playTeamTurn(playerBattlerWithMostInitiative, playerTeam, enemyTeam);
                 }
             }
             System.out.println("\n \n ------------------ \n");
@@ -80,31 +80,22 @@ public class Game {
         return enemyBattlers.stream().min(Comparator.comparing(b -> b.hp)).orElse(null);
     }
 
-    // ---------------- REFACTOR ABOVE ---------------- \\
-    // TODO: Refactor next two methods to have one more generic
-    public void playPlayerTeamTurn(Battler attacker) {
-        // On vérifie si le battler de playerTeam est toujours vivant
+    /**
+     * Méthode permettant à une équipe de jouer son tour
+     * @param attacker Le battler qui se prépare à attaquer
+     * @param attackingTeam L'équipe qui attaque
+     * @param defendingTeam L'équipe qui subit l'attaque
+     */
+    public void playTeamTurn(Battler attacker, Team attackingTeam, Team defendingTeam) {
+        // On vérifie si le battler d'attackingTeam est toujours vivant
         if (!attacker.isDead()) {
-            // Si oui, il attaque l'équipe enemyTeam
-            attacker.attack(enemyTeam);
+            // Si oui, il attaque l'équipe defendingTeam
+            attacker.attack(defendingTeam);
         } else {
-            // Sinon, je détermine le nouvel attacker de playerTeam
-            Battler nextAttacker = getAttacker(playerTeam.battlers);
-            // Et ce nouveau battler attaque enemyTeam
-            nextAttacker.attack(enemyTeam);
-        }
-    }
-
-    public void playEnemyTeamTurn(Battler attacker) {
-        // On vérifie si le battler avec le plus d'ini chez enemyTeam est toujours vivant
-        if (!attacker.isDead()) {
-            // Si oui, il attaque l'équipe playerTeam
-            attacker.attack(playerTeam);
-        } else {
-            // Sinon, je détermine le nouveau battler avec le plus d'ini de l'équipe enemyTeam
-            Battler newAttacker = getAttacker(enemyTeam.battlers);
-            // Et ce nouveau battler attaque playerTeam
-            newAttacker.attack(playerTeam);
+            // Sinon, je détermine le nouvel attacker de attackingTeam
+            Battler nextAttacker = getAttacker(attackingTeam.battlers);
+            // Et ce nouvel attacker attaque defendingTeam
+            nextAttacker.attack(defendingTeam);
         }
     }
 }

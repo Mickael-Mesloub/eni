@@ -15,8 +15,7 @@ public class Battler {
     public void attack(Team defenderTeam) {
         // TODO: target enemy with lowest hp amount
         // Taper le premier ennemi de la liste
-        Battler defender = defenderTeam.battlers.getFirst();
-            strike(defender, defenderTeam);
+        defenderTeam.battlers.stream().findFirst().ifPresent(defender -> strike(defender, defenderTeam));
     }
 
     // Méthode pour faire baisser les points de vie ou tuer un ennemi
