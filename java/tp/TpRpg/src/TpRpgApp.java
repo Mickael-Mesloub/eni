@@ -5,12 +5,12 @@ public class TpRpgApp {
     public static void main(String[] args) {
 
         // Instances des combattants de la team Gentil
-        Battler me = new Battler("Gentil-1", 50, 50, 100);
-        Battler gentil = new Battler("Gentil-2", 500, 30,500);
+        Battler me = new Battler("Gentil-1");
+        Battler gentil = new Battler("Gentil-2");
 
         // Instances des combattants de la team Méchant
-        Battler opponent = new Battler("Méchant-1", 60, 50, 200);
-        Battler mechant = new Battler("Méchant-2", 88, 50, 205);
+        Battler opponent = new Battler("Méchant-1");
+        Battler mechant = new Battler("Méchant-2");
 
         // Instance de l'équipe Gentil
         Team playerTeam = new Team("Gentil Team", new ArrayList<Battler>(List.of(me, gentil)));

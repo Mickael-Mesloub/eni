@@ -1,14 +1,16 @@
+import static utils.RandomUtils.randomInt;
+
 public class Battler {
     private final String name;
     private int hp;
     private final int power;
     private final int initiative;
 
-    public Battler(String _name, int _hp, int _power, int _initiative) {
+    public Battler(String _name) {
         name = _name;
-        hp = _hp;
-        power = _power;
-        initiative = _initiative;
+        hp = randomInt(10, 100);
+        power =randomInt(10, 100);
+        initiative = randomInt(10, 100);
     }
 
     /**
@@ -57,6 +59,19 @@ public class Battler {
         // Permet d'attaquer un adversaire : enemy.loseHP(power)
         System.out.printf("\n ⚔️ %s attacks %s", name, enemy.name);
         enemy.loseHP(power, defenderTeam);
+    }
+
+    /**
+     * Affiche les caractéristiques du combattant
+     */
+    public void showInfo() {
+        StringBuilder info = new StringBuilder();
+        info.append("Name : ").append(name).append("\n")
+        .append("HP : ").append(hp).append("\n")
+        .append("Power : ").append(power).append("\n")
+        .append("Initiative : ").append(initiative).append("\n");
+
+        System.out.println(info);
     }
 
     // ---------------------------------------- \\

@@ -13,15 +13,21 @@ public class Game {
         teams = new ArrayList<Team>(List.of(_playerTeam, _enemyTeam));
     }
 
-    // TODO: add random stats (hp, power)
-    // TODO: add dealing random attack damage
-
     /**
      * Lance une partie. La partie continue tant qu'il n'y a pas d'équipe gagnante.
      */
     public void play() {
         // Affichage du message de début de partie
+        System.out.println("------------------ \n Here are our challengers! 💪 \n");
+
+        for(Team team : teams) {
+            for(Battler battler : team.getBattlers()) {
+                battler.showInfo();
+            }
+        }
+
         System.out.println("------------------ \n\n Game ready to start! Let's BATTLE! \uD83E\uDD4A \n\n ------------------ \n");
+
 
         // Tant qu'aucune team n'est déclarée vainqueur, on continue
         while (getWinnerTeam() == null) {
