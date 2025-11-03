@@ -3,8 +3,8 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Game {
-    public Team playerTeam;
-    public Team enemyTeam;
+    private final Team playerTeam;
+    private final Team enemyTeam;
     ArrayList<Team> teams;
 
     public Game(Team _playerTeam, Team _enemyTeam) {
@@ -15,7 +15,6 @@ public class Game {
 
     // TODO: add random stats (hp, power)
     // TODO: add dealing random attack damage
-    // TODO: javadoc
 
     /**
      * Lance une partie. La partie continue tant qu'il n'y a pas d'équipe gagnante.
@@ -27,8 +26,8 @@ public class Game {
         // Tant qu'aucune team n'est déclarée vainqueur, on continue
         while (getWinnerTeam() == null) {
             // Pour chaque équipe, on récupère le battler avec le plus d'initiative
-            Battler playerBattlerWithMostInitiative = getAttacker(playerTeam.battlers);
-            Battler enemyBattlerWithMostInitiative = getAttacker(enemyTeam.battlers);
+            Battler playerBattlerWithMostInitiative = getAttacker(playerTeam.getBattlers());
+            Battler enemyBattlerWithMostInitiative = getAttacker(enemyTeam.getBattlers());
 
             // On récupère les 2 combattants avec le plus d'ini : celui de la playerTeam et celui de l'enemyTeam
             ArrayList<Battler> bothTeamFastestBattlers = new ArrayList<Battler>(List.of(playerBattlerWithMostInitiative, enemyBattlerWithMostInitiative));
@@ -38,7 +37,7 @@ public class Game {
 
             // On vérifie dans quelle équipe se trouve le firstAttacker pour qu'il attaque l'autre équipe
             // Si firstAttacker est dans playerTeam
-            if (playerTeam.battlers.contains(firstAttacker)) {
+            if (playerTeam.getBattlers().contains(firstAttacker)) {
                 // Alors, l'équipe playerTeam commence la partie et attaque enemyTeam en premier
                playTeamTurn(firstAttacker, playerTeam, enemyTeam);
             } else {
@@ -49,7 +48,7 @@ public class Game {
             // S'il n'y a pas d'équipe gagnante, on continue
             if (getWinnerTeam() == null) {
                 // Tour suivant : si l'équipe playerTeam a joué en dernier
-                if (playerTeam.battlers.contains(firstAttacker)) {
+                if (playerTeam.getBattlers().contains(firstAttacker)) {
                     // Alors, c'est au tour d'enemyTeam de riposter
                     playTeamTurn(enemyBattlerWithMostInitiative, enemyTeam, playerTeam);
                 } else {
@@ -63,8 +62,8 @@ public class Game {
     }
 
     /**
-     * Détermine l'équipe gagnante pour mettre fin à la partie.
-     * @return L'équipe gagnante :
+     * Détermine l'équipe gagnante pour mettre fin à la partie
+     * @return L'équipe gagnante
      */
     public Team getWinnerTeam() {
         Team loser = teams.stream()
@@ -80,28 +79,36 @@ public class Game {
     }
 
     /**
-     * Affiche un message annonçant l'équipe gagnante.
+     * Affiche un message annonçant l'équipe gagnante
      * @param winner L'équipe gagnante
      */
     public void showWinnerMessage(Team winner) {
-        System.out.printf("\n \uD83C\uDFC6 And the winner is... %s! \n ------------------", winner.name);
-    }
-
-    // Récupère le battler avec le plus d'initiative pour définir l'ordre d'attaque
-    public Battler getAttacker(ArrayList<Battler> battlers) {
-        return battlers.stream()
-                .max(Comparator.comparing(b -> b.initiative))
-                .orElse(null);
-    }
-
-    // Récupère le battler le plus faible (= celui avec le moins d'hp)
-    public Battler getWeakestEnemy(ArrayList<Battler> enemyBattlers) {
-        return enemyBattlers.stream().min(Comparator.comparing(b -> b.hp)).orElse(null);
+        System.out.printf("\n \uD83C\uDFC6 And the winner is... %s! \n ------------------", winner.getName());
     }
 
     /**
-     * Méthode permettant à une équipe de jouer son tour
-     * @param attacker Le battler qui se prépare à attaquer
+     * Récupère le combattant avec le plus d'initiative (pour définir l'ordre d'attaque)
+     * @param battlers La liste de combattants qu'on veut comparer
+     * @return Le combattant avec le plus d'initiative
+     */
+    public Battler getAttacker(ArrayList<Battler> battlers) {
+        return battlers.stream()
+                .max(Comparator.comparing(b -> b.getInitiative()))
+                .orElse(null);
+    }
+
+    /**
+     * Récupère le combattant ennemi le plus faible ((= celui avec le moins d'hp)
+     * @param enemyBattlers La liste des combattants ennemis
+     * @return Le combattant avec le moins d'hp
+     */
+    public Battler getWeakestEnemy(ArrayList<Battler> enemyBattlers) {
+        return enemyBattlers.stream().min(Comparator.comparing(b -> b.getHp())).orElse(null);
+    }
+
+    /**
+     * Permet à une équipe de jouer son tour
+     * @param attacker Le combattant qui se prépare à attaquer
      * @param attackingTeam L'équipe qui attaque
      * @param defendingTeam L'équipe qui subit l'attaque
      */
@@ -112,7 +119,7 @@ public class Game {
             attacker.attack(defendingTeam);
         } else {
             // Sinon, je détermine le nouvel attacker de attackingTeam
-            Battler nextAttacker = getAttacker(attackingTeam.battlers);
+            Battler nextAttacker = getAttacker(attackingTeam.getBattlers());
             // Et ce nouvel attacker attaque defendingTeam
             nextAttacker.attack(defendingTeam);
         }
