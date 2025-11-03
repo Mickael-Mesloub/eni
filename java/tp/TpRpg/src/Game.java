@@ -54,18 +54,23 @@ public class Game {
                     // Sinon, cela signifie que l'équipe enemyTeam a joué en dernier, donc c'est au tour de playerTeam de jouer son tour.
                     playTeamTurn(playerBattlerWithMostInitiative, playerTeam, enemyTeam);
                 }
+            } else {
+                showWinnerMessage(getWinnerTeam());
             }
             System.out.println("\n \n ------------------ \n");
         }
     }
 
-    // TODO: add message announcing winner team
     // Méthode pour déterminer l'équipe gagnante
     public Team getWinnerTeam() {
         return teams.stream()
                 .filter((Team::isLoser))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public void showWinnerMessage(Team winner) {
+        System.out.printf("\n\n ------------------ \n\n \uD83C\uDFC6 And the winner is... %s!", winner.name);
     }
 
     // Récupère le battler avec le plus d'initiative pour définir l'ordre d'attaque
