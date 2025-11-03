@@ -17,7 +17,9 @@ public class Game {
     // TODO: add dealing random attack damage
     // TODO: javadoc
 
-    // Méthode pour lancer une partie
+    /**
+     * Lance une partie. La partie continue tant qu'il n'y a pas d'équipe gagnante.
+     */
     public void play() {
         // Affichage du message de début de partie
         System.out.println("------------------ \n\n Game ready to start! Let's BATTLE! \uD83E\uDD4A \n\n ------------------ \n");
@@ -54,23 +56,35 @@ public class Game {
                     // Sinon, cela signifie que l'équipe enemyTeam a joué en dernier, donc c'est au tour de playerTeam de jouer son tour.
                     playTeamTurn(playerBattlerWithMostInitiative, playerTeam, enemyTeam);
                 }
-            } else {
-                showWinnerMessage(getWinnerTeam());
             }
             System.out.println("\n \n ------------------ \n");
         }
+        showWinnerMessage(getWinnerTeam());
     }
 
-    // Méthode pour déterminer l'équipe gagnante
+    /**
+     * Détermine l'équipe gagnante pour mettre fin à la partie.
+     * @return L'équipe gagnante :
+     */
     public Team getWinnerTeam() {
-        return teams.stream()
+        Team loser = teams.stream()
                 .filter((Team::isLoser))
                 .findFirst()
                 .orElse(null);
+
+        if(loser != null) {
+            return (loser == playerTeam) ? enemyTeam : playerTeam;
+        }
+
+        return null;
     }
 
+    /**
+     * Affiche un message annonçant l'équipe gagnante.
+     * @param winner L'équipe gagnante
+     */
     public void showWinnerMessage(Team winner) {
-        System.out.printf("\n\n ------------------ \n\n \uD83C\uDFC6 And the winner is... %s!", winner.name);
+        System.out.printf("\n \uD83C\uDFC6 And the winner is... %s! \n ------------------", winner.name);
     }
 
     // Récupère le battler avec le plus d'initiative pour définir l'ordre d'attaque
