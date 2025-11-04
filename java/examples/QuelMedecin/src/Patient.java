@@ -53,7 +53,6 @@ public class Patient {
     // ------------ GETTERS SETTERS ----------- \\
     // ---------------------------------------- \\
 
-
     public String getNom() {
         return nom;
     }
