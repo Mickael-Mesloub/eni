@@ -27,7 +27,7 @@ public class Patient {
         info.append(lastName.toUpperCase()).append(" ")
                 .append(firstName).append("\n")
                 .append("Téléphone : ").append(phoneNumber).append("\n")
-                .append("Gendere : ").append(getDisplayGender()).append("\n")
+                .append("Sexe : ").append(getDisplayGender()).append("\n")
                 .append("Numéro de sécurité sociale : ").append(nationalInsuranceNumber).append("\n")
                 .append("Date de naissance : ").append(birthDate.format(DateTimeFormatter.ofPattern("dd/MMMM/yyyy"))).append("\n")
                 .append("Commentaires : ").append(getDisplayComments());
