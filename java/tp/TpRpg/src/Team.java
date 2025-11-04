@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 public class Team {
-    private final String name;
+    private final String teamName;
     private final ArrayList<Battler> battlers;
 
-    public Team(String _name, ArrayList<Battler> _battlers) {
-        name = _name;
+    public Team(String _teamName, ArrayList<Battler> _battlers) {
+        teamName = _teamName;
         battlers = _battlers;
     }
 
@@ -30,7 +30,7 @@ public class Team {
     // ---------------------------------------- \\
 
     public String getName() {
-        return name;
+        return teamName;
     }
 
     public ArrayList<Battler> getBattlers() {

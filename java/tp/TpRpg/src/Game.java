@@ -89,7 +89,7 @@ public class Game {
      * @param winner L'équipe gagnante
      */
     public void showWinnerMessage(Team winner) {
-        System.out.printf("\uD83C\uDFC6 And the winner is... %s!", winner.getName());
+        System.out.printf("\uD83C\uDFC6 And the winner is... team %s!", winner.getName());
     }
 
     /**
