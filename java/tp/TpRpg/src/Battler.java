@@ -38,7 +38,7 @@ public class Battler {
         if(isDead()) {
             defenderTeam.removeDeadBattler(this);
             System.out.printf("\n ☠️ %s is dead!", name);
-            System.out.printf("\n %s is out of the game!", name);
+            System.out.printf("\n ❌ %s is out of the game!", name);
         }
     }
 

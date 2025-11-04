@@ -29,7 +29,6 @@ public class Team {
     // ------------ GETTERS SETTERS ----------- \\
     // ---------------------------------------- \\
 
-
     public String getName() {
         return name;
     }

@@ -18,7 +18,7 @@ public class Game {
      */
     public void play() {
         // Affichage du message de début de partie
-        System.out.println("------------------ \n Here are our challengers! 💪 \n");
+        System.out.println("------------------------------------ \n Here are our challengers! 💪 \n");
 
         for(Team team : teams) {
             for(Battler battler : team.getBattlers()) {
@@ -26,7 +26,7 @@ public class Game {
             }
         }
 
-        System.out.println("------------------ \n\n Game ready to start! Let's BATTLE! \uD83E\uDD4A \n\n ------------------ \n");
+        System.out.println("------------------------------------ \n\n Game ready to start! Let's BATTLE! \uD83E\uDD4A \n\n ------------------------------------ \n");
 
 
         // Tant qu'aucune team n'est déclarée vainqueur, on continue
@@ -62,7 +62,7 @@ public class Game {
                     playTeamTurn(playerBattlerWithMostInitiative, playerTeam, enemyTeam);
                 }
             }
-            System.out.println("\n \n ------------------ \n");
+            System.out.println("\n \n ------------------------------------ \n");
         }
         showWinnerMessage(getWinnerTeam());
     }
@@ -89,7 +89,7 @@ public class Game {
      * @param winner L'équipe gagnante
      */
     public void showWinnerMessage(Team winner) {
-        System.out.printf("\n \uD83C\uDFC6 And the winner is... %s! \n ------------------", winner.getName());
+        System.out.printf("\uD83C\uDFC6 And the winner is... %s!", winner.getName());
     }
 
     /**
