@@ -1,3 +1,5 @@
+import service.Methode;
+
 public class MedecinGeneraliste {
     private String nom;
     private String prenom;
@@ -14,7 +16,7 @@ public class MedecinGeneraliste {
     public void afficher() {
         StringBuilder info = new StringBuilder();
         info.append(getNom().toUpperCase()).append(" ")
-                .append(getPrenom()).append("\n")
+                .append(Methode.premiereEnMajuscule(getPrenom())).append("\n")
                 .append("Téléphone : ").append(getNumeroDeTelephone()).append("\n")
                 .append("Tarif : ").append(getTarif()).append("€");
 

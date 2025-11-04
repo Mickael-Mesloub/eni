@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import service.Methode;
 
 public class Patient {
     private String nom;
@@ -22,29 +23,29 @@ public class Patient {
 
     /**
      * Retourne le texte à afficher pour le sexe
-     * @return Une String : "Féminin" si "F, et "Masculin" si "M"
+     * @return Une String : "Féminin" si "F", et "Masculin" si "M"
      */
-    public String getDisplayGender() {
-        return (sexe == 'F') ? "Féminin" : "Masculin";
+    private String formatGender(char _sexe) {
+        return (_sexe == 'F') ? "Féminin" : "Masculin";
     }
 
     /**
      * Retourne le texte à afficher pour les commentaires
      * @return Le commentaire si fournit, sinon, "[aucun commentaire]" comme valeur par défaut
      */
-    public String getDisplayComments() {
-        return (commentaire == null) ? "[aucun commentaire]" : commentaire;
+    private String formatComments(String _commentaire) {
+        return (_commentaire == null) ? "[aucun commentaire]" : _commentaire;
     }
 
     public void afficher() {
         StringBuilder info = new StringBuilder();
         info.append(getNom().toUpperCase()).append(" ")
-                .append(getPrenom()).append("\n")
+                .append(Methode.premiereEnMajuscule(getPrenom())).append("\n")
                 .append("Téléphone : ").append(getNumeroDeTelephone()).append("\n")
-                .append("Sexe : ").append(getDisplayGender()).append("\n")
+                .append("Sexe : ").append(formatGender(getSexe())).append("\n")
                 .append("Numéro de sécurité sociale : ").append(getNumeroSecuriteSociale()).append("\n")
                 .append("Date de naissance : ").append(getDateDeNaissance().format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))).append("\n")
-                .append("Commentaires : ").append(getDisplayComments());
+                .append("Commentaires : ").append(formatComments(getCommentaire()));
 
         System.out.println( info.toString());
     }
