@@ -11,9 +11,6 @@ public class Patient {
     private final long numeroSecuriteSociale;
     private final LocalDate dateDeNaissance;
     private final String commentaire;
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_RED = "\u001B[31m";
-
 
     public Patient(String _nom, String _prenom, String _numeroDeTelephone, char _sexe, long _numeroSecuriteSociale, LocalDate _dateDeNaissance, String _commentaire ) {
         nom = _nom;
@@ -42,7 +39,6 @@ public class Patient {
     }
 
     public void afficher() {
-        System.out.println(ANSI_RED + "This text is red!" + ANSI_RESET);
         StringBuilder info = new StringBuilder();
         info.append(getNom().toUpperCase()).append(" ")
                 .append(getPrenom()).append("\n")
