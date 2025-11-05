@@ -59,6 +59,7 @@ public class Patient extends InformationsPersonnelles {
                 .append("Numéro de sécurité sociale : ").append(getNumeroSecuriteSociale()).append("\n")
                 .append("Date de naissance : ").append(getDateDeNaissance().format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))).append("\n")
                 .append("Commentaires : ").append(displayComments()).append("\n")
+                .append("Adresse :").append("\n")
                 .append(getAdresse().getAdresseInfo());
         System.out.println( info);
     }
