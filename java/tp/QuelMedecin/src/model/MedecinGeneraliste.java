@@ -1,15 +1,24 @@
 package model;
 
-public class MedecinGeneraliste {
-    private final String nom;
-    private final String prenom;
-    private String numeroDeTelephone;
+import service.Methode;
+
+public class MedecinGeneraliste extends  InformationsPersonnelles{
     private static int tarif;
 
     public MedecinGeneraliste(String _nom, String _prenom, String _numeroDeTelephone) {
-        nom = _nom;
-        prenom = _prenom;
-        numeroDeTelephone = _numeroDeTelephone;
+        super(_nom, _prenom, _numeroDeTelephone);
+
+        Methode ctrl = Methode.getMethode();
+
+        // Affichage du message d'erreur si n° téléphone invalide
+        if (!ctrl.isNumTelValid(_numeroDeTelephone)) {
+            System.out.println(ctrl.colorizeString("Le numero de téléphone " + _numeroDeTelephone + " n'est pas conforme !"));
+            setNumeroDeTelephone("<< numero incorrect >>");
+        } else {
+            // Si n° téléphone valide, on le formate (0X.XX.XX.XX.XX)
+            setNumeroDeTelephone(ctrl.formatNumeroTelephone(_numeroDeTelephone));
+        }
+
         tarif = 25;
     }
 
@@ -26,22 +35,6 @@ public class MedecinGeneraliste {
     // ---------------------------------------- \\
     // ------------ GETTERS SETTERS ----------- \\
     // ---------------------------------------- \\
-
-    public String getNom() {
-        return nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public String getNumeroDeTelephone() {
-        return numeroDeTelephone;
-    }
-
-    public void setNumeroDeTelephone(String numeroDeTelephone) {
-        this.numeroDeTelephone = numeroDeTelephone;
-    }
 
     public int getTarif() {
         return tarif;
