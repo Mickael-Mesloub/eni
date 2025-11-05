@@ -2,8 +2,11 @@ package model;
 
 import service.Methode;
 
+import java.util.ArrayList;
+
 public class MedecinGeneraliste extends  InformationsPersonnelles{
     private static int tarif;
+    private final ArrayList<Creneau> creneaux;
 
     public MedecinGeneraliste(String _nom, String _prenom, String _numeroDeTelephone, Adresse _adresse) {
         super(_nom, _prenom, _numeroDeTelephone, _adresse);
@@ -20,6 +23,7 @@ public class MedecinGeneraliste extends  InformationsPersonnelles{
         }
 
         tarif = 25;
+        creneaux = new ArrayList<Creneau>();
     }
 
     public void afficher() {
@@ -30,6 +34,18 @@ public class MedecinGeneraliste extends  InformationsPersonnelles{
                 .append("Tarif : ").append(getTarif()).append("€").append("\n")
                 .append(getAdresse().getAdresseInfo());
         System.out.println(info);
+        showCreneaux();
+    }
+
+    public void ajouterCreneau(Creneau creneau) {
+        creneaux.add(creneau);
+    }
+
+    public void showCreneaux() {
+        System.out.println("Créneaux :");
+        for(Creneau creneau : creneaux) {
+            creneau.afficher();
+        }
     }
 
     // ---------------------------------------- \\
@@ -42,5 +58,9 @@ public class MedecinGeneraliste extends  InformationsPersonnelles{
 
     public static void setTarif(int _tarif) {
         tarif = _tarif;
+    }
+
+    public ArrayList<Creneau> getCreneaux() {
+        return creneaux;
     }
 }
