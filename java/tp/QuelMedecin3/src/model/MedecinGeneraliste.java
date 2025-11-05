@@ -5,7 +5,7 @@ import service.Methode;
 import java.util.ArrayList;
 
 public class MedecinGeneraliste extends Personne {
-    private static int tarif;
+    private int tarif;
     private final ArrayList<Creneau> creneaux;
 
     public MedecinGeneraliste(String _nom, String _prenom, String _numeroDeTelephone, Adresse _adresse) {
@@ -65,5 +65,9 @@ public class MedecinGeneraliste extends Personne {
 
     public int getTarif() {
         return tarif;
+    }
+
+    public void setTarif(int tarif) {
+        this.tarif = tarif;
     }
 }
