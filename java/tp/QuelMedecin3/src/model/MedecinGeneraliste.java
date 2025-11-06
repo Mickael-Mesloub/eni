@@ -2,14 +2,13 @@ package model;
 
 import service.Methode;
 
-import java.util.ArrayList;
-
-public class MedecinGeneraliste extends Personne {
+public class MedecinGeneraliste extends Medecin {
     private int tarif;
-    private final ArrayList<Creneau> creneaux;
 
     public MedecinGeneraliste(String _nom, String _prenom, String _numeroDeTelephone, Adresse _adresse) {
         super(_nom, _prenom, _numeroDeTelephone, _adresse);
+
+        tarif = 25;
 
         Methode ctrl = Methode.getMethode();
 
@@ -21,18 +20,6 @@ public class MedecinGeneraliste extends Personne {
             // Si n° téléphone valide, on le formate (0X.XX.XX.XX.XX)
             setNumeroDeTelephone(ctrl.formatNumeroTelephone(_numeroDeTelephone));
         }
-
-        tarif = 25;
-        creneaux = new ArrayList<Creneau>();
-    }
-
-    public void afficher() {
-        StringBuilder info = new StringBuilder();
-        info.append("Tarif : ").append(getTarif()).append("€").append("\n")
-        .append(getAdresse().getAdresseInfo());
-
-        System.out.println(info);
-        showCreneaux();
     }
 
     @Override
@@ -48,16 +35,8 @@ public class MedecinGeneraliste extends Personne {
         return info.toString();
     }
 
-    public void ajouterCreneau(Creneau creneau) {
-        creneaux.add(creneau);
-    }
 
-    public void showCreneaux() {
-        System.out.println("Créneaux :");
-        for(Creneau creneau : creneaux) {
-            creneau.afficher();
-        }
-    }
+
 
     // ---------------------------------------- \\
     // ------------ GETTERS SETTERS ----------- \\
@@ -65,9 +44,5 @@ public class MedecinGeneraliste extends Personne {
 
     public int getTarif() {
         return tarif;
-    }
-
-    public void setTarif(int tarif) {
-        this.tarif = tarif;
     }
 }

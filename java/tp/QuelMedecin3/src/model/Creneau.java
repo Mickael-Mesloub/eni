@@ -5,9 +5,9 @@ import java.time.LocalTime;
 public class Creneau {
     private final LocalTime time;
     private final int duree;
-    private final MedecinGeneraliste medecin;
+    private final Medecin medecin;
 
-    public Creneau(LocalTime _time, int _duree, MedecinGeneraliste _medecin) {
+    public Creneau(LocalTime _time, int _duree, Medecin _medecin) {
         time = _time;
         duree = _duree;
         medecin = _medecin;
@@ -41,7 +41,7 @@ public class Creneau {
         return duree;
     }
 
-    public MedecinGeneraliste getMedecin() {
+    public Medecin getMedecin() {
         return medecin;
     }
 }
