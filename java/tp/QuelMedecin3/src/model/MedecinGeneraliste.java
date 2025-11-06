@@ -22,6 +22,10 @@ public class MedecinGeneraliste extends Medecin {
         }
     }
 
+    public void afficher() {
+        System.out.println(this.toString());
+    }
+
     @Override
     public String toString() {
         StringBuilder info = new StringBuilder();
