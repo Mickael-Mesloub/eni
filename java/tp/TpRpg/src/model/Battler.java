@@ -1,3 +1,5 @@
+package model;
+
 import static utils.RandomUtils.randomInt;
 
 public class Battler {
