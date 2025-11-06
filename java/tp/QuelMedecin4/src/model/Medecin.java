@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class Medecin extends Personne {
+public abstract class Medecin extends Personne {
     private final ArrayList<Creneau> creneaux;
 
     public Medecin(String _nom, String _prenom, String _numeroDeTelephone, Adresse _adresse) {
@@ -23,7 +23,7 @@ public class Medecin extends Personne {
 
     public String getCreneauDisplay() {
         StringBuilder creneauSb = new StringBuilder();
-        for(Creneau creneau : creneaux) {
+        for (Creneau creneau : creneaux) {
             creneauSb.append(creneau.toString()).append("\n");
         }
 
@@ -41,9 +41,14 @@ public class Medecin extends Personne {
         }
     }
 
-    @Override
-    public int compareTo(Object o) {
-        return 0;
-    }
+    public abstract int compareTo(MedecinSpecialiste otherMedSpe);
+
+    public abstract void examiner();
+
+    public abstract void diagnostiquer();
+
+    public abstract void traiter();
+
+    public abstract void conseiller();
 }
 

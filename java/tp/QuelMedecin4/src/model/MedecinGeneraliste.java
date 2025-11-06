@@ -22,33 +22,43 @@ public class MedecinGeneraliste extends Medecin {
         }
     }
 
-    public void afficher() {
-        StringBuilder info = new StringBuilder();
-        info.append(super.toString())
-                .append("Tarif : ").append(getTarif()).append("€").append("\n")
-                .append(getAdresse().getAdresseInfo());
-
-        System.out.println(info);
-        showCreneaux();
-
-        System.out.println(info);
-    }
-
     @Override
     public String toString() {
         StringBuilder info = new StringBuilder();
         info.append(super.toString())
-                .append("Tarif : ").append(getTarif()).append("€").append("\n")
-                .append(getAdresse().getAdresseInfo());
-
-        System.out.println(info);
-        showCreneaux();
+                .append("Tarif : ").append(getTarif()).append("€").append("\n");
 
         return info.toString();
     }
 
+    @Override
+    public int compareTo(MedecinSpecialiste otherMedSpe) {
+        return 0;
+    }
 
+    public void orienter(){
+        System.out.println("Le médecin oriente vers un spécialiste en cas de besoin.");
+    };
 
+    @Override
+    public void examiner(){
+        System.out.println("Le médecin procède à des examens de routine sur les patients (auscultation, prise de tensions...");
+    };
+
+    @Override
+    public void diagnostiquer(){
+        System.out.println("Le médecin évalue l'état de santé du patient pour découvrir d'éventuels problèmes.");
+    };
+
+    @Override
+    public void traiter(){
+        System.out.println("Le médecin met en place un traitement.");
+    };
+
+    @Override
+    public void conseiller(){
+        System.out.println("Le médecin dispense des conseils appropriés pour des habitudes saines (régime, hygiène, etc.)");
+    };
 
     // ---------------------------------------- \\
     // ------------ GETTERS SETTERS ----------- \\

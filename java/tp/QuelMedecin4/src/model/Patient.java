@@ -32,11 +32,6 @@ public class Patient extends Personne {
         commentaire = _commentaire;
     }
 
-    @Override
-    public int compareTo(Object o) {
-        return 0;
-    }
-
     /**
      * Retourne le texte à afficher pour le sexe
      * @return Une String : "Féminin" si "F, et "Masculin" si "M"
@@ -64,6 +59,7 @@ public class Patient extends Personne {
         System.out.println( info);
     }
 
+
     @Override
     public String toString() {
         StringBuilder info = new StringBuilder();
@@ -90,5 +86,9 @@ public class Patient extends Personne {
         return dateDeNaissance;
     }
 
+    @Override
+    public int compareTo(MedecinSpecialiste o) {
+        return 0;
+    }
 }
 

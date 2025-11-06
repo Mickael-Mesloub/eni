@@ -1,6 +1,6 @@
 package model;
 
-public abstract class Personne implements Comparable {
+public abstract class Personne implements Comparable<MedecinSpecialiste> {
     private final String nom;
     private final String prenom;
     private String numeroDeTelephone;
