@@ -1,10 +1,14 @@
 package model;
 
-public abstract class Personne implements Comparable<MedecinSpecialiste> {
+import java.util.Comparator;
+
+public abstract class Personne implements Comparable<Personne> {
     private final String nom;
     private final String prenom;
     private String numeroDeTelephone;
     private final Adresse adresse;
+    public static Comparator<Personne> comparatorNomPrenomCroissant;
+    public static Comparator<Personne> comparatorNomPrenomDecroissant;
 
     public Personne(String _nom, String _prenom, String _numeroDeTelephone, Adresse _adresse) {
         nom = _nom;

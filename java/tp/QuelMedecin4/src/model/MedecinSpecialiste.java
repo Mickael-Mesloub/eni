@@ -1,6 +1,6 @@
 package model;
 
-public class MedecinSpecialiste extends Medecin implements Comparable<MedecinSpecialiste>{
+public class MedecinSpecialiste extends Medecin implements Comparable<Personne>{
     private  String specialite;
     private int tarif;
 
@@ -25,23 +25,30 @@ public class MedecinSpecialiste extends Medecin implements Comparable<MedecinSpe
         return info.toString();
     }
 
-
     @Override
     public int compareTo(MedecinSpecialiste otherMedSpe) {
         return this.specialite.compareTo(otherMedSpe.getSpecialite());
     };
 
     @Override
-    public void examiner() {}
+    public void examiner(){
+        super.examiner();
+    };
 
     @Override
-    public void diagnostiquer() {}
+    public void diagnostiquer(){
+        super.traiter();
+    };
 
     @Override
-    public void traiter() {}
+    public void traiter(){
+        super.traiter();
+    };
 
     @Override
-    public void conseiller() {}
+    public void conseiller() {
+        super.conseiller();
+    }
 
     // ---------------------------------------- \\
     // ------------ GETTERS SETTERS ----------- \\
@@ -66,5 +73,10 @@ public class MedecinSpecialiste extends Medecin implements Comparable<MedecinSpe
 
     public void setTarif(int tarif) {
         this.tarif = tarif;
+    }
+
+    @Override
+    public int compareTo(Personne o) {
+        return 0;
     }
 }

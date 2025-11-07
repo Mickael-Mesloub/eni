@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public abstract class Medecin extends Personne {
+public abstract class Medecin extends Personne implements Soigner {
     private final ArrayList<Creneau> creneaux;
 
     public Medecin(String _nom, String _prenom, String _numeroDeTelephone, Adresse _adresse) {
@@ -34,21 +34,30 @@ public abstract class Medecin extends Personne {
         creneaux.add(creneau);
     }
 
-    public void showCreneaux() {
-        System.out.println("Créneaux :");
-        for (Creneau creneau : creneaux) {
-            creneau.afficher();
-        }
-    }
+    public void orienter(){
+        System.out.println("Le médecin oriente vers un spécialiste en cas de besoin.");
+    };
 
     public abstract int compareTo(MedecinSpecialiste otherMedSpe);
 
-    public abstract void examiner();
+    @Override
+    public void examiner(){
+        System.out.println("Le médecin procède à des examens de routine sur les patients (auscultation, prise de tensions...");
+    };
 
-    public abstract void diagnostiquer();
+    @Override
+    public void diagnostiquer(){
+        System.out.println("Le médecin évalue l'état de santé du patient pour découvrir d'éventuels problèmes.");
+    };
 
-    public abstract void traiter();
+    @Override
+    public void traiter(){
+        System.out.println("Le médecin met en place un traitement.");
+    };
 
-    public abstract void conseiller();
+    @Override
+    public void conseiller(){
+        System.out.println("Le médecin dispense des conseils appropriés pour des habitudes saines (régime, hygiène, etc.)");
+    };
 }
 

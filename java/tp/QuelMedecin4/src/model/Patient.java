@@ -5,7 +5,7 @@ import service.Methode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Patient extends Personne {
+public class Patient extends Personne implements Comparable<Personne> {
     private final char sexe;
     private final long numeroSecuriteSociale;
     private final LocalDate dateDeNaissance;
@@ -87,7 +87,7 @@ public class Patient extends Personne {
     }
 
     @Override
-    public int compareTo(MedecinSpecialiste o) {
+    public int compareTo(Personne o) {
         return 0;
     }
 }

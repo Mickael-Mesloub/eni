@@ -36,29 +36,26 @@ public class MedecinGeneraliste extends Medecin {
         return 0;
     }
 
-    public void orienter(){
-        System.out.println("Le médecin oriente vers un spécialiste en cas de besoin.");
-    };
 
     @Override
     public void examiner(){
-        System.out.println("Le médecin procède à des examens de routine sur les patients (auscultation, prise de tensions...");
+        super.examiner();
     };
 
     @Override
     public void diagnostiquer(){
-        System.out.println("Le médecin évalue l'état de santé du patient pour découvrir d'éventuels problèmes.");
+       super.traiter();
     };
 
     @Override
     public void traiter(){
-        System.out.println("Le médecin met en place un traitement.");
+       super.traiter();
     };
 
     @Override
-    public void conseiller(){
-        System.out.println("Le médecin dispense des conseils appropriés pour des habitudes saines (régime, hygiène, etc.)");
-    };
+    public void conseiller() {
+        super.conseiller();
+    }
 
     // ---------------------------------------- \\
     // ------------ GETTERS SETTERS ----------- \\
@@ -66,5 +63,10 @@ public class MedecinGeneraliste extends Medecin {
 
     public int getTarif() {
         return tarif;
+    }
+
+    @Override
+    public int compareTo(Personne o) {
+        return 0;
     }
 }
