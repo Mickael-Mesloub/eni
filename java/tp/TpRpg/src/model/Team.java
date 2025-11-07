@@ -4,27 +4,27 @@ import java.util.ArrayList;
 
 public class Team {
     private final String teamName;
-    private final ArrayList<Battler> battlers;
+    private final ArrayList<Character> characters;
 
-    public Team(String _teamName, ArrayList<Battler> _battlers) {
+    public Team(String _teamName, ArrayList<Character> _characters) {
         teamName = _teamName;
-        battlers = _battlers;
+        characters = _characters;
     }
 
     /**
      * Détermine si l'équipe est perdante
-     * @return true si tous ses combattants sont morts
+     * @return true si tous ses personnages sont morts
      */
     public boolean isLoser() {
-       return battlers.isEmpty();
+       return characters.isEmpty();
     }
 
     /**
-     * Retire un combattant mort de la liste des combattants
-     * @param deadBattler Le combattant mort (= qui a perdu tous ses hp)
+     * Retire un personnage mort de la liste des personnages
+     * @param deadCharacter Le personnage mort (= qui a perdu tous ses hp)
      */
-    public void removeDeadBattler(Battler deadBattler) {
-        battlers.remove(deadBattler);
+    public void removeDeadBattler(Character deadCharacter) {
+        characters.remove(deadCharacter);
     }
 
     // ---------------------------------------- \\
@@ -35,7 +35,7 @@ public class Team {
         return teamName;
     }
 
-    public ArrayList<Battler> getBattlers() {
-        return battlers;
+    public ArrayList<Character> getBattlers() {
+        return characters;
     }
 }
