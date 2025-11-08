@@ -23,7 +23,7 @@ public class Team {
      * Retire un personnage mort de la liste des personnages
      * @param deadCharacter Le personnage mort (= qui a perdu tous ses hp)
      */
-    public void removeDeadBattler(Character deadCharacter) {
+    public void removeDeadCharacter(Character deadCharacter) {
         characters.remove(deadCharacter);
     }
 
@@ -35,7 +35,7 @@ public class Team {
         return teamName;
     }
 
-    public ArrayList<Character> getBattlers() {
+    public ArrayList<Character> getCharacters() {
         return characters;
     }
 }

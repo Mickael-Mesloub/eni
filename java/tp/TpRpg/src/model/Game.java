@@ -23,7 +23,7 @@ public class Game {
         System.out.println("------------------------------------ \n Here are our challengers! 💪 \n");
 
         for(Team team : teams) {
-            for(Character character : team.getBattlers()) {
+            for(Character character : team.getCharacters()) {
                 character.showInfo();
             }
         }
@@ -33,9 +33,9 @@ public class Game {
 
         // Tant qu'aucune team n'est déclarée vainqueur, on continue
         while (getWinnerTeam() == null) {
-            // Pour chaque équipe, on récupère le battler avec le plus d'initiative
-            Character playerCharacterWithMostInitiative = getAttacker(playerTeam.getBattlers());
-            Character enemyCharacterWithMostInitiative = getAttacker(enemyTeam.getBattlers());
+            // Pour chaque équipe, on récupère le Character avec le plus d'initiative
+            Character playerCharacterWithMostInitiative = getAttacker(playerTeam.getCharacters());
+            Character enemyCharacterWithMostInitiative = getAttacker(enemyTeam.getCharacters());
 
             // On récupère les 2 personnages avec le plus d'ini : celui de la playerTeam et celui de l'enemyTeam
             ArrayList<Character> bothTeamFastestCharacters = new ArrayList<Character>(List.of(playerCharacterWithMostInitiative, enemyCharacterWithMostInitiative));
@@ -45,7 +45,7 @@ public class Game {
 
             // On vérifie dans quelle équipe se trouve le firstAttacker pour qu'il attaque l'autre équipe
             // Si firstAttacker est dans playerTeam
-            if (playerTeam.getBattlers().contains(firstAttacker)) {
+            if (playerTeam.getCharacters().contains(firstAttacker)) {
                 // Alors, l'équipe playerTeam commence la partie et attaque enemyTeam en premier
                playTeamTurn(firstAttacker, playerTeam, enemyTeam);
             } else {
@@ -56,7 +56,7 @@ public class Game {
             // S'il n'y a pas d'équipe gagnante, on continue
             if (getWinnerTeam() == null) {
                 // Tour suivant : si l'équipe playerTeam a joué en dernier
-                if (playerTeam.getBattlers().contains(firstAttacker)) {
+                if (playerTeam.getCharacters().contains(firstAttacker)) {
                     // Alors, c'est au tour d'enemyTeam de riposter
                     playTeamTurn(enemyCharacterWithMostInitiative, enemyTeam, playerTeam);
                 } else {
@@ -101,7 +101,7 @@ public class Game {
      */
     public Character getAttacker(ArrayList<Character> characters) {
         return characters.stream()
-                .max(Comparator.comparing(b -> b.getInitiative()))
+                .max(Comparator.comparing(Character::getInitiative))
                 .orElse(null);
     }
 
@@ -111,7 +111,7 @@ public class Game {
      * @return Le personnage avec le moins d'hp
      */
     public Character getWeakestEnemy(ArrayList<Character> enemyCharacters) {
-        return enemyCharacters.stream().min(Comparator.comparing(b -> b.getHp())).orElse(null);
+        return enemyCharacters.stream().min(Comparator.comparing(Character::getHp)).orElse(null);
     }
 
     /**
@@ -121,13 +121,13 @@ public class Game {
      * @param defendingTeam L'équipe qui subit l'attaque
      */
     public void playTeamTurn(Character attacker, Team attackingTeam, Team defendingTeam) {
-        // On vérifie si le battler d'attackingTeam est toujours vivant
+        // On vérifie si le Character d'attackingTeam est toujours vivant
         if (!attacker.isDead()) {
             // Si oui, il attaque l'équipe defendingTeam
             attacker.attack(defendingTeam);
         } else {
             // Sinon, je détermine le nouvel attacker de attackingTeam
-            Character nextAttacker = getAttacker(attackingTeam.getBattlers());
+            Character nextAttacker = getAttacker(attackingTeam.getCharacters());
             // Et ce nouvel attacker attaque defendingTeam
             nextAttacker.attack(defendingTeam);
         }

@@ -22,7 +22,7 @@ public class Character {
     public void attack(Team defenderTeam) {
         // TODO: target enemy with lowest hp amount
         // Taper le premier ennemi de la liste
-        defenderTeam.getBattlers().stream().findFirst().ifPresent(defender -> strike(defender, defenderTeam));
+        defenderTeam.getCharacters().stream().findFirst().ifPresent(defender -> strike(defender, defenderTeam));
     }
 
     /**
@@ -38,7 +38,7 @@ public class Character {
 
         // Si le personnage meurt, le retirer de la liste des personnages de son équipe + affiche un message
         if(isDead()) {
-            defenderTeam.removeDeadBattler(this);
+            defenderTeam.removeDeadCharacter(this);
             System.out.printf("\n ☠️ %s is dead!", name);
             System.out.printf("\n ❌ %s is out of the game!", name);
         }
