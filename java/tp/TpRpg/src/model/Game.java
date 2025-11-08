@@ -1,5 +1,7 @@
 package model;
 
+import model.characters.Character;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -29,7 +31,6 @@ public class Game {
         }
 
         System.out.println("------------------------------------ \n\n model.Game ready to start! Let's BATTLE! \uD83E\uDD4A \n\n ------------------------------------ \n");
-
 
         // Tant qu'aucune team n'est déclarée vainqueur, on continue
         while (getWinnerTeam() == null) {

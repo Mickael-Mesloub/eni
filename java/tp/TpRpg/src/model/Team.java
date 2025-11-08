@@ -1,12 +1,14 @@
 package model;
 
+import model.characters.Character;
+
 import java.util.ArrayList;
 
 public class Team {
     private final String teamName;
-    private final ArrayList<Character> characters;
+    private final ArrayList<model.characters.Character> characters;
 
-    public Team(String _teamName, ArrayList<Character> _characters) {
+    public Team(String _teamName, ArrayList<model.characters.Character> _characters) {
         teamName = _teamName;
         characters = _characters;
     }
@@ -23,7 +25,7 @@ public class Team {
      * Retire un personnage mort de la liste des personnages
      * @param deadCharacter Le personnage mort (= qui a perdu tous ses hp)
      */
-    public void removeDeadCharacter(Character deadCharacter) {
+    public void removeDeadCharacter(model.characters.Character deadCharacter) {
         characters.remove(deadCharacter);
     }
 

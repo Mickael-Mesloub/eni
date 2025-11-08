@@ -1,18 +1,20 @@
-package model;
+package model.characters;
 
-import static utils.RandomUtils.randomInt;
+import model.Team;
 
-public class Character {
+import static utils.RandomUtils.generateRandomInt;
+
+public abstract class Character {
     private final String name;
     private int hp;
     private final int power;
     private final int initiative;
 
-    public Character(String _name) {
+    public Character(String _name, int _hp, int _power, int _initiative) {
         name = _name;
-        hp = randomInt(10, 100);
-        power =randomInt(10, 100);
-        initiative = randomInt(10, 100);
+        hp = _hp + generateRandomCharacteristicValue();
+        power =_power + generateRandomCharacteristicValue();;
+        initiative = _initiative + generateRandomCharacteristicValue();;
     }
 
     /**
@@ -74,6 +76,14 @@ public class Character {
         .append("Initiative : ").append(initiative).append("\n");
 
         System.out.println(info);
+    }
+
+    /**
+     * Génère une valeur aléatoire à ajouter aux stats des personnages
+     * @return Un nombre entre 25 et 100
+     */
+    public int generateRandomCharacteristicValue() {
+        return generateRandomInt(25, 100);
     }
 
     // ---------------------------------------- \\

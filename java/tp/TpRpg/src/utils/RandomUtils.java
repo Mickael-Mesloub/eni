@@ -13,7 +13,7 @@ public class RandomUtils {
      * @param max Valeur maximale
      * @return Un nombre aléatoire
      */
-    public static int randomInt(int min, int max) {
+    public static int generateRandomInt(int min, int max) {
         return RANDOM.nextInt(max - min + 1) + min;
     }
 }
