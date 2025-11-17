@@ -1,6 +1,8 @@
-import model.Battler;
+import model.characters.Character;
 import model.Game;
 import model.Team;
+import model.characters.heroes.*;
+import model.characters.creatures.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,19 +10,21 @@ import java.util.List;
 public class TpRpgApp {
     public static void main(String[] args) {
 
-        // Instances des combattants de la team Gentil
-        Battler me = new Battler("Gentil-1");
-        Battler gentil = new Battler("Gentil-2");
+        // Instances des combattants de la team Héros
+        Character warrior = new Warrior("Warrior");
+        Character mage = new Mage("Mage");
+        Character tank = new Tank("Tank");
 
-        // Instances des combattants de la team Méchant
-        Battler opponent = new Battler("Méchant-1");
-        Battler mechant = new Battler("Méchant-2");
+        // Instances des combattants de la team Créatures
+        Character wolf = new Wolf("Wolf");
+        Character vampire = new Vampire("Vampire");
+        Character golem = new Golem("Golem");
 
-        // Instance de l'équipe Gentil
-        Team playerTeam = new Team("Gentil", new ArrayList<Battler>(List.of(me, gentil)));
+        // Instance de l'équipe Héros
+        Team playerTeam = new Team("Héros", new ArrayList<Character>(List.of(warrior, mage, tank)));
 
-        // Instance de l'équipe Méchant
-        Team enemyTeam = new Team("Méchant", new ArrayList<Battler>(List.of(opponent, mechant)));
+        // Instance de l'équipe Créatures
+        Team enemyTeam = new Team("Créatures", new ArrayList<Character>(List.of(wolf, vampire, golem)));
 
         // Instance de la partie
         Game game = new Game(playerTeam, enemyTeam);

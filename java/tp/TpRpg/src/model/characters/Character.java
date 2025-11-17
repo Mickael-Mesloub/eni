@@ -1,18 +1,20 @@
-package model;
+package model.characters;
 
-import static utils.RandomUtils.randomInt;
+import model.Team;
 
-public class Battler {
+import static utils.RandomUtils.generateRandomInt;
+
+public abstract class Character {
     private final String name;
     private int hp;
     private final int power;
     private final int initiative;
 
-    public Battler(String _name) {
+    public Character(String _name, int _hp, int _power, int _initiative) {
         name = _name;
-        hp = randomInt(10, 100);
-        power =randomInt(10, 100);
-        initiative = randomInt(10, 100);
+        hp = _hp + generateRandomCharacteristicValue();
+        power =_power + generateRandomCharacteristicValue();;
+        initiative = _initiative + generateRandomCharacteristicValue();;
     }
 
     /**
@@ -22,13 +24,13 @@ public class Battler {
     public void attack(Team defenderTeam) {
         // TODO: target enemy with lowest hp amount
         // Taper le premier ennemi de la liste
-        defenderTeam.getBattlers().stream().findFirst().ifPresent(defender -> strike(defender, defenderTeam));
+        defenderTeam.getCharacters().stream().findFirst().ifPresent(defender -> strike(defender, defenderTeam));
     }
 
     /**
      * Faire baisser les points de vie ou tuer un ennemi
      * @param damage Nombre de dégâts infligés
-     * @param defenderTeam Équipe dans laquelle se trouve le combattant attaqué
+     * @param defenderTeam Équipe dans laquelle se trouve le personnage attaqué
      */
     public void loseHP(int damage, Team defenderTeam) {
 
@@ -36,16 +38,16 @@ public class Battler {
         hp -= damage;
         System.out.printf("\n 🤕 %s lost %d HP. %d HP remaining", name, damage, hp);
 
-        // Si le combattant meurt, le retirer de la liste des combattants de son équipe + affiche un message
+        // Si le personnage meurt, le retirer de la liste des personnages de son équipe + affiche un message
         if(isDead()) {
-            defenderTeam.removeDeadBattler(this);
+            defenderTeam.removeDeadCharacter(this);
             System.out.printf("\n ☠️ %s is dead!", name);
             System.out.printf("\n ❌ %s is out of the game!", name);
         }
     }
 
     /**
-     * Détermine si un combattant est mort ou non
+     * Détermine si un personnage est mort ou non
      * @return true s'il est mort (si ses hp sont inférieurs ou égaux à 0)
      */
     public boolean isDead() {
@@ -54,17 +56,17 @@ public class Battler {
 
     /**
      * Infliger des dégâts à l'ennemi
-     * @param enemy Le combattant ennemi attaqué
-     * @param defenderTeam L'équipe dans laquelle se trouve le combattant attaqué
+     * @param enemy Le personnage ennemi attaqué
+     * @param defenderTeam L'équipe dans laquelle se trouve le personnage attaqué
      */
-    public void strike(Battler enemy, Team defenderTeam) {
+    public void strike(Character enemy, Team defenderTeam) {
         // Permet d'attaquer un adversaire : enemy.loseHP(power)
         System.out.printf("\n ⚔️ %s attacks %s", name, enemy.name);
         enemy.loseHP(power, defenderTeam);
     }
 
     /**
-     * Affiche les caractéristiques du combattant
+     * Affiche les caractéristiques du personnage
      */
     public void showInfo() {
         StringBuilder info = new StringBuilder();
@@ -74,6 +76,14 @@ public class Battler {
         .append("Initiative : ").append(initiative).append("\n");
 
         System.out.println(info);
+    }
+
+    /**
+     * Génère une valeur aléatoire à ajouter aux stats des personnages
+     * @return Un nombre entre 25 et 100
+     */
+    public int generateRandomCharacteristicValue() {
+        return generateRandomInt(25, 100);
     }
 
     // ---------------------------------------- \\

@@ -1,5 +1,7 @@
 package model;
 
+import model.characters.Character;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -23,29 +25,28 @@ public class Game {
         System.out.println("------------------------------------ \n Here are our challengers! 💪 \n");
 
         for(Team team : teams) {
-            for(Battler battler : team.getBattlers()) {
-                battler.showInfo();
+            for(Character character : team.getCharacters()) {
+                character.showInfo();
             }
         }
 
         System.out.println("------------------------------------ \n\n model.Game ready to start! Let's BATTLE! \uD83E\uDD4A \n\n ------------------------------------ \n");
 
-
         // Tant qu'aucune team n'est déclarée vainqueur, on continue
         while (getWinnerTeam() == null) {
-            // Pour chaque équipe, on récupère le battler avec le plus d'initiative
-            Battler playerBattlerWithMostInitiative = getAttacker(playerTeam.getBattlers());
-            Battler enemyBattlerWithMostInitiative = getAttacker(enemyTeam.getBattlers());
+            // Pour chaque équipe, on récupère le Character avec le plus d'initiative
+            Character playerCharacterWithMostInitiative = getAttacker(playerTeam.getCharacters());
+            Character enemyCharacterWithMostInitiative = getAttacker(enemyTeam.getCharacters());
 
-            // On récupère les 2 combattants avec le plus d'ini : celui de la playerTeam et celui de l'enemyTeam
-            ArrayList<Battler> bothTeamFastestBattlers = new ArrayList<Battler>(List.of(playerBattlerWithMostInitiative, enemyBattlerWithMostInitiative));
+            // On récupère les 2 personnages avec le plus d'ini : celui de la playerTeam et celui de l'enemyTeam
+            ArrayList<Character> bothTeamFastestCharacters = new ArrayList<Character>(List.of(playerCharacterWithMostInitiative, enemyCharacterWithMostInitiative));
 
-            // Entre ces 2 combattants, je détermine celui qui a le plus d'ini (= celui qui va attaquer en premier) pour savoir quelle équipe commence.
-            Battler firstAttacker = getAttacker(bothTeamFastestBattlers);
+            // Entre ces 2 personnages, je détermine celui qui a le plus d'ini (= celui qui va attaquer en premier) pour savoir quelle équipe commence.
+            Character firstAttacker = getAttacker(bothTeamFastestCharacters);
 
             // On vérifie dans quelle équipe se trouve le firstAttacker pour qu'il attaque l'autre équipe
             // Si firstAttacker est dans playerTeam
-            if (playerTeam.getBattlers().contains(firstAttacker)) {
+            if (playerTeam.getCharacters().contains(firstAttacker)) {
                 // Alors, l'équipe playerTeam commence la partie et attaque enemyTeam en premier
                playTeamTurn(firstAttacker, playerTeam, enemyTeam);
             } else {
@@ -56,12 +57,12 @@ public class Game {
             // S'il n'y a pas d'équipe gagnante, on continue
             if (getWinnerTeam() == null) {
                 // Tour suivant : si l'équipe playerTeam a joué en dernier
-                if (playerTeam.getBattlers().contains(firstAttacker)) {
+                if (playerTeam.getCharacters().contains(firstAttacker)) {
                     // Alors, c'est au tour d'enemyTeam de riposter
-                    playTeamTurn(enemyBattlerWithMostInitiative, enemyTeam, playerTeam);
+                    playTeamTurn(enemyCharacterWithMostInitiative, enemyTeam, playerTeam);
                 } else {
                     // Sinon, cela signifie que l'équipe enemyTeam a joué en dernier, donc c'est au tour de playerTeam de jouer son tour.
-                    playTeamTurn(playerBattlerWithMostInitiative, playerTeam, enemyTeam);
+                    playTeamTurn(playerCharacterWithMostInitiative, playerTeam, enemyTeam);
                 }
             }
             System.out.println("\n \n ------------------------------------ \n");
@@ -95,39 +96,39 @@ public class Game {
     }
 
     /**
-     * Récupère le combattant avec le plus d'initiative (pour définir l'ordre d'attaque)
-     * @param battlers La liste de combattants qu'on veut comparer
-     * @return Le combattant avec le plus d'initiative
+     * Récupère le personnage avec le plus d'initiative (pour définir l'ordre d'attaque)
+     * @param characters La liste de personnages qu'on veut comparer
+     * @return Le personnage avec le plus d'initiative
      */
-    public Battler getAttacker(ArrayList<Battler> battlers) {
-        return battlers.stream()
-                .max(Comparator.comparing(b -> b.getInitiative()))
+    public Character getAttacker(ArrayList<Character> characters) {
+        return characters.stream()
+                .max(Comparator.comparing(Character::getInitiative))
                 .orElse(null);
     }
 
     /**
-     * Récupère le combattant ennemi le plus faible ((= celui avec le moins d'hp)
-     * @param enemyBattlers La liste des combattants ennemis
-     * @return Le combattant avec le moins d'hp
+     * Récupère le personnage ennemi le plus faible ((= celui avec le moins d'hp)
+     * @param enemyCharacters La liste des personnages ennemis
+     * @return Le personnage avec le moins d'hp
      */
-    public Battler getWeakestEnemy(ArrayList<Battler> enemyBattlers) {
-        return enemyBattlers.stream().min(Comparator.comparing(b -> b.getHp())).orElse(null);
+    public Character getWeakestEnemy(ArrayList<Character> enemyCharacters) {
+        return enemyCharacters.stream().min(Comparator.comparing(Character::getHp)).orElse(null);
     }
 
     /**
      * Permet à une équipe de jouer son tour
-     * @param attacker Le combattant qui se prépare à attaquer
+     * @param attacker Le personnage qui se prépare à attaquer
      * @param attackingTeam L'équipe qui attaque
      * @param defendingTeam L'équipe qui subit l'attaque
      */
-    public void playTeamTurn(Battler attacker, Team attackingTeam, Team defendingTeam) {
-        // On vérifie si le battler d'attackingTeam est toujours vivant
+    public void playTeamTurn(Character attacker, Team attackingTeam, Team defendingTeam) {
+        // On vérifie si le Character d'attackingTeam est toujours vivant
         if (!attacker.isDead()) {
             // Si oui, il attaque l'équipe defendingTeam
             attacker.attack(defendingTeam);
         } else {
             // Sinon, je détermine le nouvel attacker de attackingTeam
-            Battler nextAttacker = getAttacker(attackingTeam.getBattlers());
+            Character nextAttacker = getAttacker(attackingTeam.getCharacters());
             // Et ce nouvel attacker attaque defendingTeam
             nextAttacker.attack(defendingTeam);
         }

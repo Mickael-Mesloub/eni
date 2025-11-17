@@ -6,16 +6,16 @@ Dans une application **Java Console** (avec le `void main`), le but du TP :
 
 ## 🧩 Classes
 
-### `Battler`
+### `Character`
 * name: String
 * hp: int
 * power: int
-* attack(opponent: Battler)
+* attack(opponent: Character)
 * looseHP(amount: int)
 
 ### `Team`
-* battlers: List<Battler>
-* isLooser(): boolean
+* characters: List<Character>
+* isLoser(): boolean
 
 ### `Game`
 * playerTeam: Team
@@ -28,8 +28,8 @@ Dans une application **Java Console** (avec le `void main`), le but du TP :
 ## ⚔️ Fonction `attack`
 La fonction `attack` va retirer des HP.
 
-## 💀 Fonction `isLooser`
-Elle permet de savoir si une équipe a perdu, donc si tous les combattant(e)s de l'équipe ont les HP à 0.
+## 💀 Fonction `isLoser`
+Elle permet de savoir si une équipe a perdu, donc si tous les personnages de l'équipe ont les HP à 0.
 
 ## 🏆 Fonction `getWinnerTeam`
 Elle permet de récupérer l'équipe gagnante.
@@ -38,27 +38,27 @@ Elle permet de récupérer l'équipe gagnante.
 
 ## 🎯 Objectif
 Le but est d'instancier deux équipes qui vont se battre.  
-Dans ces deux équipes, il n'y aura qu'une seule instance de combattant.
+Dans ces deux équipes, il n'y aura qu'une seule instance de personnage.
 
-👉 Donc deux équipes composées d’un(e) seul(e) combattant(e).
+👉 Donc deux équipes composées d’un seul personnage.
 
 Dans la fonction `play` de `Game`, vous allez mettre la logique du combat.
 
-En gros, vous allez **boucler tant qu’une équipe n’a pas perdu** pour faire attaquer les combattants entre eux à l’aide de la méthode `attack`.
+En gros, vous allez **boucler tant qu’une équipe n’a pas perdu** pour faire attaquer les personnages entre eux à l’aide de la méthode `attack`.
 
 Lorsqu’on sort de la boucle, on affiche le vainqueur.
 
 ---
 
 ## 🚀 Évolutions
-- ✅ **Système d’initiative** : chaque battler a une statistique d’initiative qui détermine l’ordre d’attaque
+- ✅ **Système d’initiative** : chaque character a une statistique d’initiative qui détermine l’ordre d’attaque
 - ✅ **Statistiques aléatoires** : HP, puissance et initiative sont attribués aléatoirement à l’instanciation, pour rendre les combats plus variés
+- ✅ **Renommage Battler => Character** 
 
 ## 💡 Idées d'évolutions possibles
 - Revoir structure du projet et isolation de responsabilités : ranger classes dans des packages et voir si besoin d'extraire des méthodes dans des fichiers séparés 
 - Attaquer automatiquement l'ennemi le plus faible (avec le moins d'HP) ?
-- Renommer Battler -> Character
-- Ajout de classes de combattants (barbare, mage, archer...)
+- Ajout de classes de personnages (barbare, mage, archer...)
 - Ajout de monstres ? Pour avoir Héros vs Monstres ?
 - Ajout de compétences/attaques différentes selon la classe
 - Ajout d'autres statistiques avec des valeurs aléatoires, mais adaptées à la classe (attaque physique, attaque magique, défense physique, défense magique...) 
