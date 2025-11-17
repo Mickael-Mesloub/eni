@@ -9,8 +9,8 @@ public class Emprunt {
     private Membre membre;
 
     public Emprunt(LocalDate dateDebut, LocalDate dateFin, Jeu jeu, Membre emprunteur) {
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
+        this.dateDebut =  (dateDebut != null) ? dateDebut : LocalDate.now();
+        this.dateFin = (dateFin != null) ? dateFin : LocalDate.now();
         this.jeu = jeu;
         this.membre = emprunteur;
 

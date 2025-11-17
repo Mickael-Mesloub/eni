@@ -41,6 +41,7 @@ public class Ludotheque {
         // Vérifier si le jeu est disponible (pas encore emprunté)
         // Si le jeu est dispo, un nouvel emprunt est créé.
         // Lorsqu'un emprunt est créé, si la date de début n'est pas donnée, alors dateDebut = date du jour
+
     }
 
     public void retournerJeu(Membre membre, Jeu jeu)  {

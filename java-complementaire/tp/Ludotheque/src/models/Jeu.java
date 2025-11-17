@@ -10,7 +10,7 @@ public abstract class Jeu {
     private Etat etat;
     private int age;
     private String description;
-    private ArrayList<Emprunt> emprunts = new ArrayList<Emprunt>();
+    private final ArrayList<Emprunt> emprunts = new ArrayList<Emprunt>();
 
     public Jeu() {
     }
