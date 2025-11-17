@@ -65,4 +65,6 @@ public abstract class Jeu {
     public ArrayList<Emprunt> getEmprunts() {
         return emprunts;
     }
+
+    abstract void affichageInformation();
 }

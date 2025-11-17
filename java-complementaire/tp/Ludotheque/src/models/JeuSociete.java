@@ -30,4 +30,16 @@ public class JeuSociete extends Jeu {
     public void setInteret(double interet) {
         this.interet = interet;
     }
+
+    @Override
+    void affichageInformation() {
+        StringBuilder info = new StringBuilder();
+        info.append("Titre : ").append(getTitre()).append(", ")
+                .append("Etat : ").append(getEtat().toString().toUpperCase()).append(", ")
+                .append("à partir de ").append(getAge()).append(" ans").append("\n")
+                .append("Difficulté : ").append(getDifficulte()).append("/5").append("\n")
+                .append("Intérêt : ").append(getInteret()).append("/10");
+
+        System.out.println(info.toString());
+    }
 }
