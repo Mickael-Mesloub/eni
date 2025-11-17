@@ -5,10 +5,17 @@ import java.time.LocalDate;
 public class Emprunt {
     private LocalDate dateDebut;
     private LocalDate dateFin;
+    private Jeu jeu;
+    private Membre membre;
 
-    public Emprunt(LocalDate dateDebut, LocalDate dateFin) {
+    public Emprunt(LocalDate dateDebut, LocalDate dateFin, Jeu jeu, Membre emprunteur) {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
+        this.jeu = jeu;
+        this.membre = emprunteur;
+
+        emprunteur.ajouterEmprunt(this);
+        jeu.ajouterEmprunt(this);
     }
 
     public Emprunt() {
@@ -26,5 +33,21 @@ public class Emprunt {
     }
     public void setDateFin(LocalDate dateFin) {
         this.dateFin = dateFin;
+    }
+
+    public Jeu getJeu() {
+        return jeu;
+    }
+
+    public void setJeu(Jeu jeu) {
+        this.jeu = jeu;
+    }
+
+    public Membre getMembre() {
+        return membre;
+    }
+
+    public void setMembre(Membre membre) {
+        this.membre = membre;
     }
 }

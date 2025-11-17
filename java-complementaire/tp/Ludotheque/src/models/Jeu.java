@@ -2,12 +2,15 @@ package models;
 
 import models.enums.Etat;
 
+import java.util.ArrayList;
+
 public abstract class Jeu {
     private int id;
     private String titre;
     private Etat etat;
     private int age;
     private String description;
+    private ArrayList<Emprunt> emprunts = new ArrayList<Emprunt>();
 
     public Jeu() {
     }
@@ -53,5 +56,13 @@ public abstract class Jeu {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void ajouterEmprunt(Emprunt emprunt) {
+        this.emprunts.add(emprunt);
+    }
+
+    public ArrayList<Emprunt> getEmprunts() {
+        return emprunts;
     }
 }

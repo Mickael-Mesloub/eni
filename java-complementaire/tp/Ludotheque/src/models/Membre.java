@@ -58,8 +58,11 @@ public class Membre {
     }
 
     public ArrayList<Emprunt> getEmprunts() {
-        return emprunts;
+        return this.emprunts;
     }
 
+    public void ajouterEmprunt(Emprunt emprunt) {
+        this.emprunts.add(emprunt);
+    }
 
 }

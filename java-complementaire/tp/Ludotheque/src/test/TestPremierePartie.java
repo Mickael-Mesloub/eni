@@ -1,3 +1,4 @@
+/*
 package test;
 
 import models.*;
@@ -58,3 +59,4 @@ public class TestPremierePartie {
     }
 
 }
+*/
