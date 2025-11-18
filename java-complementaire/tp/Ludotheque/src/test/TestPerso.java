@@ -36,9 +36,13 @@ public class TestPerso {
         ludotheque.ajouterJeu(teddyPeluche);
         ludotheque.ajouterJeu(parisPuzzle);
 
+        System.out.println(catan.getEmprunts().size());
+
     // Emprunt de jeux par les membres
         ludotheque.emprunterJeu(membre1, catan, LocalDate.of(2023, 5, 1));
         ludotheque.emprunterJeu(membre2, teddyPeluche, LocalDate.of(2023, 5, 1));
+        ludotheque.emprunterJeu(membre1, catan, LocalDate.of(2023, 5, 1));
+
     }
 
 }

@@ -39,6 +39,16 @@ public class Ludotheque {
 
     public void emprunterJeu(Membre membre, Jeu jeu, LocalDate dateDebut) {
         // Vérifier si le jeu est disponible (pas encore emprunté)
+        Emprunt nouvelEmprunt = new Emprunt(dateDebut, null, jeu, membre);
+
+        for(Emprunt e : jeu.getEmprunts()) {
+            System.out.println(e.toString());
+        }
+
+        if(jeu.getEmprunts().stream().anyMatch(emprunt -> emprunt.equals(nouvelEmprunt))) {
+            System.out.println("Ce jeu est déjà emprunté : " + jeu.getTitre() );
+            /* jeu.ajouterEmprunt(e);*/
+        }
         // Si le jeu est dispo, un nouvel emprunt est créé.
         // Lorsqu'un emprunt est créé, si la date de début n'est pas donnée, alors dateDebut = date du jour
 

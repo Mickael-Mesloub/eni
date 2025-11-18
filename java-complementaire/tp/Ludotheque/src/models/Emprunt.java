@@ -1,6 +1,7 @@
 package models;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Emprunt {
     private LocalDate dateDebut;
@@ -10,12 +11,9 @@ public class Emprunt {
 
     public Emprunt(LocalDate dateDebut, LocalDate dateFin, Jeu jeu, Membre emprunteur) {
         this.dateDebut =  (dateDebut != null) ? dateDebut : LocalDate.now();
-        this.dateFin = (dateFin != null) ? dateFin : LocalDate.now();
+        this.dateFin = dateFin;
         this.jeu = jeu;
         this.membre = emprunteur;
-
-        emprunteur.ajouterEmprunt(this);
-        jeu.ajouterEmprunt(this);
     }
 
     public Emprunt() {
@@ -49,5 +47,27 @@ public class Emprunt {
 
     public void setMembre(Membre membre) {
         this.membre = membre;
+    }
+
+    @Override
+    public String toString() {
+        return "Emprunt{" +
+                "dateDebut=" + dateDebut +
+                ", dateFin=" + dateFin +
+                ", jeu=" + jeu +
+                ", membre=" + membre +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Emprunt emprunt = (Emprunt) o;
+        return Objects.equals(dateDebut, emprunt.dateDebut) && Objects.equals(dateFin, emprunt.dateFin) && Objects.equals(jeu, emprunt.jeu) && Objects.equals(membre, emprunt.membre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dateDebut, dateFin, jeu, membre);
     }
 }
