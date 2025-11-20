@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import enums.TypeAnimal;
+import fr.eni.zoo.dal.exception.AnimalDaoException;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ public class TestCoucheAnimalDao {
 
 	@Test
 	@Order(1)
-	public void testAjoutAnimal() {
+	public void testAjoutAnimal() throws AnimalDaoException {
 		System.out.println("---------------------------- tests Animal Dao -----------------------------\n");
 		System.out.println("-------------- test ajout animal ---------------");
 		// Arrange
@@ -39,7 +40,7 @@ public class TestCoucheAnimalDao {
 
 	@Test
 	@Order(2)
-	public void testGetAnimal() {
+	public void testGetAnimal() throws AnimalDaoException {
 		System.out.println("\n-------------- test getAnimal---------------");
 		Animal singeFemelle = new Animal("Coco", true, 6, TypeAnimal.SINGE);
 		// Arrange
@@ -60,7 +61,7 @@ public class TestCoucheAnimalDao {
 
 	@Test
 	@Order(3)
-	public void testUpdateAnimaux() {
+	public void testUpdateAnimaux() throws AnimalDaoException {
 		System.out.println("\n-------------- test mise à jour animal ---------------");
 		// Arrange
         //pour tester la mise à jour dans la liste il est necessaire d'utiliser 2 objets
@@ -86,7 +87,7 @@ public class TestCoucheAnimalDao {
 
 	@Test
 	@Order(4)
-	public void testDeleteAnimalMock() {
+	public void testDeleteAnimalMock() throws AnimalDaoException {
 	    System.out.println("\n-------------- test suppression animal Mock ---------------");
 		Animal lionFemelle = new Animal("nala", true, 5, TypeAnimal.LION);
 	    // Arrange

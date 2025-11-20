@@ -3,24 +3,17 @@ package fr.eni.zoo.bll;
 import fr.eni.zoo.bo.Animal;
 import fr.eni.zoo.dal.AnimalDaoMock;
 
-import java.util.OptionalDouble;
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class AnimalManager extends AnimalDaoMock {
     public AnimalManager() {
     }
 
     public double getMoyenneAge() {
-        return getAnimaux().stream().mapToDouble(a -> (double)a.getAge()).average().getAsDouble();
+        return getAnimaux().stream().mapToDouble(Animal::getAge).average().orElse(0);
     }
 
     public double getProportionFemelle() {
-        int nbFemelles = 0;
-
-        for(Animal a : getAnimaux()) {
-            if(!a.getSexe()) nbFemelles++;
-        }
-
-        return (double) nbFemelles / getAnimaux().size() * 100;
+        return getAnimaux().stream()
+                .filter(Animal::getSexe)
+                .count() * 100.0 / getAnimaux().size();
     }
 }
