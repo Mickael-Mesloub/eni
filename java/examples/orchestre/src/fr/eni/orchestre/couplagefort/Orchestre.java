@@ -1,3 +1,5 @@
+package fr.eni.orchestre.couplagefort;
+
 import java.util.ArrayList;
 import java.util.List;
 

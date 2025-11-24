@@ -1,6 +1,8 @@
+package fr.eni.orchestre.couplagefort;
+
 public class Piano {
     public void afficher() {
-        System.out.println("Piano");
+        System.out.println("fr.eni.orchestre.couplagefort.Piano");
     }
 
     public void jouer() {

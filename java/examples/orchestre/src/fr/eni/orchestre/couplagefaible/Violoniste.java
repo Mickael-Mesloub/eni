@@ -1,10 +1,12 @@
-public class Violoniste {
-    private Violon violon;
+package fr.eni.orchestre.couplagefaible;
+
+public class Violoniste implements Musicien {
+    private Instrument violon;
     private String morceau;
 
-    public Violoniste(String morceau) {
+    public Violoniste(String morceau, Instrument violon) {
         this.morceau = morceau;
-        this.violon = new Violon();
+        this.violon = violon;
     }
 
     public void jouerMorceau(){

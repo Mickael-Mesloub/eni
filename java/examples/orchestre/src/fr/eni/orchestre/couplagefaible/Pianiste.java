@@ -1,10 +1,12 @@
-public class Pianiste {
-    private Piano piano;
+package fr.eni.orchestre.couplagefaible;
+
+public class Pianiste implements Musicien {
+    private Instrument piano;
     private String morceau;
 
-    public Pianiste(String morceau) {
+    public Pianiste(String morceau, Instrument piano) {
         this.morceau = morceau;
-        this.piano = new Piano();
+        this.piano = piano;
     }
 
     public void jouerMorceau(){

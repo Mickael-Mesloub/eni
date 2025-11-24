@@ -1,6 +1,8 @@
+package fr.eni.orchestre.couplagefort;
+
 public class Violon {
     public void afficher() {
-        System.out.println("Violon");
+        System.out.println("fr.eni.orchestre.couplagefort.Violon");
     }
 
     public void jouer() {
