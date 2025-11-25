@@ -1,13 +1,20 @@
 package fr.eni.tp.filmotheque.bo;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 public abstract class Personne implements Serializable {
+    /**
+     * Numéro de sérialisation
+     */
+    @Serial
+    private static final long serialVersionUID = 1L;
+    
     private long id;
     private String nom;
     private String prenom;
-
+    
     public Personne(long id, String nom, String prenom) {
         this.id = id;
         this.nom = nom;
@@ -35,12 +42,12 @@ public abstract class Personne implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Personne personne = (Personne) o;
-        return id == personne.id && Objects.equals(nom, personne.nom) && Objects.equals(prenom, personne.prenom);
+        return getId() == personne.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nom, prenom);
+        return Objects.hashCode(getId());
     }
 
     public long getId() {

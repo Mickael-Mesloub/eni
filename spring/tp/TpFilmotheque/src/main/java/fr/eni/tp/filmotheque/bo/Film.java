@@ -1,11 +1,18 @@
 package fr.eni.tp.filmotheque.bo;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Film implements Serializable {
+    /**
+     * Numéro de sérialisation
+     */
+    @Serial
+    private static final long serialVersionUID = 1L;
+    
     private long id;
     private String titre;
     private int annee;
@@ -54,12 +61,12 @@ public class Film implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Film film = (Film) o;
-        return id == film.id && annee == film.annee && duree == film.duree && Objects.equals(titre, film.titre) && Objects.equals(synopsis, film.synopsis) && Objects.equals(genre, film.genre) && Objects.equals(realisateur, film.realisateur) && Objects.equals(acteurs, film.acteurs) && Objects.equals(avis, film.avis);
+        return getId() == film.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, titre, annee, duree, synopsis, genre, realisateur, acteurs, avis);
+        return Objects.hashCode(getId());
     }
 
     public long getId() {

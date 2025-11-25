@@ -1,9 +1,16 @@
 package fr.eni.tp.filmotheque.bo;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class Genre implements Serializable {
+    /**
+     * Numéro de sérialisation
+     */
+    @Serial
+    private static final long serialVersionUID = 1L;
+    
     private long id;
     private String titre;
 
@@ -31,12 +38,12 @@ public class Genre implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Genre genre = (Genre) o;
-        return id == genre.id && Objects.equals(titre, genre.titre);
+        return getId() == genre.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, titre);
+        return Objects.hashCode(getId());
     }
 
     public long getId() {

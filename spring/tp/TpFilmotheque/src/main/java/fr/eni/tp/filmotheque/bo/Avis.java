@@ -1,9 +1,16 @@
 package fr.eni.tp.filmotheque.bo;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class Avis implements Serializable {
+    /**
+     * Numéro de sérialisation
+     */
+    @Serial
+    private static final long serialVersionUID = 1L;
+    
     private long id;
     private int note;
     private String commentaire;
@@ -36,12 +43,12 @@ public class Avis implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Avis avis = (Avis) o;
-        return id == avis.id && note == avis.note && Objects.equals(commentaire, avis.commentaire) && Objects.equals(membre, avis.membre);
+        return getId() == avis.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, note, commentaire, membre);
+        return Objects.hashCode(getId());
     }
 
     public long getId() {

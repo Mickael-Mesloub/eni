@@ -21,18 +21,6 @@ public class Membre extends Personne {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Membre membre = (Membre) o;
-        return admin == membre.admin && Objects.equals(pseudo, membre.pseudo) && Objects.equals(motDePasse, membre.motDePasse);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(pseudo, motDePasse, admin);
-    }
-
     public String getPseudo() {
         return pseudo;
     }
