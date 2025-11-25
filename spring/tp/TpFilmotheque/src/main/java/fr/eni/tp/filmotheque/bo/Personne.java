@@ -1,8 +1,9 @@
 package fr.eni.tp.filmotheque.bo;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class Personne {
+public abstract class Personne implements Serializable {
     private long id;
     private String nom;
     private String prenom;

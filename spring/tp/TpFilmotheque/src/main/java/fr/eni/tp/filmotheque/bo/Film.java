@@ -1,10 +1,11 @@
 package fr.eni.tp.filmotheque.bo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Film {
+public class Film implements Serializable {
     private long id;
     private String titre;
     private int annee;
@@ -33,7 +34,6 @@ public class Film {
 
     public Film() {
     }
-
 
     @Override
     public String toString() {

@@ -1,8 +1,9 @@
 package fr.eni.tp.filmotheque.bo;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Avis {
+public class Avis implements Serializable {
     private long id;
     private int note;
     private String commentaire;

@@ -1,8 +1,9 @@
 package fr.eni.tp.filmotheque.bo;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Genre {
+public class Genre implements Serializable {
     private long id;
     private String titre;
 
