@@ -1,5 +1,6 @@
 package fr.eni.demospring;
 
+import fr.eni.demospring.controller.FormateurController;
 import fr.eni.demospring.controller.WelcomeController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,5 +25,8 @@ public class DemoSpringApplication {
             // -> ce sont donc des Singleton par défaut
         System.out.println(controller);
         System.out.println(controller2);
+
+        FormateurController formateurController = ctx.getBean(FormateurController.class);
+        formateurController.afficherFormateurs();
     }
 }
