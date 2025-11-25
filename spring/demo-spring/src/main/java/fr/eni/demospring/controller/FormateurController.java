@@ -2,7 +2,6 @@ package fr.eni.demospring.controller;
 
 import fr.eni.demospring.bll.FormateurService;
 import fr.eni.demospring.bo.Formateur;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
