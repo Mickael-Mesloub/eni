@@ -12,15 +12,15 @@
     <ul class="flex-outer">
         <li>
             <label for="inputNom">Nom</label>
-            <input id="inputNom" type="text" placeholder="Nom" name="nom">
+            <input id="inputNom" type="text" placeholder="Nom" name="nom" th:value="${formateur.nom}">
         </li>
         <li>
             <label for="inputPrenom">Prénom</label>
-            <input id="inputPrenom" type="text" placeholder="Prénom" name="prenom">
+            <input id="inputPrenom" type="text" placeholder="Prénom" name="prenom" th:value="${formateur.prenom}">
         </li>
         <li>
             <label for="inputEmail">Email</label>
-            <input id="inputEmail" type="email" placeholder="Email" name="email">
+            <input id="inputEmail" type="email" placeholder="Email" name="email" th:value="${formateur.email}">
         </li>
         <li>
             <input type="submit" value="Valider">

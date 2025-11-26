@@ -27,4 +27,12 @@ public class FormateurDAOMock implements FormateurDAO {
     public void insert(Formateur formateur) {
         formateurs.add(formateur);
     }
+
+    @Override
+    public Formateur selectByEmail(String email) {
+        return formateurs.stream()
+                .filter(f -> f.getEmail().equals(email))
+                .findFirst()
+                .orElse(null);
+    }
 }

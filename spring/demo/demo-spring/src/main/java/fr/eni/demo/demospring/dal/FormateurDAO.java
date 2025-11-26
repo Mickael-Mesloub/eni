@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface FormateurDAO {
     List<Formateur> findAll();
-
     void insert(Formateur formateur);
+    Formateur selectByEmail(String email);
 }
