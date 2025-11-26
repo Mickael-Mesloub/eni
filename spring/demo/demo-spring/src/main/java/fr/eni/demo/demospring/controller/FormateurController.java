@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Random;
 
 @Controller
 @RequestMapping("/formateurs")
@@ -38,6 +39,10 @@ public class FormateurController {
 
         Formateur formateurTrouve = formateurService.getFormateurByEmail(emailFormateur);
         model.addAttribute("formateur", formateurTrouve);
+
+        Random random = new Random();
+        boolean randomBoolean = random.nextBoolean();
+        model.addAttribute("randomBoolean", randomBoolean);
 
         return "view-formateur-detail";
     }

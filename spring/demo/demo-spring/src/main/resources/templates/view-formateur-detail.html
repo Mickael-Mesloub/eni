@@ -10,6 +10,8 @@
     <h1> Détails d'un formateur</h1>
 
     <ul class="flex-outer">
+        <li th:if="${randomBoolean}">Vrai</li>
+        <li th:if="${!randomBoolean}">Faux</li>
         <li>
             <label for="inputNom">Nom</label>
             <input id="inputNom" type="text" placeholder="Nom" name="nom" th:value="${formateur.nom}">
