@@ -11,37 +11,39 @@
 <ul>
     <li>
         <a href="/chifoumi/jouer?value=pierre">
-            <img src="/chi.png" alt="Chi">
+            <img src="/chi.png" alt="pierre">
         </a>
     </li>
     <li>
         <a href="/chifoumi/jouer?value=feuille">
-            <img src="/fou.png" alt="Fou">
+            <img src="/fou.png" alt="feuille">
         </a>
 
     </li>
     <li>
         <a href="/chifoumi/jouer?value=ciseaux">
-            <img src="/mi.png" alt="Mi">
+            <img src="/mi.png" alt="ciseaux">
         </a>
     </li>
 </ul>
 
-<form action="/jouer" method="post">
+<form action="/chifoumi/jouer" method="post">
     <h2>Jouez !</h2>
     <ul>
         <li>
-            <img src="/chi.png" alt="Chi">
-            <input type="radio" name="chi" id="chiInput">
+            <img src="/chi.png" alt="pierre">
+            <input type="radio" name="choice" id="chiInput" value="pierre">
         </li>
         <li>
-            <img src="/fou.png" alt="Fou">
-            <input type="radio" name="fou" id="fouInput">
+            <img src="/fou.png" alt="feuille">
+            <input type="radio" name="choice" id="fouInput" value="feuille">
         </li>
-        <li><input type="radio" name="mi" id="miInput">
-            <img src="/mi.png" alt="Mi">
+        <li>
+            <img src="/mi.png" alt="ciseaux">
+            <input type="radio" name="choice" id="miInput" value="ciseaux">
         </li>
     </ul>
+    <input type="submit" value="Jouer">
 </form>
 </body>
 </html>
