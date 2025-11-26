@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Chifoumi - Jouer</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<h2>Jouez !</h2>
+<ul>
+    <li>
+        <a href="/chifoumi/jouer?value=pierre">
+            <img src="/chi.png" alt="Chi">
+        </a>
+    </li>
+    <li>
+        <a href="/chifoumi/jouer?value=feuille">
+            <img src="/fou.png" alt="Fou">
+        </a>
+
+    </li>
+    <li>
+        <a href="/chifoumi/jouer?value=ciseaux">
+            <img src="/mi.png" alt="Mi">
+        </a>
+    </li>
+</ul>
+
+<form action="/jouer" method="post">
+    <h2>Jouez !</h2>
+    <ul>
+        <li>
+            <img src="/chi.png" alt="Chi">
+            <input type="radio" name="chi" id="chiInput">
+        </li>
+        <li>
+            <img src="/fou.png" alt="Fou">
+            <input type="radio" name="fou" id="fouInput">
+        </li>
+        <li><input type="radio" name="mi" id="miInput">
+            <img src="/mi.png" alt="Mi">
+        </li>
+    </ul>
+</form>
+</body>
+</html>

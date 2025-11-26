@@ -1,0 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Calibri, serif;
+}
+
+ul {
+    display: flex;
+    gap: 1rem;
+}
+
+li {
+    list-style: none;
+}
+
+body {
+    background-color: gainsboro;
+    padding: 1rem;
+}
