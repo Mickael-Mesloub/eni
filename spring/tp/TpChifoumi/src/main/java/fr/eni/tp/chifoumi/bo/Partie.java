@@ -3,22 +3,22 @@ package fr.eni.tp.chifoumi.bo;
 import java.util.Objects;
 
 public class Partie {
-    private int choixUtilisateur;
-    private int choixOrdinateur;
-    private int resultat;
+    private String playerChoice;
+    private String serverChoice;
+    private String result;
 
-    public Partie(int choixUtilisateur, int choixOrdinateur, int resultat) {
-        this.choixUtilisateur = choixUtilisateur;
-        this.choixOrdinateur = choixOrdinateur;
-        this.resultat = resultat;
+    public Partie(String playerChoice, String serverChoice, String result) {
+        this.playerChoice = playerChoice;
+        this.serverChoice = serverChoice;
+        this.result = result;
     }
 
     @Override
     public String toString() {
         return "Partie{" +
-                "choixUtilisateur=" + choixUtilisateur +
-                ", choixOrdinateur=" + choixOrdinateur +
-                ", resultat=" + resultat +
+                "playerChoice=" + playerChoice +
+                ", serverChoice=" + serverChoice +
+                ", result=" + result +
                 '}';
     }
 
@@ -26,35 +26,35 @@ public class Partie {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Partie partie = (Partie) o;
-        return choixUtilisateur == partie.choixUtilisateur && choixOrdinateur == partie.choixOrdinateur && resultat == partie.resultat;
+        return Objects.equals(getPlayerChoice(), partie.getPlayerChoice()) && Objects.equals(getServerChoice(), partie.getServerChoice()) && Objects.equals(geResult(), partie.geResult());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(choixUtilisateur, choixOrdinateur, resultat);
+        return Objects.hash(getPlayerChoice(), getServerChoice(), geResult());
     }
 
-    public int getChoixUtilisateur() {
-        return choixUtilisateur;
+    public String getPlayerChoice() {
+        return playerChoice;
     }
 
-    public void setChoixUtilisateur(int choixUtilisateur) {
-        this.choixUtilisateur = choixUtilisateur;
+    public void setPlayerChoice(String playerChoice) {
+        this.playerChoice = playerChoice;
     }
 
-    public int getChoixOrdinateur() {
-        return choixOrdinateur;
+    public String getServerChoice() {
+        return serverChoice;
     }
 
-    public void setChoixOrdinateur(int choixOrdinateur) {
-        this.choixOrdinateur = choixOrdinateur;
+    public void setServerChoice(String serverChoice) {
+        this.serverChoice = serverChoice;
     }
 
-    public int getResultat() {
-        return resultat;
+    public String geResult() {
+        return result;
     }
 
-    public void setResultat(int resultat) {
-        this.resultat = resultat;
+    public void seResult(String result) {
+        this.result = result;
     }
 }
