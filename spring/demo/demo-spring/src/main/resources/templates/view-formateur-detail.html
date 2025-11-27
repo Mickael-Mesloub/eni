@@ -8,6 +8,8 @@
     <link rel="shortcut icon" th:href="@{/images/logoENI.png}" type="image/x-icon">
 </head>
 <body>
+<div th:replace="~{fragments/header :: header}"></div>
+
 <form action="/formateurs/detail" method="post">
     <h1> Détails d'un formateur</h1>
 
