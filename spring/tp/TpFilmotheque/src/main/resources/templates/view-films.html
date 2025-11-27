@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/demo-table.css">
+    <link rel="shortcut icon" th:href="@{/images/logoENI.png}" type="image/x-icon">
+    <title>TP Filmothèque - Films</title>
+</head>
+<body>
+<div th:insert="header :: header"></div>
+<main>
+    <h1>Les films de l'ENI</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Genre</th>
+            <th>Année</th>
+            <th>Titre</th>
+            <th>Réalisateur</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${films}">
+            <td th:text="${item.genre.titre}"></td>
+            <td th:text="${item.annee}"></td>
+            <td th:text="${item.titre}"></td>
+            <td th:text="|${item.realisateur.prenom} ${item.realisateur.nom}|" ></td>
+            <td><a th:href="@{/films/detail(id=${item.id})}">Détail</a></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

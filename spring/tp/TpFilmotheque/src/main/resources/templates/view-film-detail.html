@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/demo-form.css">
+    <link rel="shortcut icon" th:href="@{/images/logoENI.png}" type="image/x-icon">
+    <title>TP Filmothèque - Détail du film</title>
+</head>
+<body>
+<div th:insert="header :: header"></div>
+<main>
+    <h2>Détail du film</h2>
+    <form action="">
+        <ul class="flex-outer">
+            <li>
+                <label for="genre">Genre : </label>
+                <input id="genre" th:value="${film.genre.getTitre()}" type="text"></li>
+            <li>
+                <label for="annee">Année : </label>
+                <input id="annee" th:value="${film.annee}" type="text"></li>
+            <li>
+                <label for="titre">Titre : </label>
+                <input id="titre" th:value="${film.titre}" type="text"></li>
+            <li>
+                <label for="realisateur">Réalisateur</label>
+                <input id="realisateur" th:value="|${film.realisateur.prenom} ${film.realisateur.nom}|" type="text"></li>
+            <li>
+                <label for="duree">Durée : </label>
+                <input id="duree" th:value="${film.duree}" type="text"></li>
+            <li>
+                <label for="acteurs">Acteur(s) : </label>
+                <select id="acteurs" multiple>
+                    <option th:each="item : ${film.acteurs}" disabled th:text="|${item.prenom} ${item.nom}|"></option>
+                </select>
+            <li>
+                <label for="synopsis">Synopsis : </label>
+                <textarea id="synopsis" th:text="${film.synopsis}"></textarea></li>
+        </ul>
+    </form>
+</main>
+</body>
+</html>
