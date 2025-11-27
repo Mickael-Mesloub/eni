@@ -3,15 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Demo Spring Web - Formateurs</title>
+    <link rel="stylesheet" href="/css/demo-table.css">
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="shortcut icon" th:href="@{/images/logoENI.png}" type="image/x-icon">
 </head>
 <body>
 <h1>Les formateurs de l'ENI</h1>
 <h2>En cours de construction...</h2>
 
-<a href="/formateurs/detail?email=abaille@campus-eni.fr">Accès aux détails d'Anne-Lise BAILLE</a>
-<br />
-<a href="/formateurs/detail?email=sgobin@campus-eni.fr">Accès aux détails de Stéphane GOBIN</a>
-<br />
-<a href="/formateurs/detail?email=jtrillard@campus-eni.fr">Accès aux détails de Julien TRILLARD</a>
+<table>
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr th:each="item : ${formateurs}">
+            <td th:text="${item.nom}"></td>
+            <td th:text="${item.prenom}"></td>
+            <td th:text="${item.email}"></td>
+            <td><a th:href="@{/formateurs/detail(email=${item.email})}">Détail</a></td>
+        </tr>
+    </tbody>
+</table>
 </body>
 </html>

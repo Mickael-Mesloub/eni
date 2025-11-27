@@ -24,13 +24,30 @@ public class FormateurController {
     }
 
     @GetMapping
-    public String afficherFormateurs() {
+    public String afficherFormateurs(Model model) {
         List<Formateur> formateurs = formateurService.getFormateurs();
         for (Formateur formateur : formateurs) {
             System.out.println(formateur);
         }
 
+        model.addAttribute("formateurs", formateurs);
+
         return "view-formateurs";
+    }
+
+    @PostMapping("/detail")
+    public String majFormateur(
+            @RequestParam(name = "nom") String nomFormateur,
+            @RequestParam(name = "prenom") String prenomFormateur,
+            @RequestParam(name = "email") String emailFormateur) {
+
+        System.out.println("POST FORM");
+        System.out.println("Email: " + emailFormateur);
+        System.out.println("Nom: " + nomFormateur);
+        System.out.println("Prenom: " + prenomFormateur);
+
+        // Redirection (code statut 302) vers /formateurs
+        return "redirect:/formateurs";
     }
 
     @GetMapping("/detail")
@@ -45,19 +62,5 @@ public class FormateurController {
         model.addAttribute("randomBoolean", randomBoolean);
 
         return "view-formateur-detail";
-    }
-
-    @PostMapping("/detail")
-    public String majFormateur(
-            @RequestParam(name = "nom") String nomFormateur,
-            @RequestParam(name = "prenom") String prenomFormateur,
-            @RequestParam(name = "email") String emailFormateur) {
-
-//        System.out.println("POST FORM \n Email : " + emailFormateur + "\n Nom : " + nomFormateur + "\n Prénom : " + prenomFormateur);
-        System.out.println("Email: " + emailFormateur);
-        System.out.println("Nom: " + nomFormateur);
-        System.out.println("Prenom: " + prenomFormateur);
-
-        return "view-formateurs";
     }
 }
