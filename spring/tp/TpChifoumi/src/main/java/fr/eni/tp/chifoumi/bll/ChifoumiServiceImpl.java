@@ -10,7 +10,6 @@ import java.util.Random;
 
 @Service
 public class ChifoumiServiceImpl implements ChifoumiService {
-    // TODO Refactor : create separate ChifoumiService interface and rename this : ChifoumiServiceImpl
     private List<String> values = new ArrayList<>();
     private GameResult result;
     private Partie partie;
