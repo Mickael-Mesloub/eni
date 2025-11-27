@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
 @RequestMapping("/chifoumi")
 public class GameController {
-    ChifoumiService  chifoumiService;
+    ChifoumiService chifoumiService;
 
     public GameController(ChifoumiService chifoumiService) {
         this.chifoumiService = chifoumiService;
