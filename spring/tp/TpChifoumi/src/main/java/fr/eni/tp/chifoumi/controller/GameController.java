@@ -13,38 +13,73 @@ import java.util.Random;
 @Controller
 @RequestMapping("/chifoumi")
 public class GameController {
+    private List<String> values = new ArrayList<>();
+    private GameResult result;
 
-    // TODO Simplify + refactor
-    @GetMapping("/jouer")
-    public String jouer(
-            @RequestParam(value = "value") String value
-    ) {
-        List<String> values = new ArrayList<>();
+    public GameController() {
         values.add("pierre");
         values.add("feuille");
         values.add("ciseaux");
+    }
 
+    /**
+     * Met à jour l'attribut result
+     * @param playerChoice Le choix du joueur
+     */
+    public void gameRules(String playerChoice, String serverChoice) {
+        if (serverChoice.equals(playerChoice)) {
+            result = GameResult.DRAW;
+        } else if (serverChoice.equals("pierre") && playerChoice.equals("ciseaux")
+                || serverChoice.equals("feuille") && playerChoice.equals("pierre")
+                || serverChoice.equals("ciseaux") && playerChoice.equals("feuille")) {
+            result = GameResult.LOST;
+        } else {
+            result = GameResult.WON;
+        }
+    }
+
+    /**
+     * La méthode générique pour jouer une partie
+     * @param playerChoice Le choix du joueur
+     * @return La vue à render
+     */
+    public String play(String playerChoice) {
         String serverChoice = values.get(new Random().nextInt(values.size()));
+        gameRules(playerChoice, serverChoice);
         System.out.println("Choix serveur : " + serverChoice);
-        System.out.println("Choix joueur : " + value);
-
-        if (serverChoice.equals("pierre") && value.equals("pierre")
-                || serverChoice.equals("feuille") && value.equals("feuille")
-                || serverChoice.equals("ciseaux") && value.equals("ciseaux")) {
+        System.out.println("Choix joueur : " + playerChoice);
+        if (result.equals(GameResult.DRAW)) {
             System.out.println("**********\n ÉGALITÉ ! \n**********");
             return getDraw();
-        }
-
-        if (serverChoice.equals("pierre") && value.equals("ciseaux")
-        || serverChoice.equals("feuille") && value.equals("pierre")
-        || serverChoice.equals("ciseaux") && value.equals("feuille")) {
+        } else if (result.equals(GameResult.LOST)) {
             System.out.println("**********\n  PERDU... \n**********");
-          return getLost();
-        }
-        else {
+            return getLost();
+        } else {
             System.out.println("**********\n GAGNÉ !!! \n**********");
-           return getWon();
+            return getWon();
         }
+    }
+
+    /**
+     * Jouer la partie en GET
+     * @param playerChoice Le choix du joueur
+     * @return La vue selon le résultat
+     */
+    @GetMapping("/jouer")
+    public String jouer(
+            @RequestParam(name = "choice") String playerChoice
+    ) {
+       return play(playerChoice);
+    }
+
+    /**
+     * Jouer la partie en POST via formulaire
+     * @param playerChoice Le choix du joueur
+     * @return La vue selon le résultat
+     */
+    @PostMapping("/jouer")
+    public String postJouer(@RequestParam(name = "choice") String playerChoice) {
+        return play(playerChoice);
     }
 
     @GetMapping
@@ -66,36 +101,4 @@ public class GameController {
     public String getDraw() {
         return "view-draw";
     }
-
-    // TODO Simplify + refactor
-    @PostMapping("/jouer")
-    public String postJouer(@RequestParam(name = "choice") String playerChoice) {
-        List<String> values = new ArrayList<>();
-        values.add("pierre");
-        values.add("feuille");
-        values.add("ciseaux");
-
-        String serverChoice = values.get(new Random().nextInt(values.size()));
-        System.out.println("Choix serveur : " + serverChoice);
-        System.out.println("Choix joueur : " + playerChoice);
-
-        if (serverChoice.equals("pierre") && playerChoice.equals("pierre")
-                || serverChoice.equals("feuille") && playerChoice.equals("feuille")
-                || serverChoice.equals("ciseaux") && playerChoice.equals("ciseaux")) {
-            System.out.println("**********\n ÉGALITÉ ! \n**********");
-            return getDraw();
-        }
-
-        if (serverChoice.equals("pierre") && playerChoice.equals("ciseaux")
-                || serverChoice.equals("feuille") && playerChoice.equals("pierre")
-                || serverChoice.equals("ciseaux") && playerChoice.equals("feuille")) {
-            System.out.println("**********\n  PERDU... \n**********");
-            return getLost();
-        }
-        else {
-            System.out.println("**********\n GAGNÉ !!! \n**********");
-            return getWon();
-        }
-    }
-
 }
