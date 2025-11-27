@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/chifoumi")
 public class GameController {
-    // TODO Créer une vue unique result.html avec toutes les infos de Partie
-    // TODO Envoyer result.html
     ChifoumiService  chifoumiService;
 
     public GameController(ChifoumiService chifoumiService) {
@@ -29,7 +27,7 @@ public class GameController {
     /**
      * Jouer la partie en GET
      * @param playerChoice Le choix du joueur
-     * @return La vue selon le résultat
+     * @return La vue avec le model injecté pour afficher les informations de la partie
      */
     @GetMapping("/jouer")
     public String jouer(
@@ -44,7 +42,7 @@ public class GameController {
     /**
      * Jouer la partie en POST via formulaire
      * @param playerChoice Le choix du joueur
-     * @return La vue selon le résultat
+     * @return La vue avec le model injecté pour afficher les informations de la partie
      */
     @PostMapping("/jouer")
     public String postJouer(@RequestParam(name = "choice") String playerChoice, Model model) {

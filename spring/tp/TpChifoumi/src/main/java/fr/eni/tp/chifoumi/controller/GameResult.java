@@ -12,5 +12,4 @@ public enum GameResult {
     public String getLabel() {
         return label;
     }
-
 }

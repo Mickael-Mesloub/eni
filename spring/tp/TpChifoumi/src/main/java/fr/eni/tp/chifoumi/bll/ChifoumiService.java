@@ -10,8 +10,6 @@ import java.util.Random;
 
 @Service
 public class ChifoumiService {
-
-    // Utiliser la classe BO => Renvoyer une new Partie()
     private List<String> values = new ArrayList<>();
     private GameResult result;
     private Partie partie;
@@ -64,5 +62,4 @@ public class ChifoumiService {
 
         return new Partie(playerChoice, serverChoice, result);
     }
-
 }
