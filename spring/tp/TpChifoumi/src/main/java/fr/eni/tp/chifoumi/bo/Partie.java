@@ -1,37 +1,30 @@
 package fr.eni.tp.chifoumi.bo;
 
+import fr.eni.tp.chifoumi.controller.GameResult;
+
 import java.util.Objects;
 
 public class Partie {
     private String playerChoice;
     private String serverChoice;
-    private String result;
+    private GameResult result;
 
-    public Partie(String playerChoice, String serverChoice, String result) {
+    public Partie(String playerChoice, String serverChoice, GameResult result) {
         this.playerChoice = playerChoice;
         this.serverChoice = serverChoice;
         this.result = result;
     }
 
     @Override
-    public String toString() {
-        return "Partie{" +
-                "playerChoice=" + playerChoice +
-                ", serverChoice=" + serverChoice +
-                ", result=" + result +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Partie partie = (Partie) o;
-        return Objects.equals(getPlayerChoice(), partie.getPlayerChoice()) && Objects.equals(getServerChoice(), partie.getServerChoice()) && Objects.equals(geResult(), partie.geResult());
+        return Objects.equals(getPlayerChoice(), partie.getPlayerChoice()) && Objects.equals(getServerChoice(), partie.getServerChoice()) && result == partie.result;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPlayerChoice(), getServerChoice(), geResult());
+        return Objects.hash(getPlayerChoice(), getServerChoice(), getResult());
     }
 
     public String getPlayerChoice() {
@@ -50,11 +43,11 @@ public class Partie {
         this.serverChoice = serverChoice;
     }
 
-    public String geResult() {
+    public GameResult getResult() {
         return result;
     }
 
-    public void seResult(String result) {
+    public void setResult(GameResult result) {
         this.result = result;
     }
 }

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chifoumi - Résumé de la partie</title>
+</head>
+<body>
+<h1>Résumé de la partie : </h1>
+<br />
+<p>Choix joueur : <strong th:text="${partie.getPlayerChoice().toUpperCase()}"></strong></p>
+<br />
+<p>Choix serveur : <strong th:text="${partie.getServerChoice().toUpperCase()}"></strong></p>
+<br />
+<p>Résultat :
+    <strong th:text="${partie.getResult().getLabel()}"></strong>
+</p>
+<br />
+<a href="/chifoumi">Rejouer</a>
+</body>
+</html>
