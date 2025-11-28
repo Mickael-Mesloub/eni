@@ -1,3 +1,4 @@
+/*
 package fr.eni.demo.demospring.dal.mock;
 
 import fr.eni.demo.demospring.bo.Formateur;
@@ -19,20 +20,27 @@ public class FormateurDAOMock implements FormateurDAO {
     }
 
     @Override
-    public List<Formateur> findAll() {
-        return formateurs;
-    }
-
-    @Override
-    public void insert(Formateur formateur) {
+    public void create(Formateur formateur) {
         formateurs.add(formateur);
     }
 
     @Override
-    public Formateur selectByEmail(String email) {
+    public Formateur read(String emailFormateur) {
         return formateurs.stream()
-                .filter(f -> f.getEmail().equals(email))
+                .filter(f -> f.getEmail().equals(emailFormateur))
                 .findFirst()
                 .orElse(null);
     }
+
+    @Override
+    public void update(Formateur formateur) {
+
+    }
+
+    @Override
+    public List<Formateur> findAll() {
+        return formateurs;
+    }
+
 }
+*/

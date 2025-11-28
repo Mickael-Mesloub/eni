@@ -1,26 +1,29 @@
 package fr.eni.demo.demospring.controller;
 
+import fr.eni.demo.demospring.bll.CoursService;
 import fr.eni.demo.demospring.bll.FormateurService;
+import fr.eni.demo.demospring.bo.Cours;
 import fr.eni.demo.demospring.bo.Formateur;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Random;
 
+@SessionAttributes({"listeCoursSession"})
 @Controller
 @RequestMapping("/formateurs")
 public class FormateurController {
     private FormateurService formateurService;
+    private CoursService coursService;
 
     // Pour récupérer mon formateurService,
     // on va faire une injection de dépendance via le constructeur
-    public FormateurController(FormateurService formateurService) {
+    public FormateurController(FormateurService formateurService,  CoursService coursService) {
+
         this.formateurService = formateurService;
+        this.coursService = coursService;
     }
 
     @GetMapping
@@ -54,7 +57,7 @@ public class FormateurController {
     public String detailFormateur(@RequestParam(name = "email") String emailFormateur, Model model) {
         System.out.println("Email : " + emailFormateur);
 
-        Formateur formateurTrouve = formateurService.getFormateurByEmail(emailFormateur);
+        Formateur formateurTrouve = formateurService.findByEmail(emailFormateur);
         model.addAttribute("formateur", formateurTrouve);
 
         Random random = new Random();
@@ -62,5 +65,22 @@ public class FormateurController {
         model.addAttribute("randomBoolean", randomBoolean);
 
         return "view-formateur-detail";
+    }
+
+    @PostMapping("/cours")
+    public String ajouterCours(@RequestParam ("email") String emailFormateur,
+    @RequestParam("idCours") long idCours){
+        System.out.println("ajouterCours - email formateur : " + emailFormateur);
+        System.out.println("ajouterCours - id cours : " + idCours);
+
+        formateurService.updateCoursFormateur(emailFormateur, idCours);
+
+        return "redirect:/formateurs/detail?email=" + emailFormateur;
+    }
+
+    @ModelAttribute("listeCoursSession")
+    public List<Cours> chargerCoursEnSession(){
+        System.out.println("Appel à la méthode chargerCoursEnSession");
+        return this.coursService.getCours();
     }
 }

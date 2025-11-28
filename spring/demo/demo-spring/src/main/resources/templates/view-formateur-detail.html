@@ -29,9 +29,33 @@
             <input id="inputEmail" type="email" placeholder="Email" name="email" th:value="${formateur.email}">
         </li>
         <li>
+            <label for="listeCours">Cours : </label>
+            <select name="listeCours" id="listeCours" multiple>
+                <option disabled th:each="c :${listeCoursSession}" th:text="${c.titre}" th:value="${c.id}"></option>
+            </select>
+        </li>
+        <li>
             <input type="submit" value="Valider">
         </li>
     </ul>
+</form>
+
+<form action="/formateurs/cours" method="post">
+    <ul>
+        <li>
+            <input type="hidden" name="email" th:value="${formateur.email}">
+        </li>
+        <li>
+            <label for="idCours">Cours : </label>
+            <select name="idCours" id="idCours">
+                <option th:each="c :${listeCoursSession}" th:text="${c.titre}" th:value="${c.id}"></option>
+            </select>
+        </li>
+        <li>
+            <input type="submit" value="Allez Michel on envoie">
+        </li>
+    </ul>
+    
 </form>
 </body>
 </html>

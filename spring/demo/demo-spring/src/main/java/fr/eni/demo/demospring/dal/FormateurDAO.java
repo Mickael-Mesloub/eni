@@ -5,7 +5,11 @@ import fr.eni.demo.demospring.bo.Formateur;
 import java.util.List;
 
 public interface FormateurDAO {
-    List<Formateur> findAll();
-    void insert(Formateur formateur);
-    Formateur selectByEmail(String email);
+	void create(Formateur formateur);
+
+	Formateur read(String emailFormateur);
+
+	void update(Formateur formateur);
+
+	List<Formateur> findAll();
 }
