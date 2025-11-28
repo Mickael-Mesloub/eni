@@ -19,7 +19,7 @@
             <li>
                 <label for="genres">Genre : </label>
                 <select id="genres">
-                    <option th:each="genre : ${listeGenres}" th:text="${genre.titre}"></option>
+                    <option th:each="genre : ${listeGenresEnSession}" th:text="${genre.titre}"></option>
                 </select>
             </li>
         </ul>

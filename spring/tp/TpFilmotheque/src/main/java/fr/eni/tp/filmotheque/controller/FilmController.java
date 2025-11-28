@@ -39,8 +39,7 @@ public class FilmController {
     }
 
     @GetMapping("/creer")
-    public String creer(Model model) {
-        model.addAttribute("listeGenres", filmService.consulterGenres());
+    public String creer() {
         return "view-creer-film";
     }
 
