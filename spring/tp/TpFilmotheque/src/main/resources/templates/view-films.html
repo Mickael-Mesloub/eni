@@ -22,12 +22,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="item : ${films}">
-            <td th:text="${item.genre.titre}"></td>
-            <td th:text="${item.annee}"></td>
-            <td th:text="${item.titre}"></td>
-            <td th:text="|${item.realisateur.prenom} ${item.realisateur.nom}|" ></td>
-            <td><a th:href="@{/films/detail(id=${item.id})}">Détail</a></td>
+        <tr th:each="film : ${films}">
+            <td th:text="${(film.genre != null) ? film.genre.titre : 'Non renseigné' }"></td>
+            <td th:text="${(film.annee != 0) ? film.annee : 'Non renseigné'}"></td>
+            <td th:text="${(!film.titre.isBlank()) ? film.titre : 'Non renseigné'}"></td>
+            <td th:text="${(film.realisateur != null) ? film.realisateur.prenom + ' ' + film.realisateur.nom : 'Non renseigné'}"></td>
+            <td><a th:href="@{/films/detail(id=${film.id})}">Détail</a></td>
         </tr>
         </tbody>
     </table>

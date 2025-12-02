@@ -12,15 +12,33 @@
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <main>
-    <form action="">
+    <form method="post">
         <h2>Création d'un film [En cours de construction]</h2>
         <ul class="flex-outer">
-
             <li>
+                <label for="titre">Titre : </label>
+                <input type="text" id="titre" name="titre">
+            </li>
+            <li>
+                <label for="annee">Année : </label>
+                <input type="number" id="annee" name="annee" >
+            </li>
+            <li>
+                <label for="duree">Durée : </label>
+                <input type="number" id="duree" name="duree">
+            </li>
+            <li>
+                <label for="synopsis">Synopsis : </label>
+                <textarea id="synopsis" name="synopsis"></textarea>
+            </li>
+            <!--<li>
                 <label for="genres">Genre : </label>
                 <select id="genres">
                     <option th:each="genre : ${listeGenresEnSession}" th:text="${genre.titre}"></option>
                 </select>
+            </li>-->
+            <li>
+                <input type="submit" value="Créer un film">
             </li>
         </ul>
     </form>
