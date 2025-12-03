@@ -9,10 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * TODO 1. Ajout d'un film :
@@ -55,21 +55,35 @@ public class FilmController {
     }
 
     @GetMapping("/creer")
-    public String creer() {
+    public String viewCreerFilm(Model model) {
+
+        if (!model.containsAttribute("film")) {
+            model.addAttribute("film", new FilmDTO());
+        }
+
         return "view-creer-film";
     }
 
     @PostMapping("/creer")
     public String creerFilm(
-            @Valid @ModelAttribute("film") Film film,
-            BindingResult resultat
+            @Valid @ModelAttribute("film") FilmDTO filmDTO,
+            BindingResult resultat,
+            RedirectAttributes redirectAttr
     ) {
 
         // TODO data validation
+        if(resultat.hasErrors()) {
+            System.out.println("ERREURS DÉTECTÉES :");
+            redirectAttr.addFlashAttribute( "org.springframework.validation.BindingResult.film", resultat);
+            redirectAttr.addFlashAttribute("film", filmDTO);
+            resultat.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
+            return "redirect:/films/creer";
+        }
 
-        filmService.creerFilm(film);
-        FilmDTO filmDTO = new FilmDTO();
-        BeanUtils.copyProperties(filmDTO, film);
+        Film newFilm = new Film();
+
+        BeanUtils.copyProperties(filmDTO, newFilm);
+        filmService.creerFilm(newFilm);
 
         return "redirect:/films";
     }

@@ -35,3 +35,9 @@ form h1 {
 	border-radius: 2px;
 	padding: 8px 16px
 }
+
+.error {
+    font-size: .75rem;
+    font-weight: bold;
+    color: darkred;
+}

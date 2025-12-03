@@ -1,10 +1,19 @@
 package fr.eni.tp.filmotheque.controller;
 
+import jakarta.validation.constraints.*;
+
 public class FilmDTO {
     private long id;
+    @Size(min = 1, max = 100, message = "Le titre doit faire entre {min} et {max} caractères")
     private String titre;
-    private int annee;
-    private int duree;
+    @NotNull(message = "L'année ne peut pas être vide")
+    @Min(value = 1900, message = "L'année ne peut pas être avant {min}")
+    @Max(value = 2025, message = "L'année ne peut pas être après {max}")
+    private Integer annee;
+    @NotNull(message = "La durée ne peut pas être vide")
+    @Min(value = 1)
+    private Integer duree;
+    @NotBlank(message = "Le synopsis ne peut pas être vide")
     private String synopsis;
 
     public FilmDTO() {
@@ -31,17 +40,17 @@ public class FilmDTO {
         this.titre = titre;
     }
 
-    public int getAnnee() {
+    public Integer getAnnee() {
         return annee;
     }
-    public void setAnnee(int annee) {
+    public void setAnnee(Integer annee) {
         this.annee = annee;
     }
 
-    public int getDuree() {
+    public Integer getDuree() {
         return duree;
     }
-    public void setDuree(int duree) {
+    public void setDuree(Integer duree) {
         this.duree = duree;
     }
 
