@@ -7,23 +7,25 @@ public class FilmDTO {
     @Size(min = 1, max = 100, message = "Le titre doit faire entre {min} et {max} caractères")
     private String titre;
     @NotNull(message = "L'année ne peut pas être vide")
-    @Min(value = 1900, message = "L'année ne peut pas être avant {min}")
-    @Max(value = 2025, message = "L'année ne peut pas être après {max}")
+    @Min(value = 1900, message = "L'année ne peut pas être avant {value}")
+    @Max(value = 2025, message = "L'année ne peut pas être après {value}")
     private Integer annee;
     @NotNull(message = "La durée ne peut pas être vide")
     @Min(value = 1)
     private Integer duree;
     @NotBlank(message = "Le synopsis ne peut pas être vide")
     private String synopsis;
+    private long idGenre;
 
     public FilmDTO() {
     }
 
-    public FilmDTO(String titre, int annee, int duree, String synopsis) {
+    public FilmDTO(String titre, int annee, int duree, String synopsis, long idGenre) {
         this.titre = titre;
         this.annee = annee;
         this.duree = duree;
         this.synopsis = synopsis;
+        this.idGenre = idGenre;
     }
 
     public long getId() {
@@ -59,5 +61,13 @@ public class FilmDTO {
     }
     public void setSynopsis(String synopsis) {
         this.synopsis = synopsis;
+    }
+
+    public long getIdGenre() {
+        return idGenre;
+    }
+
+    public void setIdGenre(long idGenre) {
+        this.idGenre = idGenre;
     }
 }

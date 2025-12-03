@@ -68,10 +68,11 @@ public class FilmController {
     public String creerFilm(
             @Valid @ModelAttribute("film") FilmDTO filmDTO,
             BindingResult resultat,
+            Model model,
             RedirectAttributes redirectAttr
     ) {
-
-        // TODO data validation
+        // Data validation
+        System.out.println("filmDTO = " + filmDTO);
         if(resultat.hasErrors()) {
             System.out.println("ERREURS DÉTECTÉES :");
             redirectAttr.addFlashAttribute( "org.springframework.validation.BindingResult.film", resultat);
@@ -81,6 +82,7 @@ public class FilmController {
         }
 
         Film newFilm = new Film();
+        newFilm.setGenre(filmService.consulterGenreParId(filmDTO.getIdGenre()));
 
         BeanUtils.copyProperties(filmDTO, newFilm);
         filmService.creerFilm(newFilm);

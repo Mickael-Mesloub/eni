@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Profile("dev")
-@Service
+@Service("filmService")
 public class FilmServiceBouchon implements FilmService {
 	// Attributs statiques pour gérer les valeurs à afficher et simuler les données
 	// en base

@@ -57,12 +57,12 @@
                         </ul>
                     </div>
                 </li>
-                <!--<li>
+                <li>
                     <label for="genres">Genre : </label>
-                    <select id="genres">
-                        <option th:each="genre : ${listeGenresEnSession}" th:text="${genre.titre}"></option>
-                    </select>
-                </li>-->
+                    <select id="genres" name="idGenre">
+                        <option th:each="genre : ${@filmService.consulterGenres()}" th:text="${genre.titre}" th:value="${genre.id}"></option>
+        0            </select>
+                </li>
                 <li>
                     <input type="submit" value="Créer un film">
                 </li>
