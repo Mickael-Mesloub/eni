@@ -22,9 +22,9 @@
             <li th:if="${film.titre != null}">
                 <label for="titre">Titre : </label>
                 <input id="titre" th:value="${film.titre}" type="text"></li>
-           <!-- <li th:if="${film.realisateur != null}">
+           <li th:if="${film.realisateur != null}">
                 <label for="realisateur">Réalisateur</label>
-                <input id="realisateur" th:value="|${film.realisateur.prenom} ${film.realisateur.nom}|" type="text"></li>-->
+                <input id="realisateur" th:value="|${film.realisateur.prenom} ${film.realisateur.nom}|" type="text"></li>
             <li th:if="${film.duree != 0}">
                 <label for="duree">Durée : </label>
                 <input id="duree" th:value="${film.duree}" type="text"></li>

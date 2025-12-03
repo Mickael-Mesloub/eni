@@ -16,16 +16,18 @@ public class FilmDTO {
     @NotBlank(message = "Le synopsis ne peut pas être vide")
     private String synopsis;
     private long idGenre;
+    private long idRealisateur;
 
     public FilmDTO() {
     }
 
-    public FilmDTO(String titre, int annee, int duree, String synopsis, long idGenre) {
+    public FilmDTO(String titre, int annee, int duree, String synopsis, long idGenre, long idRealisateur) {
         this.titre = titre;
         this.annee = annee;
         this.duree = duree;
         this.synopsis = synopsis;
         this.idGenre = idGenre;
+        this.idRealisateur = idRealisateur;
     }
 
     public long getId() {
@@ -69,5 +71,13 @@ public class FilmDTO {
 
     public void setIdGenre(long idGenre) {
         this.idGenre = idGenre;
+    }
+
+    public long getIdRealisateur() {
+        return idRealisateur;
+    }
+
+    public void setIdRealisateur(long idRealisateur) {
+        this.idRealisateur = idRealisateur;
     }
 }
