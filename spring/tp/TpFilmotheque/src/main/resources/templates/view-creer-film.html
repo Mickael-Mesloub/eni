@@ -66,7 +66,14 @@
                 <li>
                     <label for="idRealisateur">Réalisateur :</label>
                     <select name="idRealisateur" id="idRealisateur">
-                        <option th:each="p : ${@filmService.consulterParticipants()}" th:text="${p.prenom + ' ' + p.nom}" th:value="${p.id}"></option>                 </select>
+                        <option th:each="p : ${@filmService.consulterParticipants()}" th:text="${p.prenom + ' ' + p.nom}" th:value="${p.id}"></option>
+                    </select>
+                </li>
+                <li>
+                    <label for="idsActeurs">Acteurs :</label>
+                    <select name="idsActeurs" id="idsActeurs" multiple>
+                        <option th:each="p : ${@filmService.consulterParticipants()}" th:text="${p.prenom + ' ' + p.nom}" th:value="${p.id}"></option>
+                    </select>
                 </li>
                 <li>
                     <input type="submit" value="Créer un film">

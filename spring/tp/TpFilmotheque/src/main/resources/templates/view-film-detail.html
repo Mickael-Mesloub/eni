@@ -28,12 +28,12 @@
             <li th:if="${film.duree != 0}">
                 <label for="duree">Durée : </label>
                 <input id="duree" th:value="${film.duree}" type="text"></li>
-            <!--<li th:if="${!film.acteurs.isEmpty()}">
+            <li th:if="${!film.acteurs.isEmpty()}">
                 <label for="acteurs">Acteur(s) : </label>
                 <select id="acteurs" multiple>
                     <option th:each="item : ${film.acteurs}" disabled th:text="|${item.prenom} ${item.nom}|"></option>
                 </select>
-            </li>-->
+            </li>
             <li th:if="${film.synopsis != null}">
                 <label for="synopsis">Synopsis : </label>
                 <textarea id="synopsis" th:text="${film.synopsis}"></textarea></li>

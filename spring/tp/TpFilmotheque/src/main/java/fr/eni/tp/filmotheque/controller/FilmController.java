@@ -72,11 +72,11 @@ public class FilmController {
             RedirectAttributes redirectAttr
     ) {
         // Data validation
-        if(resultat.hasErrors()) {
-            System.out.println("ERREURS DÉTECTÉES :");
-            redirectAttr.addFlashAttribute( "org.springframework.validation.BindingResult.film", resultat);
+        if (resultat.hasErrors()) {
+            // Les redirectAttr servent à renvoyer les erreurs (resultat) et les précédentes saisies utilisateur (filmDTO)
+            // dans la nouvelle requête lors du redirect dans le return.
+            redirectAttr.addFlashAttribute("org.springframework.validation.BindingResult.film", resultat);
             redirectAttr.addFlashAttribute("film", filmDTO);
-            resultat.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
             return "redirect:/films/creer";
         }
 
@@ -84,8 +84,10 @@ public class FilmController {
         newFilm.setGenre(filmService.consulterGenreParId(filmDTO.getIdGenre()));
         newFilm.setRealisateur(filmService.consulterParticipantParId(filmDTO.getIdRealisateur()));
 
-        System.out.println("Réalisateur : " + newFilm.getRealisateur());
+        filmDTO.getIdsActeurs().forEach(id -> newFilm.getActeurs().add(filmService.consulterParticipantParId(id)));
 
+        // Récupère les propriétés identiques entre l'objet source (filmDto) et l'objet cible (newFilm)
+        // et il les copie dans l'objet cible.
         BeanUtils.copyProperties(filmDTO, newFilm);
         filmService.creerFilm(newFilm);
 

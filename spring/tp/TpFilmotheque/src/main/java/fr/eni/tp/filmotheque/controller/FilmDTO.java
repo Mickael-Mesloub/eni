@@ -1,6 +1,9 @@
 package fr.eni.tp.filmotheque.controller;
 
+import fr.eni.tp.filmotheque.bo.Film;
 import jakarta.validation.constraints.*;
+
+import java.util.List;
 
 public class FilmDTO {
     private long id;
@@ -17,17 +20,19 @@ public class FilmDTO {
     private String synopsis;
     private long idGenre;
     private long idRealisateur;
+    private List<Integer> idsActeurs;
 
     public FilmDTO() {
     }
 
-    public FilmDTO(String titre, int annee, int duree, String synopsis, long idGenre, long idRealisateur) {
+    public FilmDTO(String titre, int annee, int duree, String synopsis, long idGenre, long idRealisateur, List<Integer> idsActeurs) {
         this.titre = titre;
         this.annee = annee;
         this.duree = duree;
         this.synopsis = synopsis;
         this.idGenre = idGenre;
         this.idRealisateur = idRealisateur;
+        this.idsActeurs = idsActeurs;
     }
 
     public long getId() {
@@ -79,5 +84,13 @@ public class FilmDTO {
 
     public void setIdRealisateur(long idRealisateur) {
         this.idRealisateur = idRealisateur;
+    }
+
+    public List<Integer> getIdsActeurs() {
+        return idsActeurs;
+    }
+
+    public void setIdsActeurs(List<Integer> idsActeurs) {
+        this.idsActeurs = idsActeurs;
     }
 }
