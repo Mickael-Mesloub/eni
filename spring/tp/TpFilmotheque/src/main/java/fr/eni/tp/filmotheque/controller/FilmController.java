@@ -30,12 +30,14 @@ import java.util.List;
 @RequestMapping("/films")
 public class FilmController {
     FilmService filmService;
-    List<Genre> listeGenres;
+    FilmService filmServiceImpl;
+//    List<Genre> listeGenres;
 
-    public FilmController(FilmService filmService) {
+    public FilmController(FilmService filmService,  FilmService filmServiceImpl) {
         this.filmService = filmService;
-        this.listeGenres = new ArrayList<>();
-        listeGenres.addAll(this.filmService.consulterGenres());
+        this.filmServiceImpl = filmServiceImpl;
+//        this.listeGenres = new ArrayList<>();
+//        listeGenres.addAll(this.filmService.consulterGenres());
     }
 
     @GetMapping
@@ -94,9 +96,10 @@ public class FilmController {
         return "redirect:/films";
     }
 
+    /*
     @ModelAttribute("listeGenresEnSession")
     public List<Genre> chargerGenresEnSession() {
         System.out.println("Appel à la méthode chargerGenresEnSession");
         return this.listeGenres;
-    }
+    }*/
 }

@@ -21,7 +21,7 @@
         <form method="post">
             <h2>Création d'un film [En cours de construction]</h2>
             <ul class="flex-outer">
-                <li>
+                <!--<li>
                     <label for="titre">Titre : </label>
                     <input id="titre" name="titre" th:field="*{titre}" type="text">
                     <div class="error" th:if="${#fields.hasErrors('titre')}">
@@ -56,14 +56,14 @@
                             <li th:each="erreur: ${#fields.errors('synopsis')}" th:text="${erreur}"></li>
                         </ul>
                     </div>
-                </li>
+                </li>-->
                 <li>
                     <label for="genres">Genre : </label>
                     <select id="genres" name="idGenre">
-                        <option th:each="genre : ${@filmService.consulterGenres()}" th:text="${genre.titre}" th:value="${genre.id}"></option>
+                        <option th:each="genre : ${@filmServiceImpl.consulterGenres()}" th:text="${genre.titre}" th:value="${genre.id}"></option>
         0            </select>
                 </li>
-                <li>
+               <!-- <li>
                     <label for="idRealisateur">Réalisateur :</label>
                     <select name="idRealisateur" id="idRealisateur">
                         <option th:each="p : ${@filmService.consulterParticipants()}" th:text="${p.prenom + ' ' + p.nom}" th:value="${p.id}"></option>
@@ -74,7 +74,7 @@
                     <select name="idsActeurs" id="idsActeurs" multiple>
                         <option th:each="p : ${@filmService.consulterParticipants()}" th:text="${p.prenom + ' ' + p.nom}" th:value="${p.id}"></option>
                     </select>
-                </li>
+                </li>-->
                 <li>
                     <input type="submit" value="Créer un film">
                 </li>
