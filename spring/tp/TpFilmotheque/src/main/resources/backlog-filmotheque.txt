@@ -1,0 +1,120 @@
+﻿
+Backlog : 
+
+ITERATION 1 : 
+------------
+
+COUCHE IHM : 
+1- Ajout d'un film : 
+1.1-- avec un titre seul
+1.2-- ajouter année, durée, synopsis, 
+1.3-- mettre en place la validation des données
+1.4-- gérer le genre d'un film 
++ gérer la liste des genres au niveau application
+( ${@myBean.doSomething() )
+1.5-- gérer le réalisateur
+1.6-- gérer les acteurs
+
+
+ITERATION 2 (COUCHE DAL - GENRES) 
+---------------------------------
+2.0 - Créer la base de données FILMS_DB
+2.0.1 - Configurer l'accès à la base de données dans le projet Filmothèque 
+	(build.gradle, application.properties, data.sql)
+
+2.1 - Création de la table Genres:
+create table genres (
+	id int primary key,
+	libelle varchar(50) not null unique
+);
+
+2.2 Création Repository GenreRepository
+
+2.3 findAllGenres : récupérer tous la liste de tous les genres  + test
+
+2.4 findGenreById : récupérer un genre par id 
+  Une exception personnalisée GENRE_NOT_FOUND doit être envoyée si l'id n'existe pas
++ tests : cas nominal + cas id non existant
+
+2.5 save : ajouter un nouveau genre + test
+
+2.6 update : modifier le libelle d'un genre existant connaissant son id + test
+
+
+ITERATION 3 (COUCHE BLL GENRES) 
+---------------------------------
+
+3.1 Créer un nouveau composant métier : GenreService : interface + implémentation
+
+3.2 BLL : findAllGenres + test
+
+3.3 BLL : findGenreById  + tests  (cas id existant + cas id non existant)
+
+3.4 BLL : save (ajouter un nouveau genre) + test cas nominal
+
+
+ITERATION 4 (Gestion des films - COUCHE DAL/BLL) : 
+----------------------------------------------
+
+4.1 : créer les tables restantes en BD : 
+create table participants (
+	id serial primary key,
+	prenom varchar(50) not null,
+	nom varchar(50) not null
+);
+
+create table films(
+	id serial primary key,
+	titre varchar(50) not null,
+	annee int not null,
+	duree int not null,
+	synopsis varchar(500) not null,
+	genreId int not null,
+	realisateurId int not null
+);
+
+alter table films add constraint fk_films_genre_id foreign key(genreId)
+references genres(id);
+
+alter table films add constraint fk_films_realisateur_id foreign key(realisateurId)
+references participants(id);
+
+
+create table acteurs(
+	filmId int,
+	participantId int );
+	
+alter table acteurs add primary key (filmId, participantId);
+
+alter table acteurs add constraint fk_acteurs_filmId foreign key(filmId)   references films(id);
+alter table acteurs add constraint fk_acteurs_participantId foreign key (participantId)   references participants(id);
+
+
+
+4.2 DAL : lister les films + test
+
+4.3 BLL : Faire une nouvelle implémentation de FilmService utilisant le couche DAL
+
+4.4 BLL : lister les films + test
+
+4.4 DAL : trouver un film connaissant son id + tests
+
+4.3 BLL : trouver un film connaissant son id + tests
+
+4.5 DAL : Ajout d'un nouveau film + test scénario nominal
+
+4.6 BLL : Ajout d'un nouveau film + test scénario nominal
+
+
+(OPTIONNEL) ITERATION 5 :  
+----------------------------------------------
+5.1 - Créer un utilisateur de base de données spécifique pour Filmothèque
+et modifier la configuration de l'accès à la BDD en conséquence
+
+
+FIN !
+
+
+
+
+
