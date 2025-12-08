@@ -36,18 +36,8 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public List<Genre> consulterGenres() {
-        return genreRepository.findAllGenres();
-    }
-
-    @Override
     public List<Participant> consulterParticipants() {
         return List.of();
-    }
-
-    @Override
-    public Genre consulterGenreParId(int id) {
-        return genreRepository.findGenreById(id);
     }
 
     @Override
@@ -58,18 +48,5 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public void creerFilm(Film film) {
 
-    }
-
-    @Override
-    public void creerGenre(Genre genre) {
-        genre.setId(genreRepository.findAllGenres().size() +1);
-        genreRepository.createGenre(genre);
-    }
-
-    @Override
-    public void updateGenre(int id, String titre) {
-        Genre genre = genreRepository.findGenreById(id);
-        genre.setTitre(titre);
-        genreRepository.updateGenre(genre);
     }
 }

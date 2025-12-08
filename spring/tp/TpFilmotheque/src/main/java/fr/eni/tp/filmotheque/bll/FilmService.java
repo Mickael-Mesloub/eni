@@ -11,11 +11,8 @@ import java.util.List;
 public interface FilmService {
     List<Film> consulterFilms();
     Film consulterFilmParId(int id);
-    List<Genre> consulterGenres();
     List<Participant> consulterParticipants();
-    Genre consulterGenreParId(int id);
     Participant consulterParticipantParId(int id);
     void creerFilm(Film film);
-    void creerGenre(Genre genre);
-    void updateGenre(int id, String titre);
+
 }

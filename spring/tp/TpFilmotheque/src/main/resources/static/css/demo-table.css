@@ -38,3 +38,11 @@ table a:link, table a:visited {
 table a:hover, table a:active {
 	background-color: #004040;
 }
+
+table a.delete-btn {
+    background-color: #bf1222;
+}
+
+table a.delete-btn:hover, table a.delete-btn:active {
+    background-color: #880000;
+}

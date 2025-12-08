@@ -1,10 +1,8 @@
 package fr.eni.tp.filmotheque.dal;
 
-import fr.eni.tp.filmotheque.bll.FilmService;
 import fr.eni.tp.filmotheque.bo.Genre;
 import fr.eni.tp.filmotheque.exception.GenreNotFoundException;
 import fr.eni.tp.filmotheque.exception.GenreTitreAlreadyExistsException;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

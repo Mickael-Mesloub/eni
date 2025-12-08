@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Filmothèque - Genres</title>
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/demo-table.css">
+    <link rel="shortcut icon" th:href="@{/images/logoENI.png}" type="image/x-icon">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<main>
+    <h2>Liste des genres</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="genre : ${genres}">
+            <td th:text="${(genre.titre != null) ? genre.titre : 'Non renseigné' }"></td>
+            <td>
+                <a th:href="@{/genres/update(id=${genre.id})}">Modifier</a>
+                <a class="delete-btn" th:href="@{/genres/delete(id=${genre.id})}">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn" href="/genres/creer-genre">Créer un genre</a>
+</main>
+</body>
+</html>

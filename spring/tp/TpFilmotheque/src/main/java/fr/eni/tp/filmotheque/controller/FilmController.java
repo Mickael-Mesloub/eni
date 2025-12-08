@@ -1,6 +1,7 @@
 package fr.eni.tp.filmotheque.controller;
 
 import fr.eni.tp.filmotheque.bll.FilmService;
+import fr.eni.tp.filmotheque.bll.GenreService;
 import fr.eni.tp.filmotheque.bo.Film;
 import fr.eni.tp.filmotheque.bo.Genre;
 import fr.eni.tp.filmotheque.controller.dto.FilmDTO;
@@ -15,16 +16,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-@SessionAttributes({"listeGenresEnSession"})
 @Controller
 @RequestMapping("/films")
 public class FilmController {
-    FilmService filmService;
-    FilmService filmServiceImpl;
+    private FilmService filmService;
+    private FilmService filmServiceImpl;
+    private GenreService genreService;
 
-    public FilmController(FilmService filmService, FilmService filmServiceImpl) {
+    public FilmController(FilmService filmService, FilmService filmServiceImpl,  GenreService genreService) {
         this.filmService = filmService;
         this.filmServiceImpl = filmServiceImpl;
+        this.genreService = genreService;
     }
 
     @GetMapping
@@ -53,23 +55,6 @@ public class FilmController {
         return "view-creer-film";
     }
 
-    @GetMapping("/creer-genre")
-    public String viewCreerGenre(Model model) {
-
-        if (!model.containsAttribute("genre")) {
-            model.addAttribute("genre", new GenreDTO());
-        }
-        return "view-creer-genre";
-    }
-
-    @GetMapping("/update-genre")
-    public String viewUpdateGenre(@RequestParam int id, Model model) {
-        Genre genreEntity = filmService.consulterGenreParId(id);
-        System.out.println("genre found : " + genreEntity.toString());
-        model.addAttribute("genre", genreEntity);
-        return "view-update-genre";
-    }
-
     @PostMapping("/creer")
     public String creerFilm(
             @Valid @ModelAttribute("film") FilmDTO filmDTO,
@@ -87,7 +72,7 @@ public class FilmController {
         }
 
         Film newFilm = new Film();
-        newFilm.setGenre(filmService.consulterGenreParId(filmDTO.getIdGenre()));
+        newFilm.setGenre(genreService.consulterGenreParId(filmDTO.getIdGenre()));
         newFilm.setRealisateur(filmService.consulterParticipantParId(filmDTO.getIdRealisateur()));
 
         filmDTO.getIdsActeurs().forEach(id -> newFilm.getActeurs().add(filmService.consulterParticipantParId(id)));
@@ -99,50 +84,4 @@ public class FilmController {
 
         return "redirect:/films";
     }
-
-    @PostMapping("/creer-genre")
-    public String creerGenre(
-            @Valid @ModelAttribute("genre") GenreDTO genreDTO,
-            BindingResult resultat,
-            Model model,
-            RedirectAttributes redirectAttr
-    ) {
-        // TODO message d'erreur si le titre existe déjà
-        if (resultat.hasErrors()) {
-            // Les redirectAttr servent à renvoyer les erreurs (resultat) et les précédentes saisies utilisateur (filmDTO)
-            // dans la nouvelle requête lors du redirect dans le return.
-            redirectAttr.addFlashAttribute("org.springframework.validation.BindingResult.genre", resultat);
-            redirectAttr.addFlashAttribute("genre", genreDTO);
-            return "redirect:/films/creer-genre";
-        }
-
-        Genre newGenre = new Genre();
-        newGenre.setTitre(genreDTO.getTitre());
-
-        BeanUtils.copyProperties(genreDTO, newGenre);
-        filmService.creerGenre(newGenre);
-
-        return "redirect:/films";
-    }
-
-    @PostMapping("/update-genre")
-    public String modifierGenre(
-            @Valid @ModelAttribute("genre") GenreDTO genreDto,
-            BindingResult resultat,
-            Model model,
-            RedirectAttributes redirectAttr
-    ) {
-        // TODO message d'erreur si le titre existe déjà
-
-        if (resultat.hasErrors()) {
-            redirectAttr.addFlashAttribute("org.springframework.validation.BindingResult.genre", resultat);
-            redirectAttr.addFlashAttribute("genre", genreDto);
-            return "redirect:/films/update-genre?id=" + genreDto.getId();
-        }
-
-        filmService.updateGenre(genreDto.getId(), genreDto.getTitre());
-
-        return "redirect:/films";
-    }
-
 }
