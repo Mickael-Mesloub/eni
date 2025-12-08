@@ -13,7 +13,7 @@ public class Film implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     
-    private long id;
+    private int id;
     private String titre;
     private int annee;
     private int duree;
@@ -23,7 +23,7 @@ public class Film implements Serializable {
     private List<Participant> acteurs = new  ArrayList<Participant>();
     private List<Avis> avis = new ArrayList<Avis>();
 
-    public Film(long id, String titre, int annee, int duree, String synopsis) {
+    public Film(int id, String titre, int annee, int duree, String synopsis) {
         this.id = id;
         this.titre = titre;
         this.annee = annee;
@@ -69,11 +69,11 @@ public class Film implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

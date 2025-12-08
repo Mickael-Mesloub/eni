@@ -7,7 +7,7 @@ public class Membre extends Personne {
     private String motDePasse;
     private Boolean admin;
 
-    public Membre(long id, String nom, String prenom, String pseudo, Boolean admin) {
+    public Membre(int id, String nom, String prenom, String pseudo, Boolean admin) {
         super(id, nom, prenom);
         this.pseudo = pseudo;
         this.admin = admin;

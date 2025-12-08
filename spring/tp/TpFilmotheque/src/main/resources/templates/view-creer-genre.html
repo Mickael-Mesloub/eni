@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Filmothèque - Créer un genre</title>
+    <link href="/css/general.css" rel="stylesheet">
+    <link href="/css/demo-form.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<th:block th:object="${genre}">
+
+    <main>
+        <div class="error" th:if="${#fields.hasErrors('*')}">
+            <p>Des erreurs ont éte détectées
+        </div>
+        <form method="POST">
+            <h2>Créer un genre</h2>
+            <ul class="flex-outer">
+                <li>
+                    <label for="titre">Titre: </label>
+                    <input id="titre" name="titre" type="text">
+                    <div class="error" th:if="${#fields.hasErrors('titre')}">
+                        <ul>
+                            <li th:each="erreur: ${#fields.errors('titre')}" th:text="${erreur}"></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><input type="submit" value="Créer le genre"></li>
+            </ul>
+        </form>
+    </main>
+</th:block>
+</body>
+</html>

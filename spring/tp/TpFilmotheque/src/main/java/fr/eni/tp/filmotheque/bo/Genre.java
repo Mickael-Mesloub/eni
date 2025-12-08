@@ -11,10 +11,10 @@ public class Genre implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     
-    private long id;
+    private int id;
     private String titre;
 
-    public Genre(long id, String titre) {
+    public Genre(int id, String titre) {
         this.id = id;
         this.titre = titre;
     }
@@ -46,11 +46,11 @@ public class Genre implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

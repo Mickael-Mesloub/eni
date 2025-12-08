@@ -11,11 +11,11 @@ public abstract class Personne implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     
-    private long id;
+    private int id;
     private String nom;
     private String prenom;
     
-    public Personne(long id, String nom, String prenom) {
+    public Personne(int id, String nom, String prenom) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -50,11 +50,11 @@ public abstract class Personne implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

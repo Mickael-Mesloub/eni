@@ -4,7 +4,13 @@ import fr.eni.tp.filmotheque.bo.Film;
 import fr.eni.tp.filmotheque.bo.Genre;
 import fr.eni.tp.filmotheque.bo.Participant;
 import fr.eni.tp.filmotheque.dal.GenreRepository;
+import fr.eni.tp.filmotheque.exception.GenreNotFoundException;
+import fr.eni.tp.filmotheque.exception.GenreTitreAlreadyExistsException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,8 +18,9 @@ import java.util.List;
 @Profile("dev")
 @Service("filmServiceImpl")
 public class FilmServiceImpl implements FilmService {
-    GenreRepository genreRepository;
+    private GenreRepository genreRepository;
 
+    @Autowired
     public FilmServiceImpl(GenreRepository genreRepository) {
         this.genreRepository = genreRepository;
     }
@@ -24,7 +31,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Film consulterFilmParId(long id) {
+    public Film consulterFilmParId(int id) {
         return null;
     }
 
@@ -39,17 +46,30 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Genre consulterGenreParId(long id) {
-        return null;
+    public Genre consulterGenreParId(int id) {
+        return genreRepository.findGenreById(id);
     }
 
     @Override
-    public Participant consulterParticipantParId(long id) {
+    public Participant consulterParticipantParId(int id) {
         return null;
     }
 
     @Override
     public void creerFilm(Film film) {
 
+    }
+
+    @Override
+    public void creerGenre(Genre genre) {
+        genre.setId(genreRepository.findAllGenres().size() +1);
+        genreRepository.createGenre(genre);
+    }
+
+    @Override
+    public void updateGenre(int id, String titre) {
+        Genre genre = genreRepository.findGenreById(id);
+        genre.setTitre(titre);
+        genreRepository.updateGenre(genre);
     }
 }

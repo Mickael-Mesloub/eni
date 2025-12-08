@@ -1,12 +1,11 @@
-package fr.eni.tp.filmotheque.controller;
+package fr.eni.tp.filmotheque.controller.dto;
 
-import fr.eni.tp.filmotheque.bo.Film;
 import jakarta.validation.constraints.*;
 
 import java.util.List;
 
 public class FilmDTO {
-    private long id;
+    private int id;
     @Size(min = 1, max = 100, message = "Le titre doit faire entre {min} et {max} caractères")
     private String titre;
     @NotNull(message = "L'année ne peut pas être vide")
@@ -18,14 +17,14 @@ public class FilmDTO {
     private Integer duree;
     @NotBlank(message = "Le synopsis ne peut pas être vide")
     private String synopsis;
-    private long idGenre;
-    private long idRealisateur;
+    private int idGenre;
+    private int idRealisateur;
     private List<Integer> idsActeurs;
 
     public FilmDTO() {
     }
 
-    public FilmDTO(String titre, int annee, int duree, String synopsis, long idGenre, long idRealisateur, List<Integer> idsActeurs) {
+    public FilmDTO(String titre, int annee, int duree, String synopsis, int idGenre, int idRealisateur, List<Integer> idsActeurs) {
         this.titre = titre;
         this.annee = annee;
         this.duree = duree;
@@ -35,10 +34,10 @@ public class FilmDTO {
         this.idsActeurs = idsActeurs;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -70,19 +69,19 @@ public class FilmDTO {
         this.synopsis = synopsis;
     }
 
-    public long getIdGenre() {
+    public int getIdGenre() {
         return idGenre;
     }
 
-    public void setIdGenre(long idGenre) {
+    public void setIdGenre(int idGenre) {
         this.idGenre = idGenre;
     }
 
-    public long getIdRealisateur() {
+    public int getIdRealisateur() {
         return idRealisateur;
     }
 
-    public void setIdRealisateur(long idRealisateur) {
+    public void setIdRealisateur(int idRealisateur) {
         this.idRealisateur = idRealisateur;
     }
 

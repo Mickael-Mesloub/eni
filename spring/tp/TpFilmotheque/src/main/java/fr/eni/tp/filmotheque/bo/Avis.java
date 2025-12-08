@@ -11,12 +11,12 @@ public class Avis implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     
-    private long id;
+    private int id;
     private int note;
     private String commentaire;
     private Membre membre;
 
-    public Avis(long id, int note, String commentaire, Membre membre) {
+    public Avis(int id, int note, String commentaire, Membre membre) {
         this.id = id;
         this.note = note;
         this.commentaire = commentaire;
@@ -51,11 +51,11 @@ public class Avis implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

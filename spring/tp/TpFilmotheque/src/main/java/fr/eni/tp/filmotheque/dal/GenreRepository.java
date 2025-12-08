@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface GenreRepository {
     List<Genre> findAllGenres();
-    Genre findGenreById(long id);
+    Genre findGenreById(int id);
+    void createGenre(Genre genre);
+    void updateGenre(Genre genre);
+    void deleteGenreById(int id);
 }
