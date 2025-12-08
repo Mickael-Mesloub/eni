@@ -1,6 +1,8 @@
 package fr.eni.tp.filmotheque.dal;
 
 import fr.eni.tp.filmotheque.bo.Genre;
+import fr.eni.tp.filmotheque.exception.GenreNotFoundException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -21,6 +23,20 @@ public class GenreRepositoryImpl implements GenreRepository {
     public List<Genre> findAllGenres() {
         String sql = "select id, titre from genres";
         return jdbcTemplate.query(sql, new GenreRowMapper());
+    }
+
+    @Override
+    public Genre findGenreById(long id) {
+        String sql = "select id, titre from genres where id = ?";
+        Genre genre = null;
+
+        try {
+            genre = jdbcTemplate.queryForObject(sql, new GenreRowMapper(), id);
+        } catch(EmptyResultDataAccessException ex) {
+            throw new GenreNotFoundException();
+        }
+
+        return genre;
     }
 
     class GenreRowMapper implements RowMapper<Genre> {

@@ -2,6 +2,7 @@ package fr.eni.tp.filmotheque.dal;
 
 import fr.eni.tp.filmotheque.bll.FilmService;
 import fr.eni.tp.filmotheque.bo.Genre;
+import fr.eni.tp.filmotheque.exception.GenreNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,7 @@ public class GenreRepositoryImplTest {
 
     @Test
     @DisplayName("Test findAllGenres - Cas droit")
-    void findAllGenres() {
+    void testFindAllGenres() {
         // Arrange
         List<Genre> genres =  genreRepository.findAllGenres();
 
@@ -43,5 +44,26 @@ public class GenreRepositoryImplTest {
         assertNotNull(genres);
         assertFalse(genres.isEmpty());
         assertEquals(6, genres.size());
+    }
+
+    @Test
+    @DisplayName("Test findGenreById - Cas droit")
+    void testFindGenreById() {
+        // Arrange
+        long id = 1;
+        // Act
+        Genre genre = genreRepository.findGenreById(id);
+        // Assert
+        assertNotNull(genre);
+        assertEquals(id, genre.getId());
+    }
+
+    @Test
+    @DisplayName("Test findGenreById - Cas id n'existe pas")
+    void testFindGenreByIdCaseIdDoesntExist() {
+        // Arrange
+        long id = 99;
+        // Act and assert
+        assertThrows(GenreNotFoundException.class, () -> genreRepository.findGenreById(id));
     }
 }
