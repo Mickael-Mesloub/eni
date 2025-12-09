@@ -1,16 +1,10 @@
 package fr.eni.tp.filmotheque.bll;
 
 import fr.eni.tp.filmotheque.bo.Film;
-import fr.eni.tp.filmotheque.bo.Genre;
 import fr.eni.tp.filmotheque.bo.Participant;
+import fr.eni.tp.filmotheque.dal.FilmRepository;
 import fr.eni.tp.filmotheque.dal.GenreRepository;
-import fr.eni.tp.filmotheque.exception.GenreNotFoundException;
-import fr.eni.tp.filmotheque.exception.GenreTitreAlreadyExistsException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,15 +13,16 @@ import java.util.List;
 @Service("filmServiceImpl")
 public class FilmServiceImpl implements FilmService {
     private GenreRepository genreRepository;
+    private FilmRepository filmRepository;
 
-    @Autowired
-    public FilmServiceImpl(GenreRepository genreRepository) {
+    public FilmServiceImpl(GenreRepository genreRepository, FilmRepository filmRepository) {
         this.genreRepository = genreRepository;
+        this.filmRepository = filmRepository;
     }
 
     @Override
     public List<Film> consulterFilms() {
-        return List.of();
+        return filmRepository.findAllFilm();
     }
 
     @Override

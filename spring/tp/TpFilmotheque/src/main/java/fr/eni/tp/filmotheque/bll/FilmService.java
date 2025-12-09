@@ -1,7 +1,6 @@
 package fr.eni.tp.filmotheque.bll;
 
 import fr.eni.tp.filmotheque.bo.Film;
-import fr.eni.tp.filmotheque.bo.Genre;
 import fr.eni.tp.filmotheque.bo.Participant;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +13,4 @@ public interface FilmService {
     List<Participant> consulterParticipants();
     Participant consulterParticipantParId(int id);
     void creerFilm(Film film);
-
 }

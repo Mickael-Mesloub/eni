@@ -31,7 +31,7 @@ public class FilmController {
 
     @GetMapping
     public String getFilms(Model model) {
-        List<Film> films = filmService.consulterFilms();
+        List<Film> films = filmServiceImpl.consulterFilms();
         model.addAttribute("films", films);
         return "view-films";
     }
