@@ -5,9 +5,9 @@ import fr.eni.tp.filmotheque.bo.Film;
 import java.util.List;
 
 public interface FilmRepository {
-    List<Film> findAllFilm();
+    List<Film> findAllFilms();
     Film findFilmById(int id);
     void createFilm(Film film);
 //    void updateFilm(Film film);
-//    void deleteFilmById(int id);
+    void deleteFilmById(int id);
 }

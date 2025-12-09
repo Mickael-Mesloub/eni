@@ -22,7 +22,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public List<Film> consulterFilms() {
-        return filmRepository.findAllFilm();
+        return filmRepository.findAllFilms();
     }
 
     @Override

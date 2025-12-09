@@ -20,7 +20,7 @@ public class FilmRepositoryImpl implements FilmRepository {
     }
 
     @Override
-    public List<Film> findAllFilm() {
+    public List<Film> findAllFilms() {
         String sql = "select f.id, f.titre, annee, duree, synopsis, realisateurId, genreId, " +
                     "p.prenom as prenomReal, p.nom as nomReal, " +
                     "g.titre as titreGenre from films f"  + " " +
@@ -54,6 +54,12 @@ public class FilmRepositoryImpl implements FilmRepository {
                 film.getRealisateur().getId());
 
         System.out.println("Nouveau film créé : " + film.toString());
+    }
+
+    @Override
+    public void deleteFilmById(int id) {
+        String sql =  "delete from films where id = ?";
+        jdbcTemplate.update(sql, id);
     }
 
     class FilmRowMapper implements RowMapper<Film> {
