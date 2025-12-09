@@ -17,20 +17,20 @@ public class FilmDTO {
     private Integer duree;
     @NotBlank(message = "Le synopsis ne peut pas être vide")
     private String synopsis;
-    private int idGenre;
-    private int idRealisateur;
+    private int genreId;
+    private int realisateurId;
     private List<Integer> idsActeurs;
 
     public FilmDTO() {
     }
 
-    public FilmDTO(String titre, int annee, int duree, String synopsis, int idGenre, int idRealisateur, List<Integer> idsActeurs) {
+    public FilmDTO(String titre, int annee, int duree, String synopsis, int genreId, int realisateurId, List<Integer> idsActeurs) {
         this.titre = titre;
         this.annee = annee;
         this.duree = duree;
         this.synopsis = synopsis;
-        this.idGenre = idGenre;
-        this.idRealisateur = idRealisateur;
+        this.genreId = genreId;
+        this.realisateurId = realisateurId;
         this.idsActeurs = idsActeurs;
     }
 
@@ -69,20 +69,20 @@ public class FilmDTO {
         this.synopsis = synopsis;
     }
 
-    public int getIdGenre() {
-        return idGenre;
+    public int getGenreId() {
+        return genreId;
     }
 
-    public void setIdGenre(int idGenre) {
-        this.idGenre = idGenre;
+    public void setGenreId(int genreId) {
+        this.genreId = genreId;
     }
 
-    public int getIdRealisateur() {
-        return idRealisateur;
+    public int getRealisateurId() {
+        return realisateurId;
     }
 
-    public void setIdRealisateur(int idRealisateur) {
-        this.idRealisateur = idRealisateur;
+    public void setRealisateurId(int realisateurId) {
+        this.realisateurId = realisateurId;
     }
 
     public List<Integer> getIdsActeurs() {

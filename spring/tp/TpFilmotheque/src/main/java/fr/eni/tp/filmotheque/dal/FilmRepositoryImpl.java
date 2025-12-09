@@ -30,6 +30,32 @@ public class FilmRepositoryImpl implements FilmRepository {
        return jdbcTemplate.query(sql, new FilmRowMapper());
     }
 
+    public Film findFilmById(int id) {
+        String sql = "select f.id, f.titre, annee, duree, synopsis, realisateurId, genreId, " +
+                "p.prenom as prenomReal, p.nom as nomReal, " +
+                "g.titre as titreGenre from films f"  + " " +
+                "inner join participants p on p.id = f.realisateurId"  + " " +
+                "inner join genres g on g.id = f.genreId where f.id = ?";
+
+        return jdbcTemplate.queryForObject(sql, new FilmRowMapper(), id);
+    }
+
+    @Override
+    public void createFilm(Film film) {
+        String sql = "insert into films (titre, annee, duree, synopsis, genreId, realisateurId)" + " " +
+                "values (?, ?, ?, ?, ?, ?)";
+
+        jdbcTemplate.update(sql,
+                film.getTitre(),
+                film.getAnnee(),
+                film.getDuree(),
+                film.getSynopsis(),
+                film.getGenre().getId(),
+                film.getRealisateur().getId());
+
+        System.out.println("Nouveau film créé : " + film.toString());
+    }
+
     class FilmRowMapper implements RowMapper<Film> {
         @Override
         public Film mapRow(ResultSet rs, int rowNum) throws SQLException {

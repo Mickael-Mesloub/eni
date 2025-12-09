@@ -2,6 +2,7 @@ package fr.eni.tp.filmotheque.controller;
 
 import fr.eni.tp.filmotheque.bll.FilmService;
 import fr.eni.tp.filmotheque.bll.GenreService;
+import fr.eni.tp.filmotheque.bll.ParticipantsService;
 import fr.eni.tp.filmotheque.bo.Film;
 import fr.eni.tp.filmotheque.bo.Genre;
 import fr.eni.tp.filmotheque.controller.dto.FilmDTO;
@@ -22,12 +23,15 @@ public class FilmController {
     private FilmService filmService;
     private FilmService filmServiceImpl;
     private GenreService genreService;
+    private ParticipantsService  participantsService;
 
-    public FilmController(FilmService filmService, FilmService filmServiceImpl,  GenreService genreService) {
+    public FilmController(FilmService filmService, FilmService filmServiceImpl, GenreService genreService, ParticipantsService participantsService) {
         this.filmService = filmService;
         this.filmServiceImpl = filmServiceImpl;
         this.genreService = genreService;
+        this.participantsService = participantsService;
     }
+
 
     @GetMapping
     public String getFilms(Model model) {
@@ -38,7 +42,7 @@ public class FilmController {
 
     @GetMapping("/detail")
     public String getFilmDetails(@RequestParam int id, Model model) {
-        Film filmEntity = filmService.consulterFilmParId(id);
+        Film filmEntity = filmServiceImpl.consulterFilmParId(id);
 
         model.addAttribute("film", filmEntity);
 
@@ -72,15 +76,16 @@ public class FilmController {
         }
 
         Film newFilm = new Film();
-        newFilm.setGenre(genreService.consulterGenreParId(filmDTO.getIdGenre()));
-        newFilm.setRealisateur(filmService.consulterParticipantParId(filmDTO.getIdRealisateur()));
+        newFilm.setGenre(genreService.consulterGenreParId(filmDTO.getGenreId()));
+        newFilm.setRealisateur(participantsService.consulterParticipantParId(filmDTO.getRealisateurId()));
+        System.out.println("getRealisateurId : " + newFilm.getRealisateur().getId());
 
-        filmDTO.getIdsActeurs().forEach(id -> newFilm.getActeurs().add(filmService.consulterParticipantParId(id)));
+//        filmDTO.getIdsActeurs().forEach(id -> newFilm.getActeurs().add(filmService.consulterParticipantParId(id)));
 
         // Récupère les propriétés identiques entre l'objet source (filmDto) et l'objet cible (newFilm)
         // et il les copie dans l'objet cible.
         BeanUtils.copyProperties(filmDTO, newFilm);
-        filmService.creerFilm(newFilm);
+        filmServiceImpl.creerFilm(newFilm);
 
         return "redirect:/films";
     }

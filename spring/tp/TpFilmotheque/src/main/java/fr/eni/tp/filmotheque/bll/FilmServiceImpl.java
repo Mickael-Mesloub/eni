@@ -27,7 +27,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Film consulterFilmParId(int id) {
-        return null;
+        return filmRepository.findFilmById(id);
     }
 
     @Override
@@ -42,6 +42,6 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public void creerFilm(Film film) {
-
+        filmRepository.createFilm(film);
     }
 }
