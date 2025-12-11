@@ -34,6 +34,7 @@ public class FilmRepositoryImpl implements FilmRepository {
        return jdbcTemplate.query(sql, new FilmRowMapper());
     }
 
+    @Override
     public Film findFilmById(int id) {
         String sql = "select f.id, f.titre, annee, duree, synopsis, realisateurId, genreId, " +
                 "p.prenom as prenomReal, p.nom as nomReal, " +

@@ -104,6 +104,6 @@ CREATE TABLE Membres(
     prenom VARCHAR(50) NOT NULL,
     nom VARCHAR(50) NOT NULL,
     pseudo VARCHAR(50) NOT NULL UNIQUE,
-    motDePasse VARCHAR(50) NOT NULL,
+    motDePasse VARCHAR(100) NOT NULL,
     admin BIT NOT NULL
 );

@@ -18,7 +18,7 @@
         <div class="error" th:if="${#fields.hasErrors('*')}">
             <p>Des erreurs ont éte détectées
         </div>
-        <form method="POST">
+        <form th:action="@{/genres/creer-genre}" method="POST">
             <h2>Créer un genre</h2>
             <ul class="flex-outer">
                 <li>

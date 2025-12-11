@@ -18,7 +18,7 @@
         <div class="error" th:if="${#fields.hasErrors('*')}">
             <p>Des erreurs ont éte détectées
         </div>
-        <form method="post">
+        <form th:action="@{/films/creer}" method="post">
             <h2>Création d'un film [En cours de construction]</h2>
             <ul class="flex-outer">
                 <li>

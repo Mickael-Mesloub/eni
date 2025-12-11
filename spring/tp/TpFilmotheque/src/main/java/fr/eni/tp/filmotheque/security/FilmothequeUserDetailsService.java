@@ -20,14 +20,12 @@ public class FilmothequeUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Vérifier si l'utilisateur existe en BDD
         // Vérifier que les credentials sont bons
-        if(!"bob".equals(username)) {
+        if (!"bob".equals(username)) {
             throw new UsernameNotFoundException("Invalid username or password");
         }
-
         User.UserBuilder builder = User.withUsername(username)
                 .password(passwordEncoder.encode("azerty"))
                 .roles(("ADMIN"));
-
         return builder.build();
     }
 }
