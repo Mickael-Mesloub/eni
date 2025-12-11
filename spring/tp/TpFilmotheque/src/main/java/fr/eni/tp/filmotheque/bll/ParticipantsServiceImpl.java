@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 public class ParticipantsServiceImpl implements ParticipantsService {
     private ParticipantRepository participantRepository;

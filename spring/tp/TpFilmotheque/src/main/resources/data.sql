@@ -42,6 +42,15 @@ create table acteurs(
     participantId int  not null
 );
 
+insert into acteurs(filmId, participantId) values (1,4);
+insert into acteurs(filmId, participantId) values (1,5);
+insert into acteurs(filmId, participantId) values (2,5);
+insert into acteurs(filmId, participantId) values (2,6);
+insert into acteurs(filmId, participantId) values (3,7);
+insert into acteurs(filmId, participantId) values (3,8);
+insert into acteurs(filmId, participantId) values (4,3);
+insert into acteurs(filmId, participantId) values (4,9);
+
 alter table acteurs add primary key (filmId, participantId);
 
 alter table acteurs add constraint fk_acteurs_filmId foreign key(filmId) references films(id);
@@ -50,7 +59,6 @@ alter table acteurs add constraint fk_acteurs_participantId foreign key (partici
 insert into participants(nom, prenom) values ('Spielberg', 'Steven');
 insert into participants(nom, prenom) values ('Cronenberg', 'David');
 insert into participants(nom, prenom) values ('Boon', 'Dany');
-
 
 insert into participants(nom, prenom) values('Attenborough', 'Richard');
 insert into participants(nom, prenom) values('Goldblum', 'Jeff');

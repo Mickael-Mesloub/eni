@@ -92,7 +92,7 @@ public class FilmRepositoryImplTest {
     }
 
     @Test
-    @DisplayName("Test createFilm - Cas droit")
+    @DisplayName("Test saveFilm - Cas droit")
     void testCreateFilm() {
         // Arrange
         Film film = new Film("Zootopia 2", 2025,  108, "Animo rigolo");
@@ -101,7 +101,7 @@ public class FilmRepositoryImplTest {
         film.setRealisateur(participantRepository.findParticipantById(6));
 
         // Act
-        filmRepository.createFilm(film);
+        filmRepository.saveFilm(film);
         Film newFilm = filmRepository.findFilmById(film.getId());
 
         // Assert

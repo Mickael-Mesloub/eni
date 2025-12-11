@@ -18,17 +18,17 @@
         <div class="error" th:if="${#fields.hasErrors('*')}">
             <p>Des erreurs ont éte détectées
         </div>
-        <form th:action="@{/films/creer}" method="post">
+        <form method="post" th:action="@{/films/creer}">
             <h2>Création d'un film [En cours de construction]</h2>
             <ul class="flex-outer">
                 <li>
                     <label for="titre">Titre : </label>
                     <input id="titre" name="titre" th:field="*{titre}" type="text">
                     <div class="error" th:if="${#fields.hasErrors('titre')}">
-                   <ul>
-                        <li th:each="erreur: ${#fields.errors('titre')}" th:text="${erreur}"></li>
-                    </ul>
-                </div>
+                        <ul>
+                            <li th:each="erreur: ${#fields.errors('titre')}" th:text="${erreur}"></li>
+                        </ul>
+                    </div>
                 </li>
                 <li>
                     <label for="annee">Année : </label>
@@ -60,22 +60,25 @@
                 <li>
                     <label for="genres">Genre : </label>
                     <select id="genres" name="genreId">
-                        <option th:each="genre : ${@genreServiceImpl.consulterGenres()}" th:text="${genre.titre}" th:value="${genre.id}"></option>
-        0            </select>
+                        <option th:each="genre : ${@genreServiceImpl.consulterGenres()}" th:text="${genre.titre}"
+                                th:value="${genre.id}"></option>
+                    </select>
                 </li>
-               <li>
+                <li>
                     <label for="realisateurId">Réalisateur :</label>
-                    <select name="realisateurId" id="realisateurId">
-                        <option th:each="p : ${@participantsServiceImpl.consulterParticipants()}" th:text="${p.prenom + ' ' + p.nom}" th:value="${p.id}"></option>
+                    <select id="realisateurId" name="realisateurId">
+                        <option th:each="p : ${@participantsServiceImpl.consulterParticipants()}"
+                                th:text="${p.prenom + ' ' + p.nom}" th:value="${p.id}"></option>
                     </select>
                 </li>
 
-<!--                <li>-->
-<!--                    <label for="idsActeurs">Acteurs :</label>-->
-<!--                    <select name="idsActeurs" id="idsActeurs" multiple>-->
-<!--                        <option th:each="p : ${@participantsServiceImpl.consulterParticipants()}" th:text="${p.prenom + ' ' + p.nom}" th:value="${p.id}"></option>-->
-<!--                    </select>-->
-<!--                </li>-->
+                <li>
+                    <label for="acteursIds">Acteurs :</label>
+                    <select id="acteursIds" multiple name="acteursIds">
+                        <option th:each="p : ${@participantsServiceImpl.consulterParticipants()}"
+                                th:text="${p.prenom + ' ' + p.nom}" th:value="${p.id}"></option>
+                    </select>
+                </li>
 
                 <li>
                     <input class="btn" type="submit" value="Créer un film">

@@ -19,19 +19,19 @@ public class FilmDTO {
     private String synopsis;
     private int genreId;
     private int realisateurId;
-    private List<Integer> idsActeurs;
+    private List<Integer> acteursIds;
 
     public FilmDTO() {
     }
 
-    public FilmDTO(String titre, int annee, int duree, String synopsis, int genreId, int realisateurId, List<Integer> idsActeurs) {
+    public FilmDTO(String titre, int annee, int duree, String synopsis, int genreId, int realisateurId, List<Integer> acteursIds) {
         this.titre = titre;
         this.annee = annee;
         this.duree = duree;
         this.synopsis = synopsis;
         this.genreId = genreId;
         this.realisateurId = realisateurId;
-        this.idsActeurs = idsActeurs;
+        this.acteursIds = acteursIds;
     }
 
     public int getId() {
@@ -85,11 +85,11 @@ public class FilmDTO {
         this.realisateurId = realisateurId;
     }
 
-    public List<Integer> getIdsActeurs() {
-        return idsActeurs;
+    public List<Integer> getActeursIds() {
+        return acteursIds;
     }
 
-    public void setIdsActeurs(List<Integer> idsActeurs) {
-        this.idsActeurs = idsActeurs;
+    public void setActeursIds(List<Integer> acteursIds) {
+        this.acteursIds = acteursIds;
     }
 }

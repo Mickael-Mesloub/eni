@@ -42,6 +42,11 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public void creerFilm(Film film) {
-        filmRepository.createFilm(film);
+        filmRepository.saveFilm(film);
+    }
+
+    @Override
+    public void supprimerFilmParId(int id) {
+        filmRepository.deleteFilmById(id);
     }
 }

@@ -13,4 +13,5 @@ public interface FilmService {
     List<Participant> consulterParticipants();
     Participant consulterParticipantParId(int id);
     void creerFilm(Film film);
+    void supprimerFilmParId(int id);
 }

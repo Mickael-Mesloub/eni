@@ -27,7 +27,10 @@
             <td th:text="${(film.annee != 0) ? film.annee : 'Non renseigné'}"></td>
             <td th:text="${(!film.titre.isBlank()) ? film.titre : 'Non renseigné'}"></td>
             <td th:text="${(film.realisateur != null) ? film.realisateur.prenom + ' ' + film.realisateur.nom : 'Non renseigné'}"></td>
-            <td><a th:href="@{/films/detail(id=${film.id})}">Détail</a></td>
+            <td>
+                <a th:href="@{/films/detail(id=${film.id})}">Détail</a>
+                <a class="delete-btn" th:href="@{/films/delete(id=${film.id})}">Supprimer</a>
+            </td>
         </tr>
         </tbody>
     </table>

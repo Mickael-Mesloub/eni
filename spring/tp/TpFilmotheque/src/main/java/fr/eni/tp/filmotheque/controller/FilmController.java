@@ -66,6 +66,13 @@ public class FilmController {
         return "view-creer-film";
     }
 
+    @GetMapping("/films/delete")
+    public String deleteFilm(@RequestParam int id) {
+        filmService.supprimerFilmParId(id);
+
+        return "redirect:/films";
+    }
+
     @PostMapping("/films/creer")
     public String creerFilm(
             @Valid @ModelAttribute("film") FilmDTO filmDTO,
@@ -86,7 +93,7 @@ public class FilmController {
         newFilm.setGenre(genreService.consulterGenreParId(filmDTO.getGenreId()));
         newFilm.setRealisateur(participantsService.consulterParticipantParId(filmDTO.getRealisateurId()));
 
-//        filmDTO.getIdsActeurs().forEach(id -> newFilm.getActeurs().add(filmService.consulterParticipantParId(id)));
+        filmDTO.getActeursIds().forEach(id -> newFilm.getActeurs().add(participantsService.consulterParticipantParId(id)));
 
         // Récupère les propriétés identiques entre l'objet source (filmDto) et l'objet cible (newFilm)
         // et il les copie dans l'objet cible.
