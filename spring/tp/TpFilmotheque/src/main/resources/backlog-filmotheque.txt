@@ -1,26 +1,28 @@
 ﻿
-Backlog : 
+Backlog :
 
-ITERATION 1 : 
+ITERATION 1 :
 ------------
 
-COUCHE IHM : 
-1- Ajout d'un film : 
+COUCHE IHM :
+1- Ajout d'un film :
 1.1-- avec un titre seul
-1.2-- ajouter année, durée, synopsis, 
+1.2-- ajouter année, durée, synopsis,
 1.3-- mettre en place la validation des données
-1.4-- gérer le genre d'un film 
+1.4-- gérer le genre d'un film
 + gérer la liste des genres au niveau application
 ( ${@myBean.doSomething() )
 1.5-- gérer le réalisateur
 1.6-- gérer les acteurs
 
 
-ITERATION 2 (COUCHE DAL - GENRES) 
+ITERATION 2 (COUCHE DAL - GENRES)
 ---------------------------------
-2.0 - Créer la base de données FILMS_DB
-2.0.1 - Configurer l'accès à la base de données dans le projet Filmothèque 
-	(build.gradle, application.properties, data.sql)
+
+2.-1 Créer la base de données FILMS_DB
+
+2.0 Configurer l'accès à la base de données dans le projet filmotheque
+( build.gradle / application.properties / data.sql )
 
 2.1 - Création de la table Genres:
 create table genres (
@@ -32,7 +34,7 @@ create table genres (
 
 2.3 findAllGenres : récupérer tous la liste de tous les genres  + test
 
-2.4 findGenreById : récupérer un genre par id 
+2.4 findGenreById : récupérer un genre par id
   Une exception personnalisée GENRE_NOT_FOUND doit être envoyée si l'id n'existe pas
 + tests : cas nominal + cas id non existant
 
@@ -41,7 +43,7 @@ create table genres (
 2.6 update : modifier le libelle d'un genre existant connaissant son id + test
 
 
-ITERATION 3 (COUCHE BLL GENRES) 
+ITERATION 3 (COUCHE BLL GENRES)
 ---------------------------------
 
 3.1 Créer un nouveau composant métier : GenreService : interface + implémentation
@@ -53,18 +55,20 @@ ITERATION 3 (COUCHE BLL GENRES)
 3.4 BLL : save (ajouter un nouveau genre) + test cas nominal
 
 
-ITERATION 4 (Gestion des films - COUCHE DAL/BLL) : 
+ITERATION 4 (Gestion des films - COUCHE DAL/BLL) :
 ----------------------------------------------
 
-4.1 : créer les tables restantes en BD : 
+
+
+4.1 : créer les tables restantes en BD :
 create table participants (
-	id serial primary key,
-	prenom varchar(50) not null,
-	nom varchar(50) not null
+   id int not null primary key identity,
+   prenom varchar(50) not null,
+   nom varchar(50) not null
 );
 
 create table films(
-	id serial primary key,
+	id int not null primary key identity,
 	titre varchar(50) not null,
 	annee int not null,
 	duree int not null,
@@ -81,9 +85,9 @@ references participants(id);
 
 
 create table acteurs(
-	filmId int,
-	participantId int );
-	
+	filmId int not null,
+	participantId int  not null);
+
 alter table acteurs add primary key (filmId, participantId);
 
 alter table acteurs add constraint fk_acteurs_filmId foreign key(filmId)   references films(id);
@@ -103,18 +107,71 @@ alter table acteurs add constraint fk_acteurs_participantId foreign key (partici
 
 4.5 DAL : Ajout d'un nouveau film + test scénario nominal
 
-4.6 BLL : Ajout d'un nouveau film + test scénario nominal
+4.6 BLL : Ajout d'un nouveau film (en utilisant un NamedJdbcTemplate) + test scénario nominal
+
+[OPTIONNEl ITERATION 5 ]
+
+5.1 Créer un utilisateur de BD spécifique pour filmotheque
+et modifier la configuration de l'accès à la BD en conséquence
+
+5.2 Liste des participants couche DAL
+	Créer un ParticipantRepository
+
+5.3 Liste des participants couche BLL
+	Créer un ParticipantService
+
+5.4 findParticipantById couche DAL
+	Créer un ParticipantRepository
+
+5.5 findParticipantById couche BLL
+	Créer un ParticipantService
 
 
-(OPTIONNEL) ITERATION 5 :  
+ITERATION 6 (Spring Security) :
 ----------------------------------------------
-5.1 - Créer un utilisateur de base de données spécifique pour Filmothèque
-et modifier la configuration de l'accès à la BDD en conséquence
 
+6.0 Créér la table Membres sur la BD
+
+CREATE TABLE Membres(    id INT IDENTITY CONSTRAINT PK_Membres PRIMARY KEY,
+                         prenom VARCHAR(50) NOT NULL,
+                         nom VARCHAR(50) NOT NULL,
+                         pseudo VARCHAR(50) NOT NULL UNIQUE,
+                         motDePasse VARCHAR(100) NOT NULL,
+                         admin BIT NOT NULL default 0);
+
+6.1 Configurer Spring Security
+	6.1.1 build.gradle
+	6.1.2 Mise en place d'un "WebSecurityConfig"
+	6.1.3 Mise en place d'un bean personnalisé FilmothequeUserDetailsService
+		(sans accès à la BD dans un premier temps)
+6.2 Accès public à l'accueil
+
+6.3 Accès en mode connecté
+    et aux seuls Administrateurs à l'ajout de film
+	( utilisateurs : logins/mot de passes gérés en BD)
+
+6.4 Gérer la connexion des utilisateurs
+6.4.1 - DAL : MembreRepository
+
+6.4.2 - BLL : MembreService
+
+6.4.3 - Les utilisateurs sont recherchés en BD (mot de passe haché en BD)
+
+6.4 Ajouter un menu pour se connecter ou se déconnecter
+
+
+ITERATION 7 - Finalisation de l'application
+------------------------------------------------
+7.1 Mise en place de la journalisation (Loggers)
+
+7.2 Mise en place d'une vue (create view) pour récupérer la liste des films
+
+7.3 Mise en place d'une procédure stockée pour ajouter un nouveau film
+
+7.4 Utilisation d'un Record pour FilmDto
+
+7.5 Gestion des avis (ihm + bll + dal + securité)
 
 FIN !
-
-
-
 
 
