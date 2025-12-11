@@ -8,6 +8,8 @@ import fr.eni.tp.filmotheque.bo.Genre;
 import fr.eni.tp.filmotheque.controller.dto.FilmDTO;
 import fr.eni.tp.filmotheque.controller.dto.GenreDTO;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,12 +20,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/films")
+@RequestMapping()
 public class FilmController {
     private FilmService filmService;
     private FilmService filmServiceImpl;
     private GenreService genreService;
     private ParticipantsService  participantsService;
+    private Logger logger = LoggerFactory.getLogger(FilmController.class);
 
     public FilmController(FilmService filmService, FilmService filmServiceImpl, GenreService genreService, ParticipantsService participantsService) {
         this.filmService = filmService;
@@ -32,15 +35,19 @@ public class FilmController {
         this.participantsService = participantsService;
     }
 
+    @GetMapping({"/", "/accueil"})
+    public String accueil() {
+        return "accueil";
+    }
 
-    @GetMapping
+    @GetMapping("/films")
     public String getFilms(Model model) {
         List<Film> films = filmServiceImpl.consulterFilms();
         model.addAttribute("films", films);
         return "view-films";
     }
 
-    @GetMapping("/detail")
+    @GetMapping("/films/detail")
     public String getFilmDetails(@RequestParam int id, Model model) {
         Film filmEntity = filmServiceImpl.consulterFilmParId(id);
 
@@ -49,7 +56,7 @@ public class FilmController {
         return "view-film-detail";
     }
 
-    @GetMapping("/creer")
+    @GetMapping("/films/creer")
     public String viewCreerFilm(Model model) {
 
         if (!model.containsAttribute("film")) {
@@ -59,7 +66,7 @@ public class FilmController {
         return "view-creer-film";
     }
 
-    @PostMapping("/creer")
+    @PostMapping("/films/creer")
     public String creerFilm(
             @Valid @ModelAttribute("film") FilmDTO filmDTO,
             BindingResult resultat,
@@ -78,7 +85,6 @@ public class FilmController {
         Film newFilm = new Film();
         newFilm.setGenre(genreService.consulterGenreParId(filmDTO.getGenreId()));
         newFilm.setRealisateur(participantsService.consulterParticipantParId(filmDTO.getRealisateurId()));
-        System.out.println("getRealisateurId : " + newFilm.getRealisateur().getId());
 
 //        filmDTO.getIdsActeurs().forEach(id -> newFilm.getActeurs().add(filmService.consulterParticipantParId(id)));
 

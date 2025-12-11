@@ -3,6 +3,8 @@ package fr.eni.tp.filmotheque.dal;
 import fr.eni.tp.filmotheque.bo.Film;
 import fr.eni.tp.filmotheque.bo.Genre;
 import fr.eni.tp.filmotheque.bo.Participant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -14,6 +16,8 @@ import java.util.List;
 @Repository
 public class FilmRepositoryImpl implements FilmRepository {
     private JdbcTemplate jdbcTemplate;
+    private Logger logger = LoggerFactory.getLogger(FilmRepositoryImpl.class);
+
 
     public FilmRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -53,7 +57,7 @@ public class FilmRepositoryImpl implements FilmRepository {
                 film.getGenre().getId(),
                 film.getRealisateur().getId());
 
-        System.out.println("Nouveau film créé : " + film.toString());
+        logger.info("Nouveau film créé : {}", film.toString());
     }
 
     @Override

@@ -98,3 +98,12 @@ values (  N'Bienvenue chez les Ch''tis',
        );
 
 select * from films;
+
+CREATE TABLE Membres(
+    id INT IDENTITY CONSTRAINT PK_Membres PRIMARY KEY,
+    prenom VARCHAR(50) NOT NULL,
+    nom VARCHAR(50) NOT NULL,
+    pseudo VARCHAR(50) NOT NULL UNIQUE,
+    motDePasse VARCHAR(50) NOT NULL,
+    admin BIT NOT NULL
+);
