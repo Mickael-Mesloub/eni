@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <title>Filmothèque - Login</title>
+    <link href="/css/general.css" rel="stylesheet">
+    <link href="/css/demo-form.css" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/images/logoENI.png}" type="image/x-icon">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="center-main">
+    <!-- Affichage d'une erreur si login échoue -->
+    <div th:if="${param.error}" class="error">Nom d'utilisateur ou mot de passe incorrect</div>
+    <section class="center-section">
+        <form class="form" th:action="@{/login}" method="post">
+            <h2>Se connecter</h2>
+
+            <div>
+                <label for="username">Nom d'utilisateur</label>
+                <input id="username" name="username" placeholder="Username" type="text">
+            </div>
+
+            <div>
+                <label for="password">Mot de passe</label>
+                <input id="password" name="password" placeholder="Password" type="text">
+            </div>
+
+            <input class="btn" type="submit" value="Me connecter">
+        </form>
+    </section>
+</main>
+</body>
+</html>

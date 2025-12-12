@@ -4,7 +4,7 @@ form {
 	background-color: #f2f2f2;
 }
 
-form h1 {
+form h1, h2 {
 	margin: 15px;
 }
 
@@ -40,4 +40,88 @@ form h1 {
     font-size: .75rem;
     font-weight: bold;
     color: darkred;
+    text-align: center;
+}
+
+/* Reset simple */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+/* Container du formulaire */
+.form {
+    width: 350px;
+    margin: 60px auto;
+    padding: 25px 30px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+/* Titre */
+.form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+/* Groupes */
+.form div {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Labels */
+.form label {
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+/* Inputs */
+.form input[type="text"],
+.form input[type="password"],
+.form input[type="number"],
+.form select,
+.form textarea{
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: 0.25s;
+}
+
+.form input:focus {
+    border-color: #4a7dff;
+    outline: none;
+    box-shadow: 0 0 6px rgba(74, 125, 255, 0.4);
+}
+
+/* Bouton */
+.btn {
+    width: 100%;
+    padding: 12px;
+    background: #4a7dff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #335fe6;
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+    background: #274ac4;
 }

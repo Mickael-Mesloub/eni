@@ -15,20 +15,18 @@
         <div class="error" th:if="${#fields.hasErrors('*')}">
             <p>Des erreurs ont éte détectées
         </div>
-        <form th:action="@{/genres/update(id=${genre.id})}" method="post">
+        <form class="form" method="post" th:action="@{/genres/update(id=${genre.id})}">
             <h2>Modifier un genre</h2>
-            <ul class="flex-outer">
-                <li>
-                    <label for="titre">Titre: </label>
-                    <input id="titre" name="titre" type="text" th:value="${genre.titre}">
-                    <div class="error" th:if="${#fields.hasErrors('titre')}">
-                        <ul>
-                            <li th:each="erreur: ${#fields.errors('titre')}" th:text="${erreur}"></li>
-                        </ul>
-                    </div>
-                </li>
-                <li><input type="submit" class="btn" value="Modifier le genre"></li>
-            </ul>
+            <div>
+                <label for="titre">Titre: </label>
+                <input id="titre" name="titre" th:value="${genre.titre}" type="text">
+                <div class="error" th:if="${#fields.hasErrors('titre')}">
+                    <ul>
+                        <li th:each="erreur: ${#fields.errors('titre')}" th:text="${erreur}"></li>
+                    </ul>
+                </div>
+            </div>
+            <input class="btn" type="submit" value="Modifier le genre">
         </form>
     </main>
 </th:block>

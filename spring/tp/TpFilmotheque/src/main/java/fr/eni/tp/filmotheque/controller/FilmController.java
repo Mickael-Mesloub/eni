@@ -20,7 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping()
 public class FilmController {
     private FilmService filmService;
     private FilmService filmServiceImpl;
@@ -33,11 +32,6 @@ public class FilmController {
         this.filmServiceImpl = filmServiceImpl;
         this.genreService = genreService;
         this.participantsService = participantsService;
-    }
-
-    @GetMapping({"/", "/accueil"})
-    public String accueil() {
-        return "accueil";
     }
 
     @GetMapping("/films")
