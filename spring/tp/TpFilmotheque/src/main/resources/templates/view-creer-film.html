@@ -7,6 +7,8 @@
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <link href="/css/general.css" rel="stylesheet">
     <link href="/css/demo-form.css" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/images/logoENI.png}" type="image/x-icon">
+
     <title>Filmothèque - Créer un film</title>
 </head>
 <body>
@@ -18,7 +20,7 @@
         <div class="error" th:if="${#fields.hasErrors('*')}">
             <p>Des erreurs ont éte détectées
         </div>
-        <form method="post" th:action="@{/films/creer}">
+        <form method="post" th:action="@{/films/create}">
             <h2>Création d'un film [En cours de construction]</h2>
             <ul class="flex-outer">
                 <li>

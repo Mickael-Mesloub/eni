@@ -1,10 +1,7 @@
 package fr.eni.tp.filmotheque.controller;
 
-import fr.eni.tp.filmotheque.bll.FilmService;
 import fr.eni.tp.filmotheque.bll.GenreService;
-import fr.eni.tp.filmotheque.bo.Film;
 import fr.eni.tp.filmotheque.bo.Genre;
-import fr.eni.tp.filmotheque.controller.dto.FilmDTO;
 import fr.eni.tp.filmotheque.controller.dto.GenreDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -32,7 +30,7 @@ public class GenreController {
         return "view-genres";
     }
 
-    @GetMapping("/creer-genre")
+    @GetMapping("/create")
     public String viewCreerGenre(Model model) {
 
         if (!model.containsAttribute("genre")) {
@@ -55,7 +53,7 @@ public class GenreController {
         return "redirect:/genres";
     }
 
-    @PostMapping("/creer-genre")
+    @PostMapping("/create")
     public String creerGenre(
             @Valid @ModelAttribute("genre") GenreDTO genreDTO,
             BindingResult resultat,
@@ -68,19 +66,20 @@ public class GenreController {
             // dans la nouvelle requête lors du redirect dans le return.
             redirectAttr.addFlashAttribute("org.springframework.validation.BindingResult.genre", resultat);
             redirectAttr.addFlashAttribute("genre", genreDTO);
-            return "redirect:/genres/creer-genre";
+            return "redirect:/genres/create";
         }
 
         Genre newGenre = new Genre();
         newGenre.setTitre(genreDTO.getTitre());
 
         BeanUtils.copyProperties(genreDTO, newGenre);
+
         genreService.creerGenre(newGenre);
 
         return "redirect:/genres";
     }
 
-    @PostMapping("/update-genre")
+    @PostMapping("/update")
     public String modifierGenre(
             @Valid @ModelAttribute("genre") GenreDTO genreDto,
             BindingResult resultat,
@@ -92,7 +91,7 @@ public class GenreController {
         if (resultat.hasErrors()) {
             redirectAttr.addFlashAttribute("org.springframework.validation.BindingResult.genre", resultat);
             redirectAttr.addFlashAttribute("genre", genreDto);
-            return "redirect:/genres/update-genre?id=" + genreDto.getId();
+            return "redirect:/genres/update?id=" + genreDto.getId();
         }
 
         genreService.updateGenre(genreDto.getId(), genreDto.getTitre());

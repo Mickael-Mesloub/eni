@@ -96,7 +96,17 @@ public class FilmRepositoryImpl implements FilmRepository {
     @Override
     public void deleteFilmById(int id) {
         String sql = "delete from films where id = ?";
-        jdbcTemplate.update(sql, id);
+
+        Film film = null;
+
+        try {
+            film = findFilmById(id);
+            jdbcTemplate.update(sql, id);
+
+        } catch (EmptyResultDataAccessException exc) {
+            logger.error("Film not found with id {}", id);
+            throw new FilmNotFoundException(id);
+        }
     }
 
     public List<Participant> findActeursByFilm(int id) {

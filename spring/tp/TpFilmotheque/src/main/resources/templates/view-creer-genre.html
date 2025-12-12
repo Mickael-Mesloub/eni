@@ -8,6 +8,7 @@
     <title>Filmothèque - Créer un genre</title>
     <link href="/css/general.css" rel="stylesheet">
     <link href="/css/demo-form.css" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/images/logoENI.png}" type="image/x-icon">
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
@@ -18,7 +19,7 @@
         <div class="error" th:if="${#fields.hasErrors('*')}">
             <p>Des erreurs ont éte détectées
         </div>
-        <form th:action="@{/genres/creer-genre}" method="POST">
+        <form th:action="@{/genres/create}" method="POST">
             <h2>Créer un genre</h2>
             <ul class="flex-outer">
                 <li>

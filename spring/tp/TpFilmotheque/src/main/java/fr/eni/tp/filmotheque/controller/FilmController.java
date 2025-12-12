@@ -56,7 +56,7 @@ public class FilmController {
         return "view-film-detail";
     }
 
-    @GetMapping("/films/creer")
+    @GetMapping("/films/create")
     public String viewCreerFilm(Model model) {
 
         if (!model.containsAttribute("film")) {
@@ -73,7 +73,7 @@ public class FilmController {
         return "redirect:/films";
     }
 
-    @PostMapping("/films/creer")
+    @PostMapping("/films/create")
     public String creerFilm(
             @Valid @ModelAttribute("film") FilmDTO filmDTO,
             BindingResult resultat,
@@ -86,7 +86,7 @@ public class FilmController {
             // dans la nouvelle requête lors du redirect dans le return.
             redirectAttr.addFlashAttribute("org.springframework.validation.BindingResult.film", resultat);
             redirectAttr.addFlashAttribute("film", filmDTO);
-            return "redirect:/films/creer";
+            return "redirect:/films/create";
         }
 
         Film newFilm = new Film();

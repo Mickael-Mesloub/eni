@@ -35,11 +35,10 @@ public class GenreRepositoryImpl implements GenreRepository {
 
         try {
             genre = jdbcTemplate.queryForObject(sql, new GenreRowMapper(), id);
+            return genre;
         } catch (EmptyResultDataAccessException ex) {
             throw new GenreNotFoundException(id);
         }
-
-        return genre;
     }
 
     @Override
@@ -60,6 +59,7 @@ public class GenreRepositoryImpl implements GenreRepository {
     public void updateGenre(Genre genre) {
         String sql = "update genres set titre = ? where id = ?";
         try {
+
             jdbcTemplate.update(sql, genre.getTitre(), genre.getId());
         }  catch (DataAccessException ex) {
             if (ex instanceof DuplicateKeyException) {

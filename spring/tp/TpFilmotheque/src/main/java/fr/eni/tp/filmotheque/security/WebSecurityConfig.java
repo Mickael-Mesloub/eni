@@ -19,6 +19,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/accueil", "/css/*", "/images/*").permitAll()
                         .requestMatchers("/films/creer").hasRole("ADMIN")
+                        .requestMatchers("/films/delete").hasRole("ADMIN")
+                        .requestMatchers("/genres/creer").hasRole("ADMIN")
+
                         .anyRequest().authenticated()
                 )
                 .formLogin(Customizer.withDefaults())
