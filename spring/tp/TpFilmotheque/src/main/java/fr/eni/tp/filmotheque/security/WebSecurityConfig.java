@@ -2,11 +2,11 @@ package fr.eni.tp.filmotheque.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -28,17 +28,24 @@ public class WebSecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/accueil", true)
+                        .defaultSuccessUrl("/accueil", false)
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )
-                .logout(LogoutConfigurer::permitAll);
+                .logout((logout) ->logout
+                        .clearAuthentication(true)
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .logoutSuccessUrl("/accueil")
+                        .permitAll());
 
         return http.build();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+        //  Permet de tester l'app avec des mots de passe en clair
+//        return NoOpPasswordEncoder.getInstance();
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 

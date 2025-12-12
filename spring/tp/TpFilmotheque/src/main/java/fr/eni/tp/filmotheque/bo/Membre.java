@@ -1,7 +1,5 @@
 package fr.eni.tp.filmotheque.bo;
 
-import java.util.Objects;
-
 public class Membre extends Personne {
     private String pseudo;
     private String motDePasse;
@@ -12,6 +10,8 @@ public class Membre extends Personne {
         this.pseudo = pseudo;
         this.admin = admin;
     }
+
+    public Membre() {}
 
     @Override
     public String toString() {
