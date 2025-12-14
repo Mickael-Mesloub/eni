@@ -1,7 +1,7 @@
 package fr.eni.tp.filmotheque.security;
 
-import fr.eni.tp.filmotheque.bll.MembreService;
 import fr.eni.tp.filmotheque.bo.Membre;
+import fr.eni.tp.filmotheque.dal.MembreRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,28 +12,31 @@ import org.springframework.stereotype.Service;
 @Service
 public class FilmothequeUserDetailsService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
-    // TODO : appeler repo, car on est déjà dans un service
-    private MembreService membreService;
+    private final MembreRepository membreRepository;
 
-    public FilmothequeUserDetailsService(PasswordEncoder passwordEncoder, MembreService membreService) {
+    public FilmothequeUserDetailsService(PasswordEncoder passwordEncoder, MembreRepository membreRepository) {
         this.passwordEncoder = passwordEncoder;
-        this.membreService = membreService;
+        this.membreRepository = membreRepository;
     }
 
     @Override
     // Cette méthode est appelée par Spring à chaque fois qu'un utilisateur essaye de se connecter
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Vérifier si l'utilisateur existe en BDD
-        // Voir pour mettere un Optional (liste d'1 élément donc vérifier si isEmpty())
-        Membre membre = membreService.consulterMembreParPseudo(username);
+        Membre membre = membreRepository.findMembreByUsername(username);
 
         if (!membre.getPseudo().equals(username)) {
             throw new UsernameNotFoundException("Invalid username or password");
         }
 
         User.UserBuilder userBuilder = User.withUsername(username)
-                .password(passwordEncoder.encode(membre.getMotDePasse()))
-                .roles(membre.isAdmin() ? "ADMIN" : "MEMBRE");
+                .password(membre.getMotDePasse());
+
+        if(membre.isAdmin()) {
+            userBuilder.roles("ADMIN", "MEMBRE");
+        } else {
+            userBuilder.roles("MEMBRE");
+        }
 
         return userBuilder.build();
     }

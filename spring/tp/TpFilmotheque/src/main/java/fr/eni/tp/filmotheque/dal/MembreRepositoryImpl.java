@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 @Repository
 public class MembreRepositoryImpl implements MembreRepository {
-    private String SELECT_MEMBER = "select id, nom, prenom, username, password, admin from membres where pseudo=?";
+    private String SELECT_MEMBER = "select id, nom, prenom, pseudo, motDePasse, admin from membres where pseudo=?";
     JdbcTemplate jdbcTemplate;
 
     public MembreRepositoryImpl(JdbcTemplate jdbcTemplate) {
@@ -22,19 +22,12 @@ public class MembreRepositoryImpl implements MembreRepository {
 
     @Override
     public Membre findMembreByUsername(String pseudo) {
-        // TODO: utiliser un Optional<Membre>
         Membre membre = null;
         try {
-            // TODO: remplacer MembreRowMapper par BeanPropertyRowMapper<Membre>(Membre.class)
             membre = jdbcTemplate.queryForObject(SELECT_MEMBER, new MembreRowMapper(), pseudo);
         } catch (DataAccessException ex) {
             throw new MembreNotFoundException(pseudo);
         }
-//        catch(EmptyResultDataAccessException ex) {
-//            // TODO: gérer exception
-//            System.out.println(pseudo);
-//            // optMembre = Optional.empty()
-//        }
 
         return membre;
     }
@@ -46,8 +39,8 @@ public class MembreRepositoryImpl implements MembreRepository {
             membre.setId(rs.getInt("id"));
             membre.setNom(rs.getString("nom"));
             membre.setPrenom(rs.getString("prenom"));
-            membre.setPseudo(rs.getString("username"));
-            membre.setMotDePasse(rs.getString("password"));
+            membre.setPseudo(rs.getString("pseudo"));
+            membre.setMotDePasse(rs.getString("motDePasse"));
             membre.setAdmin(rs.getBoolean("admin"));
 
             return membre;

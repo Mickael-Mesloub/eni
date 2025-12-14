@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS genres;
 
 create table genres (
-    id int primary key,
-    titre nvarchar(50) not null unique
+                        id int primary key,
+                        titre nvarchar(50) not null unique
 );
 
 insert into genres(id, titre) values(1, 'Animation');
@@ -15,46 +15,10 @@ insert into genres(id, titre) values(6, 'Drame');
 select * from genres;
 
 create table participants (
-    id int not null primary key identity,
-    prenom varchar(50) not null,
-    nom varchar(50) not null
+                              id int not null primary key identity,
+                              prenom varchar(50) not null,
+                              nom varchar(50) not null
 );
-
-create table films(
-    id int not null primary key identity,
-    titre varchar(50) not null,
-    annee int not null,
-    duree int not null,
-    synopsis varchar(500) not null,
-    genreId int not null,
-    realisateurId int not null
-);
-
-alter table films add constraint fk_films_genre_id foreign key(genreId)
-    references genres(id);
-
-alter table films add constraint fk_films_realisateur_id foreign key(realisateurId)
-    references participants(id);
-
-
-create table acteurs(
-    filmId int not null,
-    participantId int  not null
-);
-
-insert into acteurs(filmId, participantId) values (1,4);
-insert into acteurs(filmId, participantId) values (1,5);
-insert into acteurs(filmId, participantId) values (2,5);
-insert into acteurs(filmId, participantId) values (2,6);
-insert into acteurs(filmId, participantId) values (3,7);
-insert into acteurs(filmId, participantId) values (3,8);
-insert into acteurs(filmId, participantId) values (4,3);
-insert into acteurs(filmId, participantId) values (4,9);
-
-alter table acteurs add primary key (filmId, participantId);
-
-alter table acteurs add constraint fk_acteurs_filmId foreign key(filmId) references films(id);
-alter table acteurs add constraint fk_acteurs_participantId foreign key (participantId) references participants(id);
 
 insert into participants(nom, prenom) values ('Spielberg', 'Steven');
 insert into participants(nom, prenom) values ('Cronenberg', 'David');
@@ -68,6 +32,22 @@ insert into participants(nom, prenom) values('Barnhill', 'Ruby');
 insert into participants(nom, prenom) values('Merad', 'Kad');
 
 select * from participants;
+
+create table films(
+                      id int not null primary key identity,
+                      titre varchar(50) not null,
+                      annee int not null,
+                      duree int not null,
+                      synopsis varchar(500) not null,
+                      genreId int not null,
+                      realisateurId int not null
+);
+
+alter table films add constraint fk_films_genre_id foreign key(genreId)
+    references genres(id);
+
+alter table films add constraint fk_films_realisateur_id foreign key(realisateurId)
+    references participants(id);
 
 insert into films (titre, annee, duree, synopsis, genreId, realisateurId)
 values ('Jurassic Park',
@@ -107,11 +87,53 @@ values (  N'Bienvenue chez les Ch''tis',
 
 select * from films;
 
-CREATE TABLE Membres(
-    id INT IDENTITY CONSTRAINT PK_Membres PRIMARY KEY,
-    prenom VARCHAR(50) NOT NULL,
-    nom VARCHAR(50) NOT NULL,
-    pseudo VARCHAR(50) NOT NULL UNIQUE,
-    motDePasse VARCHAR(100) NOT NULL,
-    admin BIT NOT NULL
+create table acteurs(
+                        filmId int not null,
+                        participantId int  not null
 );
+
+insert into acteurs(filmId, participantId) values (1,4);
+insert into acteurs(filmId, participantId) values (1,5);
+insert into acteurs(filmId, participantId) values (2,5);
+insert into acteurs(filmId, participantId) values (2,6);
+insert into acteurs(filmId, participantId) values (3,7);
+insert into acteurs(filmId, participantId) values (3,8);
+insert into acteurs(filmId, participantId) values (4,3);
+insert into acteurs(filmId, participantId) values (4,9);
+
+select * from acteurs;
+
+alter table acteurs add primary key (filmId, participantId);
+
+alter table acteurs add constraint fk_acteurs_filmId foreign key (filmId) references films(id);
+alter table acteurs add constraint fk_acteurs_participantId foreign key (participantId) references participants(id);
+
+
+CREATE TABLE membres(
+                        id INT IDENTITY CONSTRAINT PK_Membres PRIMARY KEY,
+                        prenom VARCHAR(50) NOT NULL,
+                        nom VARCHAR(50) NOT NULL,
+                        pseudo VARCHAR(50) NOT NULL UNIQUE,
+                        motDePasse VARCHAR(100) NOT NULL,
+                        admin BIT NOT NULL
+);
+
+insert into membres (prenom, nom, pseudo, motDePasse, admin)
+values ('bob', 'admin', 'bob', '{bcrypt}$2a$10$2b8sfgb5dDHPbXsetSJtBeFSFTLzkFf8sB9OFOi2OTYpJlciOzL3G', 1);
+
+insert into membres (prenom, nom, pseudo, motDePasse, admin)
+values ('alice', 'membre', 'alice', '{bcrypt}$2a$10$JJARSxnyAnAVSiehlmwl3er9LBxPHa4e3UR8NLWttjHUKrkxXhIP.', 0);
+
+
+select * from membres;
+
+-- truncate table membres;
+-- drop table membres;
+-- DBCC CHECKIDENT ('membres', RESEED, 0);
+
+-- delete from films;
+-- DBCC CHECKIDENT ('films', RESEED, 0);
+
+-- TRUNCATE TABLE films;
+--
+-- select * from films;
