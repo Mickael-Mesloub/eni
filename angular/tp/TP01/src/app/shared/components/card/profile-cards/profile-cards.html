@@ -1,0 +1,5 @@
+<section class="flex w-full justify-center gap-8 pb-8">
+  @for (profile of profiles; track profile.id) {
+    <app-card [title]="profile.name" [imgUrl]="profile.imgUrl" />
+  }
+</section>
