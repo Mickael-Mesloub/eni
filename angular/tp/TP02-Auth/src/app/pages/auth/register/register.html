@@ -1,0 +1,74 @@
+<!-- Form -->
+<main class="p-8">
+  <p>{{ registerForm.firstName().value() }}</p>
+  <p>{{ registerForm.email().value() }}</p>
+  <p>{{ registerForm.password().value() }}</p>
+  <form (submit)="onSubmit($event)" class="w-[50%] m-auto p-8 flex flex-col gap-8 bg-slate-300 rounded-lg">
+    <h2 class="text-2xl text-center font-bold">Register</h2>
+    <!-- FirstName input -->
+    <div>
+      <label for="firstName" class="mb-2 block text-sm font-medium">First name</label>
+      <input
+        id="firstName"
+        [formField]="registerForm.firstName"
+        type="text"
+        placeholder="Your first name..."
+        class="w-full rounded-lg border border-slate-300 bg-slate-100 px-4 py-2 text-sm text-slate-600 placeholder:text-slate-400 transition-colors focus:border-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-600/20"
+      />
+      @if (registerForm.firstName().invalid() && registerForm.firstName().touched()) {
+        <div class="error">
+          @for (error of registerForm.firstName().errors(); track error.kind) {
+            <span class="text-red-600 text-sm">{{ error.message }}</span>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Email input -->
+    <div>
+      <label for="email" class="mb-2 block text-sm font-medium">Email</label>
+      <input
+        id="email"
+        [formField]="registerForm.email"
+        type="email"
+        placeholder="Your email..."
+        class="w-full rounded-lg border border-slate-300 bg-slate-100 px-4 py-2 text-sm text-slate-600 placeholder:text-slate-400 transition-colors focus:border-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-600/20"
+      />
+      @if (registerForm.email().invalid() && registerForm.email().touched()) {
+        <div class="error">
+          @for (error of registerForm.email().errors(); track error.kind) {
+            <span class="text-red-600 text-sm">{{ error.message }}</span>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Password input -->
+    <div>
+      <label for="password" class="mb-2 block text-sm font-medium">Password</label>
+      <input
+        id="password"
+        [formField]="registerForm.password"
+        type="password"
+        placeholder="Your password..."
+        class="w-full rounded-lg border border-slate-300 bg-slate-100 px-4 py-2 text-sm text-slate-600 placeholder:text-slate-400 transition-colors focus:border-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-600/20"
+      />
+      @if (registerForm.password().invalid() && registerForm.password().touched()) {
+        <div class="error">
+          @for (error of registerForm.password().errors(); track error.kind) {
+            <span class="text-red-600 text-sm">{{ error.message }}</span>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Submit button -->
+    <button
+      type="submit"
+      [disabled]="registerForm().invalid()"
+      class="cursor-pointer rounded-lg bg-indigo-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-600"
+    >
+      Register
+    </button>
+  </form>
+</main>
