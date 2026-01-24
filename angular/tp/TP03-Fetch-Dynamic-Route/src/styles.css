@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "tailwindcss";
+
+:root {
+    --primary: var(--color-primary);
+    --app-bgc: var(--color-app-bgc);
+    --header-h: var(--spacing-header-h);
+    --hero-h: var(--spacing-hero-h)
+}
+
+@theme {
+    --color-primary: var(--color-amber-50);
+    --color-secondary: rgb(17, 17, 17);
+    --color-app-bgc: rgb(22, 31, 50);
+
+    --spacing-header-h: 90px;
+    --spacing-hero-h: calc(100dvh - var(--spacing-header-h));
+}
+
+body {
+    background-color: var(--app-bgc);
+}
