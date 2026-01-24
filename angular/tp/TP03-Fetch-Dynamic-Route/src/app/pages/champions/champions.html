@@ -1,0 +1,23 @@
+<section class="min-h-container-h">
+  <h2 class="text-3xl text-primary text-center font-bold tracking-wider pt-8">CHAMPIONS</h2>
+<!-- TODO: replace with card -->
+  @defer (on timer(2000)) {
+    <article class="flex flex-wrap justify-center items-center pb-8">
+      <ul class="flex flex-wrap justify-center p-8">
+        @for (champion of champions.slice(0, 9); track champion.id) {
+          <li class="w-1/3 pb-4">
+            <p class="text-primary text-center font-bold tracking-wider py-4">
+              {{ champion.name.toUpperCase() }}
+            </p>
+            <img src="{{ champion.image }}" alt="{{ champion.name }}" />
+          </li>
+        }
+      </ul>
+    </article>
+    <!-- TODO: replace with skeleton or loader -->
+  } @placeholder { 
+    <article class="grid place-items-center h-container-h w-full translate-y--header-h">
+      <h2 class="text-primary/50 text-2xl font-bold">Loading...</h2>
+    </article>
+  } 
+</section>

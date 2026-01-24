@@ -77,6 +77,6 @@ export const convertChampionDtoToEntity = (championDto: ChampionDTO): ChampionEn
         partType: championDto.partype,
         blurb: championDto.blurb,
         tags: championDto.tags,
-        image: championDto.image.full
+        image: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championDto.name}_0.jpg`
     }
 }

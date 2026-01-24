@@ -6,7 +6,9 @@
     --primary: var(--color-primary);
     --app-bgc: var(--color-app-bgc);
     --header-h: var(--spacing-header-h);
-    --hero-h: var(--spacing-hero-h)
+    --hero-h: var(--spacing-hero-h);
+    --default-font: var(--font-default);
+    --heading-font: var(--font-heading);
 }
 
 @theme {
@@ -15,9 +17,17 @@
     --color-app-bgc: rgb(22, 31, 50);
 
     --spacing-header-h: 90px;
-    --spacing-hero-h: calc(100dvh - var(--spacing-header-h));
+    --spacing-container-h: calc(100dvh - var(--spacing-header-h));
+    
+    --font-default: "Montserrat";
+    --font-heading: "Oswald";
 }
 
 body {
     background-color: var(--app-bgc);
+    font-family: var(--default-font), sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--heading-font), serif;
 }
