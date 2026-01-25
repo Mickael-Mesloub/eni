@@ -1,0 +1,23 @@
+.discover-more {
+  position: relative;
+
+  &::after {
+    bottom: -8px;
+    content: '';
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: var(--color-tertiary);
+    transition:
+      width 0.3s ease 0s,
+      left 0.3s ease 0s;
+    width: 0;
+    opacity: 0.8;
+  }
+
+  &:hover::after {
+    width: 100%;
+    left: 0;
+  }
+}

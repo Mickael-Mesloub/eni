@@ -1,34 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-    --primary: var(--color-primary);
-    --app-bgc: var(--color-app-bgc);
-    --header-h: var(--spacing-header-h);
-    --hero-h: var(--spacing-hero-h);
-    --default-font: var(--font-default);
-    --heading-font: var(--font-heading);
+  --primary: var(--color-primary);
+  --secondary: var(--color-secondary);
+  --tertiary: var(--color-tertiary);
+  --app-bgc: var(--color-app-bgc);
+  --header-h: var(--spacing-header-h);
+  --hero-h: var(--spacing-hero-h);
+  --default-font: var(--font-default);
+  --heading-font: var(--font-heading);
 }
 
 @theme {
-    --color-primary: var(--color-amber-50);
-    --color-secondary: rgb(17, 17, 17);
-    --color-app-bgc: rgb(22, 31, 50);
+  --color-primary: var(--color-amber-50);
+  --color-secondary: rgb(17, 17, 17);
+  --color-tertiary: rgb(200, 170, 110);
 
-    --spacing-header-h: 90px;
-    --spacing-container-h: calc(100dvh - var(--spacing-header-h));
-    
-    --font-default: "Montserrat";
-    --font-heading: "Oswald";
+  --color-app-bgc: rgb(22, 31, 50);
+
+  --spacing-header-h: 90px;
+  --spacing-container-h: calc(100dvh - var(--spacing-header-h));
+
+  --font-default: 'Montserrat';
+  --font-heading: 'Oswald';
 }
 
 body {
-    background-color: var(--app-bgc);
-    font-family: var(--default-font), sans-serif;
-    color: var(--primary);
+  background-color: var(--app-bgc);
+  font-family: var(--default-font), sans-serif;
+  color: var(--primary);
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--heading-font), serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--heading-font), serif;
 }

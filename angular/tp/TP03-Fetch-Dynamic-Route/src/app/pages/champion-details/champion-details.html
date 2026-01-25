@@ -1,3 +1,42 @@
-<h2 class="text-3xl text-primary text-center font-bold tracking-wider pt-8">
-  {{ championId().toUpperCase() }}
-</h2>
+@defer (on timer(1000)) {
+  <section class="h-container-h m-auto">
+    <article class="w-full h-full relative">
+      <img
+        class="w-full h-full object-cover"
+        [src]="championDetails.image"
+        alt="{{ championDetails.id }}"
+      />
+      <div
+        class="absolute top-0 left-0 bg-linear-to-r from-secondary/70 to-secondary/1 w-1/2 h-full p-32"
+      >
+        <h2 class="text-6xl xl:text-7xl italic font-bold tracking-wider text-left">
+          {{ championDetails.name.toUpperCase() }}
+        </h2>
+        <h3 class="pt-4 text-4xl xl:text-5xl font-bold text-left text-tertiary">
+          {{ championDetails.title.toUpperCase() }}
+        </h3>
+        <p class="pt-8 pr-8 text-2xl italic font-bold">
+          {{ championDetails.blurb }}
+        </p>
+        <div class="w-full h-0.5 bg-tertiary/50 pr-8 my-8"></div>
+        <div>
+          <h3
+            (click)="scrollToElement('details')"
+            class="discover-more w-fit text-3xl italic font-bold text-left text-tertiary cursor-pointer hover:opacity-80 transition-all duration-300 ease"
+          >
+            Discover more...
+          </h3>
+        </div>
+      </div>
+    </article>
+  </section>
+  <section class="h-dvh bg-app-bgc p-8">
+    <h2 id="details" class="text-3xl italic font-bold tracking-wider text-center">
+      MORE DETAILS ABOUT&#32;<span class="text-tertiary">{{ championDetails.name.toUpperCase() }}</span>
+    </h2>
+  </section>
+} @placeholder {
+  <article class="grid place-items-center h-container-h w-full translate-y--header-h">
+    <h2 class="text-primary/85 italic text-4xl font-bold">Loading...</h2>
+  </article>
+}

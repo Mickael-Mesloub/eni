@@ -5,6 +5,7 @@ import {
   FetchChampionByNameApiResponse,
 } from '../../types/champion';
 import { ChampionService } from '../../services/champion';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-champion-details',
@@ -15,6 +16,7 @@ import { ChampionService } from '../../services/champion';
 export class ChampionDetails implements OnInit {
   readonly championId: InputSignal<string> = input.required<string>();
   private readonly championService = inject(ChampionService);
+  private readonly viewportScroller: ViewportScroller = inject(ViewportScroller);
   championDetails!: ChampionDetailsEntity;
 
   ngOnInit(): void {
@@ -27,6 +29,13 @@ export class ChampionDetails implements OnInit {
         console.log(this.championDetails);
       },
       error: (error) => console.error('Failed to fetch ' + this.championId() + ' data : ', error),
+    });
+  }
+
+  // TODO: extract in separate file
+  scrollToElement(elementId: string) {
+    this.viewportScroller.scrollToAnchor(elementId, {
+      behavior: "smooth"
     });
   }
 }
