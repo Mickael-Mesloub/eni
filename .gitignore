@@ -16,3 +16,6 @@
 
 # Windows system files
 Thumbs.db
+
+.env
+node_modules
