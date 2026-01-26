@@ -33,6 +33,15 @@ router.get('/articles/:id', (request, response) => {
 router.post('/save-article', (request, response) => {
     const newArticle = request.body;
 
+    // TODO: add more validation
+    for(const [key, value] of Object.entries(newArticle)) {
+        if(String(value).trim() === "") {
+            return response.json({error: `Le champ ${key} est obligatoire`})
+        } else if(key === "title" && value.length < 2) {
+            return response.json({ error: `Le champ ${key} doit contenir 2 caractères minimum`,})
+        }
+    }
+
     let articleFoundIndex = articles.findIndex(a => String(a.id) === String(newArticle.id));
 
     if (articleFoundIndex === -1) {
@@ -73,5 +82,5 @@ router.delete('/article/:id', (request, response) => {
 });
 
 module.exports = {
-    router: router
+    router
 }
