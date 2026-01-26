@@ -18,10 +18,11 @@ router.get('/articles', (request, response) => {
 
 router.get('/articles/:id', (request, response) => {
     const id = request.params.id;
-    const article = articles.find(a => a.id == id);
+    const article = articles.find(a => String(a.id) === String(id));
 
-    console.log(article);
-    
+    if (!article) {
+        return response.json({error: `Article avec l'id ${id} introuvable`});
+    }
 
     return response.json({
         message: `Voici l'article ${id} !`,
@@ -32,18 +33,37 @@ router.get('/articles/:id', (request, response) => {
 router.post('/save-article', (request, response) => {
     const newArticle = request.body;
 
-    articles.push(newArticle);
+    let articleFoundIndex = articles.findIndex(a => String(a.id) === String(newArticle.id));
 
-    return response.json({
-        message: 'Nouvel article ajouté !',
-        newArticle,
-        articles
-    });
+    if (articleFoundIndex === -1) {
+        articles.push(newArticle);
+
+        return response.json({
+            message: 'Nouvel article ajouté !',
+            newArticle,
+            articles
+        });
+    } else {
+        articles[articleFoundIndex] = newArticle;
+
+        return response.json({
+            message: `Article avec l'id ${newArticle.id} modifié avec succès !`,
+            newArticle,
+            articles
+        })
+    }
+
 });
 
 router.delete('/article/:id', (request, response) => {
     const id = request.params.id;
-    articles = articles.filter(a => a.id != id);
+    const articleFound = articles.find(a => String(a.id) === String(id));
+
+    if(!articleFound) {
+        return response.json({error: `Article avec l'id ${id} introuvable`});
+    }
+
+    articles = articles.filter(a => String(a.id) !== String(id));
     
     return response.json({
         message: `Article avec l'id ${id} supprimé !`,
