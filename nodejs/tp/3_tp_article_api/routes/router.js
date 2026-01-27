@@ -27,10 +27,19 @@ router.get('/articles', async (request, response) => {
 
 router.get('/articles/:id', async (request, response) => {
     const id = Number(request.params.id);
+
+    if(Number.isNaN(id)) {
+        return response.json({
+            error: "Format d'id incorrect. Il ne doit comporter que des chiffres."
+        })
+    }
+
     const article =  await Article.findOne({id});    
 
     if (!article) {
-        return response.json({error: `Article avec l'id ${id} introuvable`});
+        return response.json({
+            error: `Article avec l'id ${id} introuvable`
+        });
     }
 
     return response.json({
@@ -50,7 +59,6 @@ router.post('/save-article', async (request, response) => {
         id = Math.max(...articles.map(a => a.id)) + 1;
     }
     
-
     const newArticle = new Article({
         id,
         title,
@@ -70,7 +78,20 @@ router.post('/save-article', async (request, response) => {
 
 router.delete('/article/:id', async (request, response) => {
     const id = Number(request.params.id);
+
+    if(Number.isNaN(id)) {
+        return response.json({
+            error: "Format d'id incorrect. Il ne doit comporter que des chiffres."
+        })
+    }
+
     const articleFound = await Article.findOne({id});
+
+    if(!articleFound) {
+        return response.json({
+            error: `Article avec l'id ${id} introuvable`
+        })
+    }
 
     await articleFound.deleteOne();
     
