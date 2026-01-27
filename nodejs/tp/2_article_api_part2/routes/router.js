@@ -66,13 +66,13 @@ router.post('/save-article', (request, response) => {
 
 router.delete('/article/:id', (request, response) => {
     const id = request.params.id;
-    const articleFound = articles.find(a => String(a.id) === String(id));
+    const articleFoundIndex = articles.findIndex(a => String(a.id) === String(id));
 
-    if(!articleFound) {
+    if(articleFoundIndex === -1) {
         return response.json({error: `Article avec l'id ${id} introuvable`});
     }
 
-    articles = articles.filter(a => String(a.id) !== String(id));
+    articles.splice(articleFoundIndex, 1);
     
     return response.json({
         message: `Article avec l'id ${id} supprimé !`,
