@@ -3,6 +3,9 @@ require('dotenv').config()
 // Importer le module express
 const express = require('express');
 
+// Importer mongoose
+const mongoose = require('mongoose');
+
 // Instancier un serveur
 const app = express();
 
@@ -20,9 +23,6 @@ app.get('/chocolat/:id', async (request, response) => {
         id
     });
 });
-
-// Importer mongoose
-const mongoose = require('mongoose');
 
 // Definir le model Film lié à la BDD
 // 1er param = pas pour nous un autre cours
