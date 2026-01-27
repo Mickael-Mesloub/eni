@@ -3,6 +3,7 @@ import {
   ChampionDetailsEntity,
   convertChampionDetailsDtoToEntity,
   FetchChampionByNameApiResponse,
+  Spell,
 } from '../../types/champion';
 import { ChampionService } from '../../services/champion';
 import { ViewportScroller } from '@angular/common';
@@ -26,7 +27,7 @@ export class ChampionDetails implements OnInit {
           this.championDetails = convertChampionDetailsDtoToEntity(_champion);
         }
 
-        console.log(this.championDetails);
+        console.log(this.championDetails.spells);
       },
       error: (error) => console.error('Failed to fetch ' + this.championId() + ' data : ', error),
     });
@@ -35,7 +36,7 @@ export class ChampionDetails implements OnInit {
   // TODO: extract in separate file
   scrollToElement(elementId: string) {
     this.viewportScroller.scrollToAnchor(elementId, {
-      behavior: "smooth"
+      behavior: 'smooth',
     });
   }
 }

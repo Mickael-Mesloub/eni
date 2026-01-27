@@ -163,11 +163,23 @@ export const convertChampionDetailsDtoToEntity = (
     tags: championDetailsDto.tags,
     image: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championDetailsDto.name}_0.jpg`,
     lore: championDetailsDto.lore,
-    // TODO: loop over spells to get correct spell splash url for each
-    spells: championDetailsDto.spells,
+    spells: getSpellsWithSplash(championDetailsDto.spells),
     // TODO: get correct passive splash url
     passive: championDetailsDto.passive,
     // TODO: loop over skins to get correct skin splash url for each
     skins: championDetailsDto.skins,
   };
+};
+
+const getSpellsWithSplash = (spells: Spell[]): Spell[] => {
+  // Loop through spells and call getSpellSplash for each spell image.full
+  spells.forEach((spell) => {
+    spell.image.full = getSpellSplash(spell);
+  });
+
+  return spells;
+};
+
+const getSpellSplash = (spell: Spell) => {
+  return `https://ddragon.leagueoflegends.com/cdn/16.2.1/img/spell/${spell.image.full}`;
 };

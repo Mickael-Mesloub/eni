@@ -34,6 +34,13 @@
     <h2 id="details" class="text-3xl italic font-bold tracking-wider text-center">
       MORE DETAILS ABOUT&#32;<span class="text-tertiary">{{ championDetails.name.toUpperCase() }}</span>
     </h2>
+    <ul>
+      <!-- TODO: style -->
+      @for(spell of championDetails.spells; track spell.id) {
+        <li class="text-2xl">{{spell.name}}</li>
+        <img class="w-20 h-20" [src]="spell.image.full" [alt]="spell.id" />
+      }
+    </ul>
   </section>
 } @placeholder {
   <article class="grid place-items-center h-container-h w-full translate-y--header-h">
