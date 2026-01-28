@@ -11,7 +11,7 @@ const {HOST, PORT, MONGO_URI, DB_NAME } = process.env;
 
 app.use("/", router);
 
-mongoose.connect((`${MONGO_URI}/${DB_NAME}`));
+mongoose.connect((`mongodb://127.0.0.1:27017/db_article`));
 
 mongoose.connection.once('open', () => {
     console.log("MongoDB Connected!");
@@ -21,7 +21,6 @@ mongoose.connection.on('error', () => {
     console.log("MongoDB connection error!");
 })
 
-
-app.listen(PORT, () => {
-    console.log(`App running on ${HOST}:${PORT}`);
+app.listen(3000, () => {
+    console.log(`App running on http://localhost:3000`);
 });
