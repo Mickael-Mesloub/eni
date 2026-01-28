@@ -1,16 +1,19 @@
 // Importer le module express
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const {checkJwtMiddleware} = require("./middleware/jwt");
 
 // Instancier un serveur express
 const app = express()
 
 app.use(express.json());
 
+const SECRET = "ma_key";
+
 app.get('/create-token', async (request, response) => {
 
     // Créer un token
-    const token = jwt.sign({ jsp: "jsp" }, "ma_key", {expiresIn: '2 hours'});
+    const token = jwt.sign({ jsp: "jsp" }, SECRET, {expiresIn: '2 hours'});
 
     return response.json({
         code: "CD-220",
@@ -19,29 +22,12 @@ app.get('/create-token', async (request, response) => {
     });
 })
 
-app.get('/verify-token/:token', async (request, response) => {
-
-    // Récupérer le token envoyé en params
-    const token = request.params.token;
-
-    let result = null;
-
-    try {
-      result = await jwt.verify(token, "ma_key");
-
-    } catch(e) {
-        console.error(e.message);
-        return response.json({
-            code: "CD-1",
-            message: "Erreur token",
-            data: null
-        });
-    }
+// Appel du middleware avant d'accéder à /my-profile
+app.get('/my-profile', checkJwtMiddleware, async (request, response) => {
 
     return response.json({
         code: "CD-220",
-        message: "VERIFICATION DU TOKEN OK",
-        data: result
+        message: "BIENVENUE SUR MON PROFIL !!",
     });
 })
 
