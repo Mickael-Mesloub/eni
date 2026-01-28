@@ -7,7 +7,6 @@ const app = express()
 
 app.use(express.json());
 
-// Demo find all
 app.get('/create-token', async (request, response) => {
 
     // Créer un token
@@ -17,6 +16,32 @@ app.get('/create-token', async (request, response) => {
         code: "CD-220",
         message: "Token généré",
         data: token
+    });
+})
+
+app.get('/verify-token/:token', async (request, response) => {
+
+    // Récupérer le token envoyé en params
+    const token = request.params.token;
+
+    let result = null;
+
+    try {
+      result = await jwt.verify(token, "ma_key");
+
+    } catch(e) {
+        console.error(e.message);
+        return response.json({
+            code: "CD-1",
+            message: "Erreur token",
+            data: null
+        });
+    }
+
+    return response.json({
+        code: "CD-220",
+        message: "VERIFICATION DU TOKEN OK",
+        data: result
     });
 })
 
