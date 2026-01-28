@@ -1,28 +1,29 @@
 @defer (on timer(1000)) {
-  <section class="h-container-h m-auto">
-    <article class="w-full h-full relative">
+  <section class="md:h-container-h m-auto">
+    <article class="w-full md:h-full relative">
       <img
-        class="w-full h-full object-cover"
+        class="w-full h-[60vh] md:h-full object-cover"
         [src]="championDetails.image"
         alt="{{ championDetails.id }}"
+        loading="lazy"
       />
       <div
-        class="absolute top-0 left-0 bg-linear-to-r from-secondary/70 to-secondary/1 w-1/2 h-full p-32"
+        class="w-full h-auto p-8 md:h-full md:absolute md:top-0 md:left-0 md:w-1/2 md:bg-linear-to-r md:from-secondary/70 md:to-secondary/1 xl:w-[37.5%] xl:p-16"
       >
-        <h2 class="text-6xl xl:text-7xl italic font-bold tracking-wider text-left">
+        <h2 class="text-3xl xl:text-6xl italic font-bold tracking-wider text-left">
           {{ championDetails.name.toUpperCase() }}
         </h2>
-        <h3 class="pt-4 text-4xl xl:text-5xl font-bold text-left text-tertiary">
+        <h3 class="pt-4 text-2xl xl:text-4xl font-bold text-left text-tertiary">
           {{ championDetails.title.toUpperCase() }}
         </h3>
-        <p class="pt-8 pr-8 text-2xl italic font-bold">
-          {{ championDetails.blurb }}
+        <p class="pt-4 xl:pt-8 pr-8 text-lg italic font-bold">
+          {{ championDetails.lore }}
         </p>
-        <div class="w-full h-0.5 bg-tertiary/50 pr-8 my-8"></div>
+        <div class="w-[85%] h-0.5 mt-8 bg-tertiary/50"></div>
         <div>
           <h3
             (click)="scrollToElement('details')"
-            class="discover-more w-fit text-3xl italic font-bold text-left text-tertiary cursor-pointer hover:opacity-80 transition-all duration-300 ease"
+            class="hidden md:block discover-more w-fit text-2xl lg:text-3xl italic font-bold text-left text-tertiary cursor-pointer hover:opacity-80 transition-all duration-300 ease"
           >
             Discover more...
           </h3>
@@ -30,17 +31,27 @@
       </div>
     </article>
   </section>
-  <section class="h-dvh bg-app-bgc p-8">
-    <h2 id="details" class="text-3xl italic font-bold tracking-wider text-center">
-      MORE DETAILS ABOUT&#32;<span class="text-tertiary">{{ championDetails.name.toUpperCase() }}</span>
-    </h2>
-    <ul>
-      <!-- TODO: style -->
-      @for(spell of championDetails.spells; track spell.id) {
-        <li class="text-2xl">{{spell.name}}</li>
-        <img class="w-20 h-20" [src]="spell.image.full" [alt]="spell.id" />
-      }
-    </ul>
+  <section class="h-auto bg-app-bgc">
+    <article>
+      <h3 class="text-3xl text-center font-bold uppercase tracking-wider">Abilities</h3>
+      <ul class="flex gap-4 py-8">
+        <li class="w-1/5 flex flex-col gap-2 items-center justify-center">
+          <img
+            class="w-20 h-20"
+            [src]="championDetails.passive.image.full"
+            [alt]="championDetails.passive.name"
+            loading="lazy"
+          />
+          <p>{{ championDetails.passive.name }}</p>
+        </li>
+        @for (spell of championDetails.spells; track spell.id) {
+          <li class="w-1/5 flex flex-col gap-2 items-center justify-center">
+            <img class="w-20 h-20" [src]="spell.image.full" [alt]="spell.id" loading="lazy" />
+            <p class="text-center text-sm">{{ spell.name }}</p>
+          </li>
+        }
+      </ul>
+    </article>
   </section>
 } @placeholder {
   <article class="grid place-items-center h-container-h w-full translate-y--header-h">
