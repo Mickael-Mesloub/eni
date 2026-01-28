@@ -13,23 +13,54 @@ const app = express();
 const host = process.env.HOST;
 
 // Récupérer le port défini dans le .env
-const port =  process.env.PORT;
+const port = process.env.PORT;
 
-app.get('/chocolat/:id', async (request, response) => {
+app.get('/movies', async (request, response) => {
+    const movies = await Movie.find();
+
+    return response.json({
+        code: "CD-220",
+        message: 'Films récupérés avec succès !',
+        movies
+    })
+})
+
+app.get('/movie/:id', async (request, response) => {
     const id = request.params.id;
+    let movie = null;
 
-	return response.json({
-        message: 'Vive le chocolat !',
-        id
-    });
-});
+    try {
+        movie = await Movie.findById(id);
+
+    } catch (e) {
+        return response.json({
+            code: "CD-999",
+            message: e.message,
+            data: null
+        })
+    }
+
+    if(movie == null) {
+        return response.json({
+            code: "CD-789",
+            message: `Film inexistant`,
+            data: null
+        })
+    }
+
+    return response.json({
+        code: "CD-205",
+        message: 'Film récupéré avec succès !',
+        movie
+    })
+})
 
 // Definir le model Film lié à la BDD
 // 1er param = pas pour nous un autre cours
 // 2eme param = les champs pour nous métier
 // 3eme param = nom de la collection/table
 const Movie = mongoose.model('Movie', {
-    title : String
+    title: String
 }, "movies");
 
 app.get('/save-movie', async (request, response) => {
@@ -60,16 +91,7 @@ mongoose.connection.on('error', () => {
     console.log("MongoDB connection error!");
 })
 
-app.get('/movies', async(request, response) => {
-    const movies = await Movie.find();
-
-    return response.json({
-        message: 'Movies found!',
-        movies
-    })
-})
-
 // Démarrer le serveur et afficher un message en console
 app.listen(port, () => {
-	console.log(`App running on ${host}:${port}`);
+    console.log(`App running on ${host}:${port}`);
 });
