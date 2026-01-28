@@ -11,6 +11,7 @@
   --hero-h: var(--spacing-hero-h);
   --default-font: var(--font-default);
   --heading-font: var(--font-heading);
+  --md: var(--text-md);
 }
 
 @theme {
@@ -25,12 +26,15 @@
 
   --font-default: 'Montserrat';
   --font-heading: 'Oswald';
+
+  --text-md: 1rem;
 }
 
 body {
   background-color: var(--app-bgc);
   font-family: var(--default-font), sans-serif;
   color: var(--primary);
+  font-size: var(--text-md);
 }
 
 h1,

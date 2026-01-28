@@ -16,14 +16,14 @@
         <h3 class="pt-4 text-2xl xl:text-4xl font-bold text-left text-tertiary">
           {{ championDetails.title.toUpperCase() }}
         </h3>
-        <p class="pt-4 xl:pt-8 pr-8 text-lg italic font-bold">
+        <p class="pt-4 xl:pt-8 pr-8 text-sm italic font-bold md:text-md">
           {{ championDetails.lore }}
         </p>
-        <div class="w-[85%] h-0.5 mt-8 bg-tertiary/50"></div>
+        <div class="w-[85%] mx-auto md:mx-0 h-0.5 mt-8 md:my-4 bg-tertiary/50"></div>
         <div>
           <h3
             (click)="scrollToElement('details')"
-            class="hidden md:block discover-more w-fit text-2xl lg:text-3xl italic font-bold text-left text-tertiary cursor-pointer hover:opacity-80 transition-all duration-300 ease"
+            class="hidden md:block discover-more w-fit text-lg lg:text-3xl italic font-bold text-left text-tertiary cursor-pointer hover:opacity-80 transition-all duration-300 ease"
           >
             Discover more...
           </h3>
@@ -31,13 +31,13 @@
       </div>
     </article>
   </section>
-  <section class="h-auto bg-app-bgc">
+  <section class="h-auto bg-app-bgc md:py-8">
     <article>
       <h3 class="text-3xl text-center font-bold uppercase tracking-wider">Abilities</h3>
-      <ul class="flex gap-4 py-8">
+      <ul class="flex gap-4 items-baseline py-8 px-2">
         <li class="w-1/5 flex flex-col gap-2 items-center justify-center">
           <img
-            class="w-20 h-20"
+            class="max-w-24"
             [src]="championDetails.passive.image.full"
             [alt]="championDetails.passive.name"
             loading="lazy"
@@ -46,7 +46,7 @@
         </li>
         @for (spell of championDetails.spells; track spell.id) {
           <li class="w-1/5 flex flex-col gap-2 items-center justify-center">
-            <img class="w-20 h-20" [src]="spell.image.full" [alt]="spell.id" loading="lazy" />
+            <img class="max-w-24" [src]="spell.image.full" [alt]="spell.id" loading="lazy" />
             <p class="text-center text-sm">{{ spell.name }}</p>
           </li>
         }
