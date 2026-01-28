@@ -9,6 +9,8 @@ const mongoose = require('mongoose');
 // Instancier un serveur
 const app = express();
 
+app.use(express.json());
+
 // Récupérer le host défini dans le .env
 const host = process.env.HOST;
 
@@ -63,8 +65,27 @@ const Movie = mongoose.model('Movie', {
     title: String
 }, "movies");
 
-app.get('/save-movie', async (request, response) => {
+app.post('/save-movie', async (request, response) => {
     let movieToSave = new Movie();
+
+    const movie_data = request.body;
+
+    // Contrôle de surface
+
+    // Cas - le champ n'existe pas
+    if(movie_data.title == undefined) {
+        return response.json({ message: `Le titre n'est pas renseigné`})
+    }
+
+    // Le titre est-il une string ?
+    if(typeof movie_data.title !== 'string') {
+        return response.json({ message: `Le titre doit être une string`})
+    }
+
+    // Le titre doit faire au moins 3 caractères
+    if(movie_data.title.length < 3) {
+        return response.json({ message: `Le titre doit comporter au moins 3 caractères`})
+    }
 
     // findById pour faire une mise à jour, et ne pas oublier await
     // movieToSave = await Movie.findById(movieToSave?.id);
