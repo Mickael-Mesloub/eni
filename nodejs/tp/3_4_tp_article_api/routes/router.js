@@ -65,9 +65,9 @@ router.post("/save-article", async (request, response) => {
         }
 
         // Check if article already exists with title
-        const existingArticle = await Article.findOne({title});
+        const existingArticle = await Article.findOne({title, id: {$ne: id}});
 
-        if (existingArticle && existingArticle.id !== id) {
+        if (existingArticle) {
             return response.json({
                 code: 701,
                 message: `Un article avec le titre "${title}" existe déjà`,
