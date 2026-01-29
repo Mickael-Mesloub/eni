@@ -1,7 +1,7 @@
-const express = require('express');
-const { User } = require("../model/User");
-const { createUser } = require("../utils/user.utils");
-const { checkJwtMiddleware } = require("../middleware/jwt");
+const express = require("express");
+const createUser = require("../shared/utils/user.utils");
+const { checkJwtMiddleware } = require("../shared/middlewares/jwt");
+const { User } = require("../mongoose/models/User");
 
 const authRouter = express.Router();
 

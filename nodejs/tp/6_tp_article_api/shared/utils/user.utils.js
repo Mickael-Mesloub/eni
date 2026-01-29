@@ -1,4 +1,4 @@
-const { User } = require("../model/User");
+const { User } = require("../../mongoose/models/User");
 const { generateId } = require("./utils");
 
 const createUser = async ({ email, password }) => {
@@ -11,6 +11,4 @@ const createUser = async ({ email, password }) => {
   });
 };
 
-module.exports = {
-  createUser,
-};
+module.exports = createUser;

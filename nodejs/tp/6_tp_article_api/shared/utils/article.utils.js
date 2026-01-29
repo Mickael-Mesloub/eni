@@ -1,4 +1,4 @@
-const { Article } = require("../model/Article");
+const { Article } = require("../../mongoose/models/Article");
 const { generateId } = require("./utils");
 
 const createArticle = async ({ title, content, author }) => {
@@ -12,6 +12,5 @@ const createArticle = async ({ title, content, author }) => {
   });
 };
 
-module.exports = {
-  createArticle,
-};
+module.exports = createArticle;
+
