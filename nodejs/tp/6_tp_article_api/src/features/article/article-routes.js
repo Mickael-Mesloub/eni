@@ -1,7 +1,7 @@
 const express = require("express");
-const { Article } = require("../mongoose/models/Article");
-const createArticle = require("../shared/utils/article.utils");
-const { checkJwtMiddleware } = require("../shared/middlewares/jwt");
+const { Article } = require("./article-model");
+const createArticle = require("./article.utils");
+const { checkJwtMiddleware } = require("../../shared/middlewares/jwt");
 
 const articleRouter = express.Router();
 
@@ -116,36 +116,32 @@ articleRouter.post(
 );
 
 // delete article by id
-articleRouter.delete(
-  "/:id",
-  checkJwtMiddleware,
-  async (request, response) => {
-    const id = Number(request.params.id);
+articleRouter.delete("/:id", checkJwtMiddleware, async (request, response) => {
+  const id = Number(request.params.id);
 
-    if (Number.isNaN(id)) {
-      return response.json({
-        code: 400,
-        message: "Erreur : Id invalide. Il ne doit comporter que des chiffres.",
-      });
-    }
-
-    const articleFound = await Article.findOne({ id });
-
-    if (!articleFound) {
-      return response.json({
-        code: 404,
-        message: `Erreur : Article avec l'id ${id} introuvable`,
-      });
-    }
-
-    await articleFound.deleteOne();
-
+  if (Number.isNaN(id)) {
     return response.json({
-      code: 200,
-      message: `Article avec l'id ${id} supprimé !`,
-      data: articleFound,
+      code: 400,
+      message: "Erreur : Id invalide. Il ne doit comporter que des chiffres.",
     });
-  },
-);
+  }
+
+  const articleFound = await Article.findOne({ id });
+
+  if (!articleFound) {
+    return response.json({
+      code: 404,
+      message: `Erreur : Article avec l'id ${id} introuvable`,
+    });
+  }
+
+  await articleFound.deleteOne();
+
+  return response.json({
+    code: 200,
+    message: `Article avec l'id ${id} supprimé !`,
+    data: articleFound,
+  });
+});
 
 module.exports = articleRouter;

@@ -1,6 +1,6 @@
 const express = require("express");
-const createUser = require("../shared/utils/user.utils");
-const { User } = require("../mongoose/models/User");
+const createUser = require("../user/user.utils")
+const { User } = require("../user/user-model");
 
 const authRouter = express.Router();
 

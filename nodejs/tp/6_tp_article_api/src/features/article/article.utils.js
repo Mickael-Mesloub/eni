@@ -1,5 +1,5 @@
-const { Article } = require("../../mongoose/models/Article");
-const { generateId } = require("./utils");
+const { Article } = require("./article-model");
+const { generateId } = require("../../shared/shared.utils");
 
 const createArticle = async ({ title, content, author }) => {
   const articles = await Article.find();
@@ -13,4 +13,3 @@ const createArticle = async ({ title, content, author }) => {
 };
 
 module.exports = createArticle;
-
