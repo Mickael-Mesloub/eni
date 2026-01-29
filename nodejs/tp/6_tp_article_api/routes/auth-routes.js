@@ -1,6 +1,5 @@
 const express = require("express");
 const createUser = require("../shared/utils/user.utils");
-const { checkJwtMiddleware } = require("../shared/middlewares/jwt");
 const { User } = require("../mongoose/models/User");
 
 const authRouter = express.Router();
@@ -39,7 +38,7 @@ authRouter.post("/register", async (request, response) => {
   });
 });
 
-authRouter.post("/auth", async (request, response) => {
+authRouter.post("/login", async (request, response) => {
   const { email, password } = request.body;
 
   // Fields validation
@@ -93,13 +92,6 @@ authRouter.post("/auth", async (request, response) => {
       data: null,
     });
   }
-});
-
-authRouter.get("/my-profile", checkJwtMiddleware, async (request, response) => {
-  return response.json({
-    code: "CD-220",
-    message: "BIENVENUE SUR MON PROFIL !!",
-  });
 });
 
 module.exports = authRouter;

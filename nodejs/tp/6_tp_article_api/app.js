@@ -4,6 +4,7 @@ const authRouter = require('./routes/auth-routes.js');
 const baseRouter = require('./routes/base-router.js');
 const articleRouter = require('./routes/article-routes.js');
 const connectToDb = require('./mongoose/mongoose-config.js');
+const userRouter = require('./routes/user-routes.js');
 
 const app = express();
 
@@ -12,8 +13,9 @@ app.use(express.json());
 const {HOST, PORT } = process.env;
 
 app.use("/", baseRouter);
-app.use("/", authRouter);
-app.use("/", articleRouter);
+app.use("/auth", authRouter);
+app.use("/articles", articleRouter);
+app.use("/user", userRouter);
 
 connectToDb();
 

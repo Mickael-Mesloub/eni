@@ -6,7 +6,7 @@ const { checkJwtMiddleware } = require("../shared/middlewares/jwt");
 const articleRouter = express.Router();
 
 // get all articles
-articleRouter.get("/articles", async (request, response) => {
+articleRouter.get("/", async (request, response) => {
   const articles = await Article.find();
 
   return response.json({
@@ -17,7 +17,7 @@ articleRouter.get("/articles", async (request, response) => {
 });
 
 // get article by id
-articleRouter.get("/articles/:id", async (request, response) => {
+articleRouter.get("/:id", async (request, response) => {
   const id = Number(request.params.id);
 
   if (Number.isNaN(id)) {
@@ -117,7 +117,7 @@ articleRouter.post(
 
 // delete article by id
 articleRouter.delete(
-  "/article/:id",
+  "/:id",
   checkJwtMiddleware,
   async (request, response) => {
     const id = Number(request.params.id);
