@@ -1,5 +1,5 @@
 const { User } = require("../../features/user/user-model");
-const { generateId } = require("../../shared/shared.utils");
+const { generateId } = require("../../shared/shared-utils");
 
 const createUser = async ({ email, password }) => {
   const users = await User.find();
