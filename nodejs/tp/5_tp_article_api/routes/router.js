@@ -55,7 +55,7 @@ router.get("/articles/:id", async (request, response) => {
 });
 
 // Save article => Create or update article
-router.post("/save-article", async (request, response) => {
+router.post("/save-article", checkJwtMiddleware, async (request, response) => {
   const { id, title, content, author } = request.body;
 
   try {
@@ -122,7 +122,7 @@ router.post("/save-article", async (request, response) => {
 });
 
 // delete article by id
-router.delete("/article/:id", async (request, response) => {
+router.delete("/article/:id", checkJwtMiddleware, async (request, response) => {
   const id = Number(request.params.id);
 
   if (Number.isNaN(id)) {
@@ -146,6 +146,7 @@ router.delete("/article/:id", async (request, response) => {
   return response.json({
     code: 200,
     message: `Article avec l'id ${id} supprimé !`,
+    data: articleFound
   });
 });
 
@@ -183,7 +184,7 @@ router.post("/register", async (request, response) => {
   });
 });
 
-router.post("/login", async (request, response) => {
+router.post("/auth", async (request, response) => {
   const { email, password } = request.body;
 
   // Fields validation
@@ -224,9 +225,9 @@ router.post("/login", async (request, response) => {
 
     // Success! User is logged in!
     return response.json({
-      code: 291,
-      message: "Vous êtes connecté(e) !",
-      token,
+      code: 202,
+      message: "Authentifié(e) avec succès !",
+      data: token,
     });
   } catch (e) {
     console.error(e);

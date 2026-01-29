@@ -3,12 +3,18 @@ const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = process.env;
 
 const checkJwtMiddleware = async (request, response, next) => {
-    const token = request.headers.authorization.split(" ")[1];
+    let authorization = request.headers.authorization;
 
     // Si le token n'est pas envoyé, refuser l'accès
-    if(token === undefined || token === null) {
-        return response.json({message: "Vous ne passerez pas... ^^!!!!!!!!!!!!!!"})
+    if(authorization === undefined || authorization === null) {
+        return response.json({
+            code: 666,
+            message: "Pas de token ??! Vous ne passerez pas... ^^!!",
+            data: null
+        })
     }
+
+   const token = authorization.split(" ")[1]
 
     try {
         // Vérifier que le token existe, que le SECRET_KEY correspond et qu'il n'est pas expiré
@@ -16,7 +22,11 @@ const checkJwtMiddleware = async (request, response, next) => {
     } catch(e) {
         // Accès refusé
         console.error(e.message);
-        return response.json({message: "Vous ne passerez pas... ^^!!!!!!!!!!!!!!"})
+        return response.json({
+            code: 666,
+            message: "Token invalide ou expiré !! Vous ne passerez pas... ^^!!!!!!!!!!!!!!",
+            data: null
+        })
     }
 
     // Accès autorisé
