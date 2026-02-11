@@ -13,4 +13,20 @@ final class HomeController extends AbstractController
     {
         return $this->render('home/index.html.twig');
     }
+
+    // Dynamic route
+    #[Route('/truc/{id}', name: 'app_truc', requirements: ['id' => '\d+'], methods: ['GET'])]
+    public function truc(int $id): Response
+    {
+
+        return $this->render('truc/truc.html.twig', ['id' => $id]);
+    }
+
+    // Route avec param page
+    #[Route('/machin/{page}', name: 'app_machin', requirements: ['page' => '\d+'], methods: ['GET'])]
+    public function machinPage(int $page = 1): Response
+    {
+        return $this->render('machin/machin.html.twig', ['page' => $page]);
+    }
 }
+
