@@ -1,0 +1,11 @@
+header {
+    background-color: #fff;
+
+    nav ul {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+        padding: 1rem;
+        list-style: none;
+    }
+}
