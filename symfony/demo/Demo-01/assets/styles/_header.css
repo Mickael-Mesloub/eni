@@ -1,11 +1,17 @@
 header {
-    background-color: #fff;
+    height: var(--header-h);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: rgb(248, 249, 250);
 
-    nav ul {
+    .logo {
         display: flex;
-        gap: 1rem;
-        justify-content: flex-end;
-        padding: 1rem;
-        list-style: none;
+        gap: 0.5rem;
+
+        h1 {
+            font-size: 2rem;
+        }
     }
 }

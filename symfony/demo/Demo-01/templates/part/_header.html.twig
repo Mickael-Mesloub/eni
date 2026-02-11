@@ -1,8 +1,18 @@
 <header>
-    <nav>
-        <ul>
-            <li><a href="{{ path('app_home') }}">Accueil</a></li>
-            <li><a href="{{ path('app_udon') }}">Udon</a></li>
-        </ul>
+    <div class="logo">
+        <img src="{{ asset('images/logo.svg') }}" alt="Logo" width="32" height="32">
+        <h1>Démo-01</h1>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_home') }}">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_udon') }}">Udon</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 </header>
