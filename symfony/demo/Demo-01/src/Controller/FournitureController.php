@@ -31,6 +31,8 @@ final class FournitureController extends AbstractController
     #[Route('/edit/{id}', name: '_edit', requirements: ['id' => '\d+'])]
     public function edit(int $id): Response
     {
+        // Dump and Die => fonction Symfony pratique pour afficher le contenu d'une variable et arrêter l'exécution du script
+        // dd($id);
         return new Response("Page Édition de la fourniture n° $id", Response::HTTP_OK);
     }
 
