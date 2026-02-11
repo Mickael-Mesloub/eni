@@ -30,5 +30,6 @@ body {
 }
 
 main {
+    padding: 1rem;
     min-height: calc(100dvh - var(--header-h));
 }
