@@ -5,10 +5,13 @@ const baseRouter = require("./shared/base-router.js");
 const articleRouter = require("./features/article/article-routes.js");
 const userRouter = require("./features/user/user-routes.js");
 const connectToDb = require("./mongoose/mongoose-config.js");
+const cors = require('cors');
 
 const app = express();
 
 app.use(express.json());
+
+app.use(cors());
 
 const { HOST, PORT } = process.env;
 
