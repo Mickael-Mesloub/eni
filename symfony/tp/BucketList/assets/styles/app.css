@@ -1,0 +1,37 @@
+@import url('_header.css');
+@import url('_footer.css');
+@import url('wish.css');
+
+
+@font-face {
+    src: url("../fonts/Lato-Regular.ttf");
+    font-family: 'Lato';
+}
+
+:root {
+    --header-h: 88px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+a {
+ text-decoration: none;
+}
+
+h2 {
+    padding: 1rem 0;
+}
+
+body {
+    background-color: skyblue;
+    font-family: 'Lato', sans-serif;
+}
+
+main {
+    padding: 1rem;
+    min-height: calc(100dvh - var(--header-h));
+}

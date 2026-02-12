@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="{{ asset('images/favicon.png') }}">
+        {% block stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+    {%  include('part/_header.html.twig') %}
+
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+
+        {%  include('part/_footer.html.twig') %}
+
+    </body>
+</html>

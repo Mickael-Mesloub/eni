@@ -1,0 +1,17 @@
+.wishlist {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: fit-content;
+}
+
+.wish {
+    padding: 1rem;
+    background-color: rgb(17, 107, 169);
+    color: #eef2fa;
+    border-radius: 1rem;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
