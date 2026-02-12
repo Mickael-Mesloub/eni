@@ -6,6 +6,7 @@ use App\Entity\Serie;
 use App\Repository\SerieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -31,11 +32,38 @@ final class SerieController extends AbstractController
         return new Response('Derrick est à la maison !');
     }
 
-    #[Route('/liste', name: '_liste', methods: ['GET'])]
-    public function liste(SerieRepository $serieRepository): Response
+    #[Route('/liste/{page}', name: '_liste', requirements: ['page' => '\d+'], methods: ['GET'])]
+    public function liste(SerieRepository $serieRepository, ParameterBagInterface $parameterBag, int $page = 1): Response
     {
-        $series = $serieRepository->findAll();
+        // On récupère le nb_limit_series défini dans config/services.yaml
+        $limit = $parameterBag->get('nb_limit_series');
+        $page = max($page, 1);
+        $offset = ($page - 1) * 10;
 
-        return $this->render('serie/liste.html.twig', ['series' => $series]);
+        $criterias = [
+            'status' => "returning",
+            'genres' => "horreur",
+        ];
+
+        $nbTotal = $serieRepository->count($criterias);
+        $nbPagesMax = ceil($nbTotal / $limit);
+
+        if($page > $nbPagesMax) {
+            throw $this->createNotFoundException("La page $page n'existe pas.");
+        }
+
+//        $series = $serieRepository->findAll();
+        $series = $serieRepository->findBy($criterias,
+        [
+            'firstAirDate' => 'DESC',
+            'dateCreated' => 'DESC',
+
+        ], $limit, $offset);
+
+        return $this->render('serie/liste.html.twig', [
+            'series' => $series,
+            'page' => $page,
+            'nb_pages_max' => $nbPagesMax,
+        ]);
     }
 }

@@ -1,3 +1,18 @@
 body {
     background-color: skyblue;
+    padding: 0 1.5rem;
+    font-family: Century;
+}
+
+a {
+   text-decoration: none;
+}
+
+.pagination {
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+
+
 }
