@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>ENI Enchères - Accueil</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="shortcut icon" th:href="@{/images/logoENI.png}" type="image/x-icon">
+</head>
+<body>
+
+<div data-th-insert="~{fragments/fragment-header :: header}"></div>
+
+<main>
+
+    <div class="msg-frame success"
+         th:if="${successMessage}">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <div class="msg-frame error" th:if="${user_deleted == true}">
+        <p>Utilisateur Supprimé</p>
+    </div>
+
+    <div class="msg-frame error" th:if="${auction_deleted == true}">
+        <p>Vente supprimée</p>
+    </div>
+
+    <h2>Rechercher</h2>
+
+    <th:block th:object="${user}">
+        <form class="form-filter" id="form-filter" method="get" th:action="@{/home}" th:object="${filters}">
+
+            <ul class="flex-outer">
+                <li class="two-columns  filter-columns">
+                    <div class="filter-column">
+                        <label for="filters">Rechercher un article :</label>
+                        <input id="filters" placeholder="Nom de l'article" th:field="*{keyword}" type="text">
+                    </div>
+                    <div class="filter-column">
+                        <label for="categories">Catégorie :</label>
+                        <select id="categories" th:field="*{categories}">
+                            <option value="all">Toutes</option>
+                            <option th:each="cat : ${categories}"
+                                    th:text="${cat.description}"
+                                    th:value="${cat.id}">
+                            </option>
+                        </select>
+                    </div>
+                </li>
+
+            </ul>
+
+            <div class="filter-columns" sec:authorize="isAuthenticated()">
+
+                <!-- COLONNE ACHATS -->
+                <div class="filter-column">
+                    <label>
+                        <input id="auctions" th:field="*{radioChoiceAuctions}" type="radio" value="auctions">
+                        Enchères
+                    </label>
+
+                    <fieldset class="filter-checkboxes filter-fieldset" id="auctions-checkboxes">
+                        <label><input th:field="*{auctionsOpen}" type="checkbox"> En cours ou à venir</label>
+                        <label><input th:field="*{myAuctions}" type="checkbox"> Mes enchères</label>
+                        <label><input th:field="*{myAuctionsWon}" type="checkbox"> Mes enchères remportées</label>
+                    </fieldset>
+                </div>
+
+                <!-- COLONNE VENTES -->
+                <div class="filter-column">
+                    <label>
+                        <input id="sales" th:field="*{radioChoiceAuctions}" type="radio" value="sales">
+                        Ventes
+                    </label>
+
+                    <fieldset class="filter-checkboxes filter-fieldset" id="sales-checkboxes">
+                        <label><input th:field="*{salesCurrent}" type="checkbox"> Mes ventes en cours</label>
+                        <label><input th:field="*{salesNotStarted}" type="checkbox"> Ventes non débutées</label>
+                        <label><input th:field="*{salesOver}" type="checkbox"> Ventes terminées</label>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div id="btn-reset">
+                <a class="btn secondary" th:href="@{/home}">Réinitialiser</a>
+            </div>
+
+        </form>
+    </th:block>
+
+
+    <h2 class="filter-results-title">Liste des enchères</h2>
+
+    <div th:if="${items.isEmpty()}">
+        <p style="color:white">Aucun article correspondant.</p>
+    </div>
+
+
+    <div class="item-container" th:if="${!items.isEmpty()}">
+
+        <a class="item-card-link"
+           th:each="item : ${items}"
+           th:href="@{/auction/details/{id}(id=${item.id})}">
+
+            <div class="item-card">
+                <div class="item-card-content">
+                    <div class="item-image">
+                        <img alt="Image de l'article" class="auction-img" th:src="${item.imagePath}">
+                    </div>
+                    <div class="item-info">
+                        <h3 th:text="${item.name}"></h3>
+                        <p th:text="${'- ' + item.description}"></p>
+                        <p>- Catégorie :
+                            <span th:text="${item.category.description}"></span>
+                        </p>
+                        <p>- Prix actuel :
+                            <span th:text="${item.currentPrice == null or item.currentPrice == 0 ? item.startingPrice : item.currentPrice}"></span>
+                            pts
+                        </p>
+                        <p> - Fin de l'enchère :
+                            <span th:text="${#temporals.format(item.auctionEndDate, 'dd-MM-yyyy HH:mm')}"></span>
+                        </p>
+                        <p th:text="'- Vendeur : ' + ${item.auctionCreator.username} + ' (' + ${item.retrievalAddress.city}+')'"></p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+</main>
+
+<script src="/js/form.js"></script>
+
+</body>
+</html>

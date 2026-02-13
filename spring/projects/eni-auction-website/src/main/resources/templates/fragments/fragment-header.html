@@ -1,0 +1,29 @@
+<header th:fragment="header" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <h1 id="nav-title">
+        <a th:href="@{/home}">ENI Enchères</a>
+    </h1>
+    <nav>
+        <ul>
+            <li>
+                <a th:href="@{/home}">Enchères</a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <a th:href="@{/auction/create}">Vendre un article</a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <a th:href="@{/profile/my-profile}">Mon profil</a>
+            </li>
+            <li sec:authorize="!isAuthenticated()">
+                <a th:href="@{/login}">S'inscrire - Se connecter</a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <form th:action="@{/logout}" method="post" class="logout-form">
+                    <button type="submit" class="logout-btn">
+                        <img th:src="@{/images/logout.png}" alt="Déconnexion">
+                    </button>
+                </form>
+            </li>
+
+        </ul>
+    </nav>
+</header>

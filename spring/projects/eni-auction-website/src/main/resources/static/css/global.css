@@ -1,0 +1,113 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Lexend", "Roboto", "Arial" , "helvetica", sans-serif;
+}
+
+html, body {
+    height: 100%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 70px);
+    background-color: #473f3d;
+    padding: 40px 0 30px;
+}
+
+main h2 {
+    text-align: center;
+    color: white;
+    margin: 20px 0 30px;
+    font-size: 2em;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+.btn {
+    align-self: center;
+    padding: 12px 24px;
+    border: none;
+    background: #2b2727;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: .9rem;
+    text-align: center;
+
+    &:hover {
+        background: #675f5d;
+    }
+
+    &.cancel {
+        background-color: darkred;
+
+        &:hover {
+            background-color: #a80909;
+        }
+    }
+
+    &.success {
+        background-color: #526e10;
+    }
+
+    &.secondary {
+        background-color: #595250;
+
+        &:hover{
+            background-color: #6c6360;
+        }
+    }
+
+    &.bid {
+        background-color: #986303;
+        color: #fff1e1;
+
+        &:hover{
+            background-color: #c78712;
+        }
+
+        &:disabled{
+            background-color: #4f493a;
+            cursor:not-allowed;
+        }
+    }
+}
+
+.msg-frame {
+    border-radius: 0.5rem;
+    padding: 1rem 2rem;
+    text-align: center;
+    color: white;
+
+    &.success {
+        background-color: #405906;
+        color: #f0ffd6;
+    }
+
+    &.error {
+        background-color: darkred;
+        color: #ffeae9;
+    }
+
+    &.warning {
+        background-color: #986303;
+        color: #fff1e1;
+    }
+}

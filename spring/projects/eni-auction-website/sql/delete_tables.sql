@@ -1,0 +1,5 @@
+DROP TABLE Bids
+DROP TABLE Items
+DROP TABLE Users
+DROP TABLE Address
+DROP TABLE ItemCategories

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>ENI Enchères - Nouvelle vente</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="shortcut icon" th:href="@{/images/logoENI.png}" type="image/x-icon">
+</head>
+<body>
+<div data-th-insert="~{fragments/fragment-header :: header}"></div>
+
+<main>
+
+    <!-- Show success message if bid creation succeeds -->
+    <div class="msg-frame success" th:if="${successMessage}">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <div th:if="${!(user.id == item.auctionCreator.id) && (user.id == highestBidder.id) && !item.isSold()}"
+         class="msg-frame success">
+        <p>Vous êtes actuellement le meilleur enchérisseur !</p>
+    </div>
+
+    <h2>Détails vente</h2>
+
+    <!--------------------------------------------Détails de l'article---- ------------------------------------------------>
+
+    <form class="form" action="">
+        <div class="auction-img">
+            <img th:src="${item.imagePath.startsWith('/') ? item.imagePath : '/uploads/images/' + item.imagePath}"
+                 alt="Image de l'article">
+        </div>
+
+        <fieldset>
+            <legend>Informations sur l'article</legend>
+            <ul class="flex-outer retrieval">
+                <li>
+                    <label for="item-name">Nom de l'article :</label>
+                    <input id="item-name" required name="item-name" type="text"
+                           th:value="${item.name}" readonly>
+                </li>
+
+                <li>
+                    <label for="item-description">Description :</label>
+                    <textarea id="item-description" name="item-description" rows="5"
+                              th:text="${item.description}" readonly></textarea>
+                </li>
+
+                <li>
+                    <label for="category">Catégorie :</label>
+                    <input type="text" id="category"
+                           th:value="${item.category.description}" readonly>
+                </li>
+
+                <li class="two-columns" th:if="${!item.isSold}">
+                    <div>
+                        <label for="auction-start">Début de l'enchère :</label>
+                        <input id="auction-start" required name="auction-start" type="datetime-local"
+                               th:value="${#temporals.format(item.auctionStartDate, 'yyyy-MM-dd''T''HH:mm')}" readonly>
+
+
+                    </div>
+
+                    <div>
+                        <label for="auction-end">Fin de l'enchère :</label>
+                        <input id="auction-end" required name="auction-end" type="datetime-local"
+                               th:value="${#temporals.format(item.auctionEndDate, 'yyyy-MM-dd''T''HH:mm')}" readonly>
+
+                    </div>
+
+
+                </li>
+            </ul>
+        </fieldset>
+    </form>
+    <!--------------------------------------------Vente en cours--------------------------------------------------->
+
+    <!-----------------------------------Messages selon utilisateur et statut------------------------------------------>
+
+    <div th:if="${!(user.id == item.auctionCreator.id) && (item.currentPrice > user.creditPoints)}"
+         class="msg-frame error not-enough-credit">
+        <p>Vous n'avez pas assez de crédits pour enchérir sur cet objet.</p>
+    </div>
+
+    <div class="auction-bid-container">
+
+        <form class="form form-two-columns" action="">
+
+            <fieldset th:if="${!item.isSold}">
+                <legend>Vente</legend>
+                <ul class="flex-outer retrieval bid-status">
+
+                    <li>
+                        <label for="price">Mise à prix :</label>
+                        <input id="price" type="number" min="0" th:value="${item.startingPrice}" readonly>
+                    </li>
+                    <li>
+                        <label for="current-price">Meilleure offre :</label>
+                        <input id="current-price" type="number" th:value="${currentPrice}" readonly>
+                    </li>
+
+
+                </ul>
+            </fieldset>
+        </form>
+
+
+        <!------------------------------------Enchérir si non-vendeur sur la page------------------------------------------>
+
+
+        <form id="bid-form" class="form form-two-columns" method="post" th:action="@{/auction/bid}"
+              th:if="${(user.id != item.auctionCreator.id) && !item.isSold()}">
+            <fieldset class="bid-status">
+                <legend>Enchérir</legend>
+                <ul class="flex-outer">
+
+                    <input type="hidden" name="itemId" th:value="${item.id}">
+
+                    <li th:if="${bidCount == 0}">
+                        <p th:text="'Nombre d\'enchères : ' + ${bidCount}" style="text-align: justify"></p>
+                    </li>
+                    <li th:if="${bidCount > 0}">
+                        <p th:text="'Nombre d\'enchères : ' + ${bidCount}" style="text-align: justify"></p>
+                    </li>
+
+                    <li>
+
+                        <label for="bidding-offer">Ma proposition :</label>
+                        <input id="bidding-offer" name="bidding-offer" type="number"
+                               th:value="${item.currentPrice + 1}" th:min="${item.currentPrice + 1}"
+                               th:attr="data-user-credits=${user.creditPoints}">
+
+                    </li>
+
+                    <li th:if="${item.currentPrice <= user.creditPoints}">
+                        <button class="btn bid" type="submit">Enchérir</button>
+                    </li>
+
+                    <li th:if="${item.currentPrice > user.creditPoints}">
+                        <button class="btn bid" type="submit" disabled>Enchérir</button>
+                    </li>
+
+                </ul>
+            </fieldset>
+        </form>
+
+        <!-----------------------------------Messages selon utilisateur et statut------------------------------------------>
+
+        <form class="form form-two-columns" th:action="@{/auction/delete/{id}(id=${item.id})}" method="post"
+              id="delete-auction"
+              th:if="${(user.id == item.auctionCreator.id) && !item.isSold()}">
+
+            <fieldset>
+                <legend>Détails</legend>
+                <ul class="flex-outer">
+                    <li th:if="${bidCount == 0}">
+                        <p th:text="'Nombre d\'enchères : ' + ${bidCount}" style="text-align: justify"></p>
+                    </li>
+                    <li th:if="${bidCount > 0}">
+                        <p th:text="'Nombre d\'enchères : ' + ${bidCount}" style="text-align: justify"></p>
+                    </li>
+                    <li th:if="${(user.id == item.auctionCreator.id) && (bidCount == 0)}">
+                        <label for="no-highest-bidder">Meilleur enchérisseur :</label>
+                        <input id="no-highest-bidder" type="text"
+                               value="Aucun enchérisseur" readonly>
+                    </li>
+                    <li th:if="${(user.id == item.auctionCreator.id) && (bidCount > 0)}">
+                        <label for="highest-bidder">Meilleur enchérisseur :</label>
+                        <input id="highest-bidder" type="text"
+                               th:value="${highestBidder.username}" readonly>
+                    </li>
+
+
+                    <li th:if="${(user.id == item.auctionCreator.id) && (bidCount == 0)}">
+                        <button class="btn cancel btn-delete-auction" type="submit">Supprimer Vente</button>
+                    </li>
+                    <li th:if="${(user.id == item.auctionCreator.id) && (bidCount > 0)}">
+                        <button class="btn cancel btn-delete-auction" type="submit" disabled>Supprimer Vente</button>
+                    </li>
+                    <li th:if="${(user.id == item.auctionCreator.id) && item.isRetrieved()}">
+                        <button class="btn cancel btn-delete-auction" type="submit">Supprimer Vente</button>
+                    </li>
+
+                </ul>
+            </fieldset>
+        </form>
+
+    </div>
+
+
+    <!----------------------------------Adresse de retrait (vente en cours)-------------------------------------------->
+    <form class="form" action="">
+        <fieldset th:if="${!item.isSold}">
+            <legend>Retrait</legend>
+            <ul class="flex-outer retrieval">
+
+                <li th:if="${user.id == item.auctionCreator.id}">
+                    <label for="street">Rue :</label>
+                    <input id="street" required name="street" type="text"
+                           th:value="${item.auctionCreator.address.street}" readonly>
+                </li>
+
+                <li th:if="${user.id == item.auctionCreator.id}">
+                    <label for="zipcode">Code Postal :</label>
+                    <input id="zipcode" required name="zipcode" type="text"
+                           th:value="${item.auctionCreator.address.zipcode}" readonly>
+                </li>
+
+                <li class="two-columns">
+                    <div>
+                        <label for="city">Ville :</label>
+                        <input id="city" required name="city" type="text"
+                               th:value="${item.auctionCreator.address.city}" readonly>
+                    </div>
+                    <div>
+                        <label for="auction-creator">Vendeur :</label>
+                        <input id="auction-creator" required name="auction-creator" type="text"
+                               th:value="${item.auctionCreator.username}" readonly>
+                    </div>
+                </li>
+                <li class="form-actions">
+                    <a class="btn secondary" th:href="@{/profile/{username}(username=${item.auctionCreator.username})}"
+                       >Consulter le profil du vendeur</a>
+                </li>
+            </ul>
+        </fieldset>
+    </form>
+
+    <!-----------------------------------------------Vente terminée---------------------------------------------------->
+
+    <th:block th:if="${item.isSold}">
+
+        <form class="form" action="">
+            <fieldset>
+                <legend>État de l'enchère</legend>
+                <ul class="flex-outer">
+
+                    <li th:if="${bid == null}">
+                        <p>Cette enchère est terminée. L'objet n'a pas trouvé acquéreur.</p>
+                    </li>
+
+                    <li th:if="${bid != null and user.id == bid.bidder.id}">
+                        <p>Vous avez remporté l'enchère !</p>
+                        <p>Vous pouvez récupérer votre objet à l'adresse indiquée ci-dessous.</p>
+                    </li>
+
+                    <li th:if="${bid != null and user.id == item.auctionCreator.id}">
+                        <label for="auction-winner">Votre enchère est terminée. Gagnant de l'enchère :</label>
+                        <input id="auction-winner" type="text"
+                               th:value="${bid.bidder.username}" readonly>
+
+                        <label for="auction-price-sold">Montant final de la vente :</label>
+                        <input id="auction-price-sold" type="text"
+                               th:value="${item.priceSold}" readonly>
+
+                        <p th:if="${!item.isRetrieved}">Le gagnant de l'enchère vous contactera sous peu.</p>
+                        <p th:if="${item.isRetrieved}">Cette vente est terminée. L'objet a été récupéré.</p>
+
+                    </li>
+
+                    <li th:if="${bid != null and user.id != bid.bidder.id and user.id != item.auctionCreator.id}">
+                        <p>Cette enchère est terminée, vous ne pouvez plus enchérir dessus.</p>
+                    </li>
+
+
+                </ul>
+            </fieldset>
+        </form>
+
+        <ul class="flex-outer">
+            <li th:if="${(user.id == item.auctionCreator.id) && bid == null && item.isRetrieved == false}" class="form-actions">
+                <a class="btn cancel" th:href="@{/auction/delete/{id}(id=${item.id})}">Supprimer Vente</a>
+            </li>
+        </ul>
+
+
+        <!--------------------------------------Adresse de retrait si gagnant connecté--------------------------------->
+
+        <form class="form" action="">
+            <fieldset th:if="${bid != null and user.id == bid.bidder.id}">
+                <legend>Retrait</legend>
+                <ul class="flex-outer retrieval">
+
+                    <li>
+                        <label for="retrieval_auction-creator">Vendeur :</label>
+                        <input id="retrieval_auction-creator" type="text"
+                               th:value="${item.auctionCreator.username}" readonly>
+                    </li>
+
+                    <li>
+                        <label for="retrieval_street">Rue :</label>
+                        <input id="retrieval_street" type="text"
+                               th:value="${item.auctionCreator.address.street}" readonly>
+                    </li>
+
+                    <li class="two-columns">
+                        <div>
+                            <label for="retrieval_zipcode">Code Postal :</label>
+                            <input id="retrieval_zipcode" type="text"
+                                   th:value="${item.auctionCreator.address.zipcode}" readonly>
+                        </div>
+
+                        <div>
+                            <label for="retrieval_city">Ville :</label>
+                            <input id="retrieval_city" type="text"
+                                   th:value="${item.auctionCreator.address.city}" readonly>
+                        </div>
+                    </li>
+
+                </ul>
+            </fieldset>
+        </form>
+
+
+        <ul class="flex-outer">
+            <li th:if="${bid != null and user.id == bid.bidder.id}" class="form-actions">
+                <a class="btn success" th:href="@{/auction/end/{itemId}(itemId=${item.id})}">
+                    Conclure la vente (retrait confirmé)
+                </a>
+            </li>
+
+        </ul>
+
+        <ul class="flex-outer">
+            <li th:if="${(user.id == item.auctionCreator.id) && item.isRetrieved}" class="form-actions">
+                <a class="btn cancel" th:href="@{/auction/delete/{id}(id=${item.id})}">Supprimer Vente</a>
+            </li>
+        </ul>
+
+    </th:block>
+
+    <ul class="flex-outer">
+        <li class="form-actions">
+            <a class="btn" th:href="@{/home}">Retour</a>
+        </li>
+    </ul>
+
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const deleteAuction = document.getElementById('delete-auction');
+
+        if (deleteAuction) {
+            deleteAuction.addEventListener('submit', function (e) {
+                const confirmed = confirm('Êtes-vous sûr de vouloir supprimer cette vente ? Cette action est irréversible.');
+                if (!confirmed) e.preventDefault();
+            });
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const bidForm = document.getElementById('bid-form');
+
+        if (bidForm) {
+            bidForm.addEventListener('submit', function (e) {
+                const bidInput = document.getElementById('bidding-offer');
+                const currentPrice = parseInt(bidInput.min);
+                const userCredits = parseInt(bidInput.dataset.userCredits);
+
+                const userBid = parseInt(bidInput.value, 10);
+
+                if (isNaN(userCredits)) {
+                    console.error("Crédits utilisateur non définis !");
+                    return; // sécurité
+                }
+
+                if (userBid > userCredits) {
+                    e.preventDefault();
+                    alert("Vous n'avez pas assez de points pour faire cette enchère !");
+                    return false;
+                }
+
+                if (userBid < currentPrice) {
+                    e.preventDefault();
+                    alert("Votre enchère doit être au moins à " + currentPrice + " points.");
+                    return false;
+                }
+            });
+        }
+    });
+
+</script>
+
+</body>
+</html>

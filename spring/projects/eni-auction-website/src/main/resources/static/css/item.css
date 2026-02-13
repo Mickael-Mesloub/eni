@@ -1,0 +1,67 @@
+/* Conteneur des résultats */
+.item-container {
+    width: 100%;
+    max-width: 550px;
+}
+
+.filter-results-title{
+    margin-top : 50px;
+}
+
+/* Bloc pour chaque item */
+.item-card {
+    background-color: #2b2727;
+    padding: 1.5rem 1rem;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    color: white;
+}
+
+/* Titres et textes des items */
+.item-card h3 {
+    padding : .2rem;
+}
+
+.item-card p {
+    padding : .2rem;
+}
+
+/* Pour le prix et la date */
+.item-card span {
+    font-weight: bold;
+}
+
+.item-card-content {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.item-image img {
+    width: 180px;
+    height: 180px;
+    padding:3px;
+    object-fit: cover;
+    border-radius: 6px;
+    background-color: #252222;
+    box-shadow: none;
+
+}
+
+.item-info {
+    flex: 1;
+}
+
+.item-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.item-card p {
+    margin: 0.2rem 0;
+}
+
+.item-card span {
+    font-weight: bold;
+}

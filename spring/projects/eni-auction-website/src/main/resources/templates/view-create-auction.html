@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nouvelle vente</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="shortcut icon" th:href="@{/images/logoENI.png}" type="image/x-icon">
+</head>
+<body>
+
+<div th:insert="~{fragments/fragment-header :: header}"></div>
+
+<main>
+    <h2>Créer une nouvelle enchère</h2>
+
+    <th:block th:object="${itemDto}">
+
+        <!-- Show error message if errors occur -->
+        <div class="msg-frame error" th:if="${#fields.hasErrors('*')}">
+            <p>Des erreurs ont éte détectées</p>
+        </div>
+
+        <form class="form"
+              th:action="@{/auction/create}"
+              th:object="${itemDto}"
+              method="post"
+              enctype="multipart/form-data">
+
+            <fieldset>
+                <legend>Nouvelle vente</legend>
+                <ul class="flex-outer">
+
+                    <li>
+                        <label>Nom de l'article</label>
+                        <input type="text" th:field="*{name}" required placeholder="Nom de l'article">
+
+                        <p class="error-msg"
+                           th:each="e : ${#fields.errors('name')}"
+                           th:if="${#fields.hasErrors('name')}"
+                           th:text="${e}">
+                        </p>
+                    </li>
+
+                    <li>
+                        <label>Description</label>
+                        <textarea th:field="*{description}" rows="1" required
+                                  placeholder="Description de l'article"></textarea>
+
+                        <p class="error-msg"
+                           th:each="e : ${#fields.errors('description')}"
+                           th:if="${#fields.hasErrors('description')}"
+                           th:text="${e}">
+                        </p>
+                    </li>
+
+                    <li>
+                        <label>Image de l'article</label>
+                        <input type="file" th:field="*{imageFile}" accept="image/*">
+                    </li>
+
+                    <li class="two-columns">
+                        <div>
+                            <label>Catégorie</label>
+                            <select th:field="*{categoryId}" required>
+                                <option value="" disabled selected>-- Choisir --</option>
+                                <option th:each="cat : ${categories}"
+                                        th:value="${cat.id}"
+                                        th:text="${cat.description}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label>Mise à prix</label>
+                            <input type="number" th:field="*{startingPrice}" min="0" required placeholder="0">
+
+                            <p class="error-msg"
+                               th:each="e : ${#fields.errors('startingPrice')}"
+                               th:if="${#fields.hasErrors('startingPrice')}"
+                               th:text="${e}">
+                            </p>
+                        </div>
+                    </li>
+
+
+                    <li class="two-columns">
+                        <div>
+                            <label>Début de l'enchère</label>
+                            <input type="datetime-local"
+                                   th:field="*{auctionStartDate}"
+                                   required>
+
+                            <p class="error-msg"
+                               th:each="e : ${#fields.errors('auctionStartDate')}"
+                               th:if="${#fields.hasErrors('auctionStartDate')}"
+                               th:text="${e}"
+                               >
+                            </p>
+                        </div>
+
+                        <div>
+                            <label>Fin de l'enchère</label>
+                            <input type="datetime-local"
+                                   th:field="*{auctionEndDate}"
+                                   required>
+
+                            <p class="error-msg"
+                               th:each="e : ${#fields.errors('auctionEndDate')}"
+                               th:if="${#fields.hasErrors('auctionEndDate')}"
+                               th:text="${e}"
+                               >
+                            </p>
+                        </div>
+                    </li>
+
+
+                </ul>
+            </fieldset>
+
+            <fieldset>
+                <legend>Adresse de retrait</legend>
+
+                <ul class="flex-outer retrieval">
+
+                    <li>
+                        <label>Rue</label>
+                        <input type="text"
+                               th:value="${user.address.street}"
+                               disabled
+                               readonly>
+                    </li>
+
+                    <li class="two-columns">
+                        <div>
+                            <label>Code postal</label>
+                            <input type="text"
+                                   th:value="${user.address.zipcode}"
+                                   disabled
+                                   readonly>
+                        </div>
+                        <div>
+                            <label>Ville</label>
+                            <input type="text"
+                                   th:value="${user.address.city}"
+                                   disabled
+                                   readonly>
+                        </div>
+                    </li>
+
+                </ul>
+            </fieldset>
+
+            <ul class="flex-outer">
+                <li class="form-actions">
+                    <button type="submit" class="btn success">Enregistrer</button>
+                    <a th:href="@{/home}" class="btn">Retour</a>
+                </li>
+            </ul>
+
+        </form>
+    </th:block>
+
+</main>
+
+<script src="/js/form.js"></script>
+
+</body>
+</html>

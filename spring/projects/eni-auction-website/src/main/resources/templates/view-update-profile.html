@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/images/logoENI.png}" type="image/x-icon">
+    <title>ENI Enchères - Modifier mon profil</title>
+</head>
+<body>
+<div data-th-insert="~{fragments/fragment-header :: header}"></div>
+
+<main>
+    <h2>Modifier mon profil</h2>
+
+    <th:block th:if="${user_deleted_items == false}">
+        <div class="msg-frame error">
+            <p>Le profil n'a pas pu être supprimé. Vous avez encore des ventes actives.</p>
+        </div>
+    </th:block>
+
+    <th:block th:if="${user_deleted_bids == false}">
+        <div class="msg-frame error">
+            <p>Le profil n'a pas pu être supprimé. Vous avez encore des enchères actives.</p>
+        </div>
+    </th:block>
+
+    <th:block th:object="${updateUserDTO}">
+
+        <!--Show error message if errors occur -->
+        <div class="msg-frame error" th:if="${#fields.hasErrors('*')}">
+            <p>Des erreurs ont éte détectées</p>
+        </div>
+
+        <form class="form" id="updateProfileForm" method="post" th:action="@{/profile/my-profile/update}">
+            <fieldset>
+                <legend>Modifier mon profil</legend>
+                <ul class="flex-outer">
+
+                    <!--Username -->
+                    <li>
+                        <label for="username">Pseudo :</label>
+                        <input id="username" required th:field="*{username}" type="text">
+
+                        <p class="error-msg"
+                           th:each="e : ${#fields.errors('username')}"
+                           th:if="${#fields.hasErrors('username')}"
+                           th:text="${e}">
+                        </p>
+                    </li>
+
+                    <!--Lastname -->
+                    <li>
+                        <label for="lastname">Nom :</label>
+                        <input id="lastname" required th:field="*{lastname}" type="text">
+
+                        <p class="error-msg"
+                           th:each="e : ${#fields.errors('lastname')}"
+                           th:if="${#fields.hasErrors('lastname')}"
+                           th:text="${e}">
+                        </p>
+                    </li>
+
+                    <!--Firstname -->
+                    <li>
+                        <label for="firstname">Prénom :</label>
+                        <input id="firstname" required th:field="*{firstname}" type="text">
+
+                        <p class="error-msg"
+                           th:each="e : ${#fields.errors('firstname')}"
+                           th:if="${#fields.hasErrors('firstname')}"
+                           th:text="${e}">
+                        </p>
+                    </li>
+
+                    <!--Email -->
+                    <li>
+                        <label for="email">Email :</label>
+                        <input id="email" required th:field="*{email}" type="email">
+
+                        <p class="error-msg"
+                           th:each="e : ${#fields.errors('email')}"
+                           th:if="${#fields.hasErrors('email')}"
+                           th:text="${e}">
+                        </p>
+                    </li>
+
+                    <!--Phone -->
+                    <li>
+                        <label for="phone">Téléphone :</label>
+                        <input id="phone" required th:field="*{phone}" type="tel">
+
+                        <p class="error-msg"
+                           th:each="e : ${#fields.errors('phone')}"
+                           th:if="${#fields.hasErrors('phone')}"
+                           th:text="${e}">
+                        </p>
+                    </li>
+
+                    <!--Street -->
+                    <li>
+                        <label for="street">Rue :</label>
+                        <input id="street" required th:field="*{street}" type="text">
+
+                        <p class="error-msg"
+                           th:each="e : ${#fields.errors('street')}"
+                           th:if="${#fields.hasErrors('street')}"
+                           th:text="${e}">
+                        </p>
+                    </li>
+
+                    <!--Zipcode -->
+                    <li>
+                        <label for="zipcode">Code postal :</label>
+                        <input id="zipcode" required th:field="*{zipcode}" type="text">
+
+                        <p class="error-msg"
+                           th:each="e : ${#fields.errors('zipcode')}"
+                           th:if="${#fields.hasErrors('zipcode')}"
+                           th:text="${e}">
+                        </p>
+                    </li>
+
+                    <!--City -->
+                    <li>
+                        <label for="city">Ville :</label>
+                        <input id="city" required th:field="*{city}" type="text">
+
+                        <p class="error-msg"
+                           th:each="e : ${#fields.errors('city')}"
+                           th:if="${#fields.hasErrors('city')}"
+                           th:text="${e}">
+                        </p>
+                    </li>
+
+                </ul>
+            </fieldset>
+
+            <ul class="flex-outer">
+                <!--Submit + cancel buttons  -->
+                <li class="form-actions">
+                    <button class="btn success" id="save" th:type="submit">Enregistrer</button>
+                    <a class="btn" th:href="@{/profile/my-profile}">
+                        Retour
+                    </a>
+                </li>
+            </ul>
+            <ul class="flex-outer">
+                <!--Submit + cancel buttons  -->
+                <li class="form-actions">
+                    <a class="btn cancel" th:href="@{/profile/delete}">Supprimer mon compte</a>
+                </li>
+            </ul>
+        </form>
+
+    </th:block>
+</main>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('updateProfileForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        // Initial username value
+        const initialUsername = usernameInput.value;
+        // Initial email value
+        const initialEmail = emailInput.value;
+
+        form.addEventListener('submit', (e) => {
+            // Get the username value when user submits the form
+            const currentUsername = usernameInput.value;
+            // Get the email value when user submits the form
+            const currentEmail = emailInput.value;
+
+            let confirmed = true;
+            let confirmMessage = "";
+
+            // Show confirmation modal if user modifies username and/or email
+
+            // Case : username and email are modified
+            if (currentUsername !== initialUsername && currentEmail !== initialEmail) {
+                confirmMessage = "Vous avez modifié votre pseudo et votre email. " +
+                    "Pour des raisons de sécurité, vous allez être déconnecté(e). Confirmer ?"
+                confirmed = confirm(confirmMessage);
+            }
+
+            // Case : only username is modified
+            else if (currentUsername !== initialUsername) {
+                confirmMessage = "Vous avez modifié votre pseudo. " +
+                    "Pour des raisons de sécurité, vous allez être déconnecté(e). Confirmer ?"
+                confirmed = confirm(confirmMessage);
+            }
+
+            // Case : only email is modified
+            else if (currentEmail !== initialEmail) {
+                confirmMessage = "Vous avez modifié votre email. " +
+                    "Pour des raisons de sécurité, vous allez être déconnecté(e). Confirmer ?"
+                confirmed = confirm(confirmMessage);
+            }
+
+            if (!confirmed) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+</body>
+</html>

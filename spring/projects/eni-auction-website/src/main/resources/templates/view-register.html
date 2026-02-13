@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/images/logoENI.png}" type="image/x-icon">
+    <title>ENI Enchères - Inscription</title>
+</head>
+<body>
+<div data-th-insert="~{fragments/fragment-header :: header}"></div>
+
+<main>
+    <h2>Mon profil</h2>
+    <th:block th:object="${userRegistrationDTO}">
+        <!-- Show error message if errors occur -->
+        <div class="msg-frame error" th:if="${#fields.hasErrors('*')}">
+            <p>Des erreurs ont éte détectées</p>
+        </div>
+
+        <form class="form" method="post" th:action="@{/register}">
+
+            <fieldset>
+                <legend>Inscription</legend>
+                <ul class="flex-outer">
+
+                    <!-- Username -->
+                    <li>
+                        <label for="username">Pseudo :</label>
+                        <input id="username" th:field="*{username}" required type="text" placeholder="Pseudo">
+
+                        <p class="error-msg"
+                           th:each="e : ${#fields.errors('username')}"
+                           th:if="${#fields.hasErrors('username')}"
+                           th:text="${e}">
+                        </p>
+                    </li>
+
+                    <!-- Lastname -->
+                    <li class="two-columns">
+                        <div>
+                            <label for="lastname">Nom :</label>
+                            <input id="lastname" th:field="*{lastname}" required type="text" placeholder="Nom de famille">
+
+                            <p class="error-msg"
+                               th:each="e : ${#fields.errors('lastname')}"
+                               th:if="${#fields.hasErrors('lastname')}"
+                               th:text="${e}">
+                            </p>
+                        </div>
+
+                        <!-- Firstname -->
+                        <div>
+                            <label for="firstname">Prénom :</label>
+                            <input id="firstname" th:field="*{firstname}" required type="text" placeholder="Prénom">
+
+                            <p class="error-msg"
+                               th:each="e : ${#fields.errors('firstname')}"
+                               th:if="${#fields.hasErrors('firstname')}"
+                               th:text="${e}">
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- Email -->
+                    <li>
+                        <label for="email">Email :</label>
+                        <input id="email" th:field="*{email}" required type="email" placeholder="Email">
+
+                        <p class="error-msg"
+                           th:each="e : ${#fields.errors('email')}"
+                           th:if="${#fields.hasErrors('email')}"
+                           th:text="${e}">
+                        </p>
+                    </li>
+
+                    <!-- Phone -->
+                    <li>
+                        <label for="phone">Téléphone :</label>
+                        <input id="phone" th:field="*{phone}" required type="tel" placeholder="Téléphone au format 0XXXXXXXXX">
+
+                        <p class="error-msg"
+                           th:each="e : ${#fields.errors('phone')}"
+                           th:if="${#fields.hasErrors('phone')}"
+                           th:text="${e}">
+                        </p>
+                    </li>
+
+                    <!-- Street -->
+                    <li>
+                        <label for="street">Rue :</label>
+                        <input id="street" th:field="*{street}" required type="text" placeholder="Numéro et libellé de voie">
+
+                        <p class="error-msg"
+                           th:each="e : ${#fields.errors('street')}"
+                           th:if="${#fields.hasErrors('street')}"
+                           th:text="${e}">
+                        </p>
+                    </li>
+
+                    <!-- Zipcode -->
+                    <li class="two-columns">
+                        <div>
+                            <label for="zipcode">Code postal :</label>
+                            <input id="zipcode" th:field="*{zipcode}" required type="text" placeholder="Code postal">
+
+                            <p class="error-msg"
+                               th:each="e : ${#fields.errors('zipcode')}"
+                               th:if="${#fields.hasErrors('zipcode')}"
+                               th:text="${e}">
+                            </p>
+                        </div>
+                        <div>
+                            <label for="city">Ville :</label>
+                            <input id="city" th:field="*{city}" required type="text" placeholder="Ville">
+
+                            <p class="error-msg"
+                               th:each="e : ${#fields.errors('city')}"
+                               th:if="${#fields.hasErrors('city')}"
+                               th:text="${e}">
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- Password -->
+                    <li>
+                        <label for="password">Mot de passe :</label>
+                        <div class="password-wrapper">
+                            <input id="password" name="password" required type="password" placeholder="Mot de passe">
+                            <span class="toggle-show-password"><img id="eye-password" alt="Afficher le mot de passe" height="16" src="/images/icons/eye-closed.svg" width="16"/></span>
+                        </div>
+                        <p class="error-msg"
+                           th:each="e : ${#fields.errors('password')}"
+                           th:if="${#fields.hasErrors('password')}"
+                           th:text="${e}">
+                        </p>
+                        <p class="password-validation" id="lowercase">1 minuscule</p>
+                        <p class="password-validation" id="uppercase">1 majuscule</p>
+                        <p class="password-validation" id="digit">1 chiffre</p>
+                        <p class="password-validation" id="specialChar">1 caractère spécial</p>
+                        <p class="password-validation" id="minLength">8 caractères minimum</p>
+
+                    </li>
+
+                    <!-- Password confirmation -->
+                    <li>
+                        <label for="confirm-password">Confirmation du mot de passe :</label>
+                        <div class="password-wrapper">
+                        <input id="confirm-password" th:field="*{confirmPassword}" required type="password" placeholder="Confirmation du mot de passe">
+                            <span class="toggle-show-password"><img id="eye-confirm-password" alt="Afficher le mot de passe" height="16" src="/images/icons/eye-closed.svg" width="16"/></span>
+                        </div>
+                            <p class="error-msg"
+                           th:each="e : ${#fields.errors('confirmPassword')}"
+                           th:if="${#fields.hasErrors('confirmPassword')}"
+                           th:text="${e}">
+                        </p>
+                    </li>
+
+
+                </ul>
+            </fieldset>
+
+            <ul class="flex-outer">
+                <!-- Submit button -->
+                <li class="form-actions">
+                    <button class="btn success" type="submit">M'inscrire</button>
+                    <a class="btn" th:href="@{/login}">
+                        Retour
+                    </a>
+                </li>
+            </ul>
+
+        </form>
+
+
+    </th:block>
+</main>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirm-password');
+
+        const eyePassword = document.getElementById('eye-password');
+        const eyeConfirmPassword = document.getElementById('eye-confirm-password');
+
+        const inputsWithIcons = [
+            {
+                input: passwordInput,
+                icon: eyePassword
+            },
+            {
+                input: confirmPasswordInput,
+                icon: eyeConfirmPassword
+            }
+        ];
+
+        const patterns = {
+            minLength: /.{8,}/,
+            lowercase: /[a-z]/,
+            uppercase: /[A-Z]/,
+            digit: /\d/,
+            specialChar: /[@$!%*?&]/,
+        };
+
+        // Password validation
+        passwordInput.addEventListener("input", () => {
+            const password = passwordInput.value;
+            for(const [key, value] of Object.entries(patterns)) {
+                if(value.test(password)) document.getElementById(key).style.color = "#81aa3fff";
+                else document.getElementById(key).style.color = "#c24f29";
+            }
+        })
+
+        // Toggle password visibility
+        inputsWithIcons.forEach(({input, icon}) => {
+            icon.addEventListener('click', () => {
+                if(icon.src.includes("eye-closed")) {
+                    icon.src = "/images/icons/eye-opened.svg";
+                    icon.alt = "Cacher le mot de passe"
+                    input.type = "text";
+                } else {
+                    icon.src = "/images/icons/eye-closed.svg";
+                    icon.alt = "Afficher le mot de passe"
+                    input.type = "password";
+                }
+            })
+        })
+    });
+</script>
+</body>
+</html>

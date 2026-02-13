@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/images/logoENI.png}" type="image/x-icon">
+    <title>ENI Enchères - Connexion</title>
+</head>
+<body>
+<div data-th-insert="~{fragments/fragment-header :: header}"></div>
+
+<main>
+    <h2>Connectez-vous</h2>
+
+    <!-- Show warning message if user changed username, email or password -->
+    <div class="msg-frame warning" th:if="${warningMessage}">
+        <span th:text="${warningMessage}"></span>
+    </div>
+
+    <!-- Show success message if register succeed -->
+    <div class="msg-frame success" th:if="${successMessage}">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <!-- Show error message if wrong credentials -->
+
+    <div class="msg-frame error" th:if="${param.error}">Nom d'utilisateur ou mot de passe incorrect</div>
+
+    <form class="form" method="post" th:action="@{/login}">
+        <fieldset>
+            <legend>Connexion</legend>
+            <ul class="flex-outer">
+
+                <!-- Username -->
+                <li>
+                    <label for="username">Identifiant :</label>
+                    <input id="username" name="username" required type="text" placeholder="Pseudo ou email">
+                </li>
+
+                <!-- Password -->
+                <li>
+                    <label for="password">Mot de passe :</label>
+                    <div class="password-wrapper">
+                        <input id="password" name="password" required type="password" placeholder="Mot de passe">
+                        <span class="toggle-show-password"><img id="eye" alt="Afficher le mot de passe" height="16" src="/images/icons/eye-closed.svg" width="16"/></span>
+                    </div>
+                </li>
+
+                <!-- Submit button -->
+                <li class="form-actions">
+                    <button class="btn light" type="submit">Connexion</button>
+                </li>
+
+                <!-- Button link to register -->
+                <li class="register-cta">
+                    <p>Pas encore de compte ?</p>
+                    <a class="btn light" th:href="@{/register}">Créer un compte</a>
+                </li>
+            </ul>
+        </fieldset>
+    </form>
+</main>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const passwordInput = document.getElementById('password');
+        const eye = document.getElementById('eye');
+
+        eye.addEventListener('click', () => {
+            if(eye.src.includes("eye-closed")){
+                eye.src = "images/icons/eye-opened.svg";
+                eye.alt = "Cacher le mot de passe"
+                passwordInput.type = "text";
+            } else {
+                eye.src = "images/icons/eye-closed.svg";
+                eye.alt = "Afficher le mot de passe"
+                passwordInput.type = "password";
+            }
+        })
+    });
+</script>
+</body>
+</html>

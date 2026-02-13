@@ -1,0 +1,398 @@
+@charset "UTF-8";
+
+body, html {
+    height: 100%;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    min-height: calc(100vh - 70px);
+    padding: 40px 0 30px;
+}
+
+.form {
+    width: 100%;
+    max-width: 580px;
+}
+
+form h2 {
+    text-align: center;
+    color: white;
+    margin-bottom: 4rem;
+}
+
+.flex-outer {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.flex-outer .form-actions {
+    width: inherit;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 0;
+    margin-top:30px;
+}
+
+.flex-outer li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+
+    &.credit-points {
+        flex-direction: row;
+        gap: .5rem;
+    }
+
+    &.register-cta {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 0;
+
+        &::before {
+            content: "";
+            width: 95%;
+            margin: 2rem auto 1rem;
+            height: 1px;
+            background-color: #9d9999;
+        }
+
+        p {
+            width: 100%;
+            text-align: center;
+            color: white;
+        }
+    }
+}
+
+.flex-outer li label, .flex-outer li p {
+    margin-bottom: 5px;
+    color: white;
+}
+
+.flex-outer li .error-msg {
+    margin-top: 4px;
+    color: #ed4f4f;
+    font-size: 0.9em;
+}
+
+.flex-outer li .password-validation {
+    font-size: 0.8rem;
+    color: #c24f29;
+    font-style: italic;
+}
+
+
+.flex-outer li input,
+.flex-outer li textarea,
+.flex-outer li select {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    color: white;
+    background-color: transparent;
+    border-bottom: 1px solid #c24f29;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    width: 100%;
+    padding: 10px;
+    height: auto;
+    min-height: 44px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+
+    &:focus {
+        color: white;
+        outline: none;
+        background-color: #383232;
+    }
+
+}
+
+.flex-outer li input[readonly],
+.flex-outer li textarea[readonly],
+.flex-outer li select[readonly] {
+    background-color: #383232;
+    cursor: not-allowed;
+    color: #ccc;
+    border-bottom: none;
+
+}
+
+.flex-outer li textarea {
+    resize: vertical;
+}
+
+.flex-outer li select {
+    color: white;
+    max-width: 400px;
+    resize: vertical;
+}
+
+/* icône du calendrier sur les champs date en blanc */
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+.flex-outer li button {
+    border-bottom: 0;
+}
+
+.light {
+    background-color: #544c4a;
+}
+
+.error-msg-deconnexion {
+    width: 100%;
+    text-align: center;
+    color: #fd7070;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* Fieldset */
+/* Image de l'article */
+
+.auction-img {
+    margin: auto;
+    width: 560px;
+    height: 400px;
+
+    img {
+        width: 100%;
+        height: 100%;
+        border-radius: 5px;
+        object-fit: contain;
+
+    }
+}
+
+legend {
+    color: white;
+    padding: 15px;
+    width: 50%;
+    background-color: #c24f29;
+    border-radius: 5px;
+    font-weight: bold;
+    margin: auto;
+    text-align: center;
+}
+
+fieldset {
+    border: none;
+    max-width : 580px;
+    border-radius: 5px;
+    padding: 4rem 3rem 3rem;
+    margin-top: 40px;
+    background-color: #2b2727;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.retrieval {
+    width: 100%;
+}
+
+/* ------------------------------------------ /
+/    CSS Spécifique formulaire de filtrage   /
+/ ------------------------------------------ /
+
+/ Formulaire de filtrage spécifique */
+.form-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap:20px;
+    justify-content: center;
+    width: 100%;
+    max-width: 550px;
+    background-color: #2b2727;
+    border-radius: 6px;
+    padding: 25px 20px;
+    box-sizing: border-box;
+    margin: 0 auto 20px auto;
+
+    .flex-outer {
+        margin: auto;
+        width: 100%;
+        padding: 1.5rem 1.5rem 0 1.5rem;
+
+        li {
+            margin-bottom: 0;
+        }
+    }
+}
+
+/* Formulaire avec radioButtons et checkBoxes */
+.filter-columns {
+    display: flex;
+    justify-content: center;
+    flex-basis: 100%;
+    gap: 5rem;
+    width: 100%;
+}
+
+.filter-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 170px;
+}
+
+.filter-checkboxes {
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+    gap: 6px;
+}
+
+.filter-column label {
+    color: white;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.filter-column input[type="checkbox"] {
+    margin-right: 6px;
+
+    &:disabled {
+        filter: invert(85%) brightness(1.2);
+    }
+
+}
+
+.filter-column label:has(input:disabled) {
+    color: #675f5f;
+}
+
+
+.filter-column input[type="radio"] {
+    margin-right: 6px;
+    margin-bottom: 20px;
+}
+
+.form-filter fieldset.filter-fieldset {
+    all: unset;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    &:disabled {
+        color: black;
+    }
+}
+
+/* Champs en deux colonnes */
+.flex-outer li.two-columns {
+    flex-direction: row;
+
+    gap: 2rem;
+    width: 100%;
+}
+
+.flex-outer .btn-bid{
+    background-color: #986303;
+    color: #fff1e1;
+    padding: 20px 40px;
+
+    &:hover{
+        background-color: #c78712;
+    }
+
+    &:disabled{
+        background-color: #4f493a;
+        cursor:not-allowed;
+    }
+}
+
+.flex-outer li.two-columns > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-outer li.two-columns input,
+.flex-outer li.two-columns select {
+    max-width: 105%;
+}
+
+.filter-column input[type="radio"] {
+    margin-top: 10px;
+}
+
+.password-wrapper {
+    width: 100%;
+    position: relative;
+}
+
+.toggle-show-password {
+    position: absolute;
+    right: 2rem;
+    top: 20px;
+    cursor: pointer;
+}
+
+/* Conteneur pour aligner les deux forms */
+.auction-bid-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Chaque form prend moitié largeur max (ou auto) */
+.auction-bid-container .form {
+    flex: 1 1 250px;
+    max-width: 300px;
+}
+
+/* Responsive : passe en colonne sur mobile */
+@media (max-width: 650px) {
+    .auction-bid-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+.not-enough-credit{
+    margin-top : 40px;
+}
+
+.form-two-columns fieldset{
+    min-height : 250px;
+    max-height : 150px;
+}
+
+.btn-delete-auction:disabled{
+    background-color: #411e18;
+    cursor:not-allowed;
+
+    &:hover{
+        background-color: #411e18;
+    }
+}
+
+.filters-inputs {
+    width: 100%;
+}
+
+.btn-reinit{
+    padding:5px 10px;
+    font-size: 0.8em;
+    background-color: #595250;
+    border-radius: 3px;
+
+    &:hover{
+        background-color: #6c6360;
+    }
+}
+
+#btn-reset{
+    padding: 2rem 0 1rem;
+}
+

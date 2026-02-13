@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/images/logoENI.png}" type="image/x-icon">
+    <title>ENI Enchères - Profil</title>
+</head>
+<body>
+
+<div th:insert="~{fragments/fragment-header :: header}"></div>
+
+<main>
+    <th:block th:object="${user}">
+    <h2 th:text="${user == connectedUser ? 'Mon profil' : 'Profil de ' + username}"></h2>
+
+    <div th:if="${successMessage}" class="msg-frame success">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+        <section class="profile-fieldset">
+
+            <h3 class="profile-legend">Profil</h3>
+
+            <ul class="profile-info-container">
+
+                <li>
+                    <p class="label">Pseudo</p>
+                    <p th:text="${user.username}"></p>
+                </li>
+
+                <li th:if="${user == connectedUser}">
+                    <p class="label">Nom</p>
+                    <p th:text="${user.lastname}"></p>
+                </li>
+
+                <li th:if="${user == connectedUser}">
+                    <p class="label">Prénom</p>
+                    <p th:text="${user.firstname}"></p>
+                </li>
+
+                <li>
+                    <p class="label">Email</p>
+                    <p th:text="${user.email}"></p>
+                </li>
+
+                <li th:if="${user == connectedUser}">
+                    <p class="label">Téléphone</p>
+                    <p th:text="${user.phone}"></p>
+                </li>
+
+                <li th:if="${user == connectedUser}">
+                    <p class="label">Rue</p>
+                    <p th:text="${user.address.street}"></p>
+                </li>
+
+                <li th:if="${user == connectedUser}">
+                    <p class="label">Code postal</p>
+                    <p th:text="${user.address.zipcode}"></p>
+                </li>
+
+                <li>
+                    <p class="label">Ville</p>
+                    <p th:text="${user.address.city}"></p>
+                </li>
+
+                <li>
+                    <p class="label">Crédits</p>
+                    <p th:text="${user.creditPoints}"></p>
+                </li>
+
+            </ul>
+        </section>
+
+            <div class="profile-actions" th:if="${user == connectedUser}">
+                <a class="btn" th:href="@{/profile/my-profile/update}">Modifier mon profil</a>
+                <a class="btn" th:href="@{/profile/my-profile/update-password}">Modifier mon mot de passe</a>
+            </div>
+
+        <div class="profile-actions" th:if="${user != connectedUser}">
+            <a class="btn" onclick="history.back()">Retour</a>
+        </div>
+
+
+    </th:block>
+
+</main>
+
+</body>
+</html>

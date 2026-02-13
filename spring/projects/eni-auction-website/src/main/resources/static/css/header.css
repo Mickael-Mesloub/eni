@@ -1,0 +1,74 @@
+header {
+    color: white;
+    background-color: #c24f29;
+    display: flex;
+    align-items: center;
+    box-shadow: 1px 3px 3px #232222;
+    height: 70px;
+    padding: 0;
+}
+
+header ul {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+header li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+/* Liens navigables */
+
+header a {
+    display: flex;
+    align-items: center;
+    height: 70px;
+    padding: 0 20px;
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+header a:hover {
+    color: #b0acac;
+}
+
+/* Titre à gauche de la barre de navigation */
+
+#nav-title {
+    margin-right: auto;
+    font-size: 1.4em;
+}
+
+/* Bouton de déconnexion */
+
+.logout-form {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    padding: 0 20px;
+    margin-right : 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.logout-btn img {
+    width: 22px;
+    height: 22px;
+}
+
+.logout-btn:hover img {
+    opacity: 0.6;
+}
