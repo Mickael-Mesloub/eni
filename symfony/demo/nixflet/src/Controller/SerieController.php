@@ -53,12 +53,14 @@ final class SerieController extends AbstractController
         }
 
 //        $series = $serieRepository->findAll();
-        $series = $serieRepository->findBy($criterias,
-        [
-            'firstAirDate' => 'DESC',
-            'dateCreated' => 'DESC',
+//        $series = $serieRepository->findBy($criterias,
+//        [
+//            'firstAirDate' => 'DESC',
+//            'dateCreated' => 'DESC',
+//
+//        ], $limit, $offset);
 
-        ], $limit, $offset);
+        $series = $serieRepository->findSeriesCustom($offset, $limit, 'returning', new \DateTime('1990-01-01'), 8);
 
         return $this->render('serie/liste.html.twig', [
             'series' => $series,

@@ -12,8 +12,19 @@
         {% endblock %}
     </head>
     <body>
-    <h1>Nixflet</h1>
+    <header>
+        <h1><img src="{{ asset('images/logo.png') }}" alt="Logo Nixflet">Nixflet</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ path('app_home') }}">Home</a></li>
+                <li><a href="{{ path('app_serie_liste') }}">Catalogue</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
         {% block body %}{% endblock %}
+
+    </main>
     <footer>
 
     </footer>

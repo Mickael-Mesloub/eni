@@ -12,6 +12,7 @@
     <h2>{{ serie.name }}</h2>
     <span class="badge bg-warning text-black">{{ serie.status }}</span>
     <span class="badge bg-warning text-black">{{ serie.firstAirDate|date('d/m/Y') }}</span>
+    <span class="badge bg-info text-black">Note : {{ serie.vote }}</span>
     <br>
     <p>{{ serie.overview }}</p>
 {% endblock %}

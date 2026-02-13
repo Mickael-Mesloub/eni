@@ -25,27 +25,4 @@
             <p>Pas de série</p>
         {% endfor %}
     </section>
-
-    <table>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Overview</th>
-            <th>Status</th>
-            <th>Genres</th>
-            <th>First air date</th>
-            <th>Last air date</th>
-        </tr>
-        {% for serie in series %}
-        <tr>
-            <td>{{ serie.id }}</td>
-            <td>{{ serie.name }}</td>
-            <td>{{ serie.overview }}</td>
-            <td>{{ serie.status }}</td>
-            <td>{{ serie.genres }}</td>
-            <td>{{ serie.firstAirDate|date('d/m/Y') }}</td>
-            <td>{{ serie.lastAirDate ? serie.lastAirDate|date('d/m/Y') : 'Série en cours'}}</td>
-        </tr>
-        {% endfor %}
-    </table>
 {% endblock %}
