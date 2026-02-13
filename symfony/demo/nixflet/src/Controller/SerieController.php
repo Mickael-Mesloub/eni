@@ -42,7 +42,7 @@ final class SerieController extends AbstractController
 
         $criterias = [
             'status' => "returning",
-            'genres' => "horreur",
+//            'genres' => "horreur",
         ];
 
         $nbTotal = $serieRepository->count($criterias);
@@ -66,4 +66,26 @@ final class SerieController extends AbstractController
             'nb_pages_max' => $nbPagesMax,
         ]);
     }
+
+    #[Route('/detail/{id}', name: '_detail', requirements: ['id' => '\d+'], methods: ['GET'])]
+    public function detail(
+        SerieRepository $serieRepository,
+        // int $id,
+        Serie $serie
+    ): Response {
+        // On peut directement passer la série en param pour se passer du find.
+        // Bon à savoir : Le find() ne fonctionne qu'avec une clé primaire !
+        // Pour chercher avec autre chose, on va utiliser findOneBy()
+//        $serie = $serieRepository->find($id);
+//
+//        if(!$serie) {
+//            throw $this->createNotFoundException("Le serie $id n'existe pas.");
+//        }
+
+        return $this->render('serie/detail.html.twig', [
+            'serie' => $serie
+        ]);
+    }
+
+
 }

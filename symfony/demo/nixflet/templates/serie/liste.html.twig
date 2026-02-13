@@ -3,16 +3,28 @@
 {% block title %}{{ parent() }} | Catalogue{% endblock %}
 {% block body %}
     <h2>Catalogue des séries</h2>
+    <section>
+        <div class="pagination">
+            {% if(page > 1) %}
+                <a href="{{ path('app_serie_liste', {page: page - 1  }) }}">Page précédente</a>&nbsp;
+            {% endif %}
 
-    <div class="pagination">
-        {% if(page > 1) %}
-            <a href="{{ path('app_serie_liste', {page: page - 1  }) }}">Page précédente</a>&nbsp;
-        {% endif %}
+            {% if(page < nb_pages_max) %}
+                <a href="{{ path('app_serie_liste', {page: page + 1 }) }}">Page suivante</a>
+            {% endif %}
+        </div>
+    </section>
 
-        {% if(page < nb_pages_max) %}
-            <a href="{{ path('app_serie_liste', {page: page + 1 }) }}">Page suivante</a>
-        {% endif %}
-    </div>
+    <section class="series-list">
+        {% for serie in series %}
+            <a href="{{ path('app_serie_detail', {id: serie.id}) }}">
+                <img src="{{ asset('resources/posters/series/' ~ serie.poster) }}" width="250px"
+                     alt="{{ 'Poster de ' ~ serie.name }}" loading="lazy">
+            </a>
+        {% else %}
+            <p>Pas de série</p>
+        {% endfor %}
+    </section>
 
     <table>
         <tr>

@@ -1,18 +1,34 @@
-body {
-    background-color: skyblue;
-    padding: 0 1.5rem;
-    font-family: Century;
-}
-
-a {
-   text-decoration: none;
-}
-
 .pagination {
     width: 25%;
     display: flex;
     justify-content: space-between;
     padding: 1rem;
+}
 
+body {
+    background: linear-gradient(#000000, #132135);
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+    color: #EEE;
+    font-family: 'Roboto', sans-serif;
+    padding: 10px;
+}
 
+nav ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: 2em;
+}
+
+nav li a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.series-list {
+    display: grid;
+    grid-gap: 2em;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
