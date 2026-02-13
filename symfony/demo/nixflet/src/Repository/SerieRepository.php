@@ -21,8 +21,6 @@ class SerieRepository extends ServiceEntityRepository
     {
         $q = $this->createQueryBuilder('s')
             ->orderBy('s.popularity', 'DESC')
-            ->setFirstResult($offset)
-            ->setMaxResults($limit)
             ->andWhere('s.status = :status OR s.firstAirDate <= :date')
             ->setParameter('status', 'En cours')
             ->setParameter('date', $date);
@@ -32,8 +30,31 @@ class SerieRepository extends ServiceEntityRepository
                 ->setParameter('vote', $vote);
         }
 
-        return $q->getQuery()
-            ->getResult();
+        $q2 = clone $q;
+        $q2->select('COUNT(s.id)');
+
+        return [
+            $q2->getQuery()->getSingleScalarResult(),
+            $q->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()];
+    }
+
+    public function findSeriesDQL(): array {
+        $dql = "SELECT s FROM App\Entity\Serie s
+            WHERE (s.firstAirDate <= :date OR s.status = :status)
+            AND s.name LIKE :partial
+            ORDER BY s.popularity DESC";
+
+        return $this->getEntityManager()
+            ->createQuery($dql)
+            ->setParameter(['date', new \DateTime('1990-01-01')])
+            ->setParameter(['status' => "ended"])
+            ->setParameter(['partial' => "%a%"])
+            ->setMaxResults(10)
+            ->setFirstResult(0)
+            ->execute();
     }
 
 
