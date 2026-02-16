@@ -1,0 +1,52 @@
+body {
+    background: linear-gradient(#000000, #132135) fixed center center;
+    background-size: cover;
+    color: #EEE;
+    font-family: 'Roboto', sans-serif;
+    padding: 10px;
+
+    a {
+        text-decoration: none;
+    }
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: 2em;
+}
+
+nav li a {
+    color: inherit;
+}
+
+main {
+    padding: 1.5rem;
+}
+
+.series-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    gap: 1.5rem;
+
+    > a {
+        width: 250px;
+    }
+}
+
+.pagination {
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
