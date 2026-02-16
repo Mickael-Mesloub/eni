@@ -6,11 +6,11 @@
     <section>
         <div class="pagination">
             {% if(page > 1) %}
-                <a href="{{ path('app_serie_liste', {page: page - 1  }) }}">Page précédente</a>&nbsp;
+                <a href="{{ path('app_serie_liste_find_by', {page: page - 1  }) }}">Page précédente</a>&nbsp;
             {% endif %}
 
             {% if(page < nb_pages_max) %}
-                <a href="{{ path('app_serie_liste', {page: page + 1 }) }}">Page suivante</a>
+                <a href="{{ path('app_serie_liste_find_by', {page: page + 1 }) }}">Page suivante</a>
             {% endif %}
         </div>
     </section>

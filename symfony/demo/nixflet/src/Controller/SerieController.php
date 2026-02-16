@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Serie;
+use App\Form\SerieType;
 use App\Repository\SerieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -103,6 +105,27 @@ final class SerieController extends AbstractController
 
         return $this->render('serie/detail.html.twig', [
             'serie' => $serie
+        ]);
+    }
+
+    #[Route('/edit', name: '_edit')]
+    public function edit(Request $request, EntityManagerInterface $em): Response {
+
+        $serie = new Serie();
+        $serieForm = $this->createForm(SerieType::class, $serie);
+        $serieForm->handleRequest($request);
+
+        if($serieForm->isSubmitted() && $serieForm->isValid()) {
+            $serie->setDateCreated(new \DateTime());
+            $em->persist($serie);
+            $em->flush();
+
+            $this->addFlash('success', 'GG ! Une nouvelle série a été enregistrée');
+            return $this->redirectToRoute('app_serie_liste_find_by');
+        }
+
+        return $this->render('serie/edit.html.twig', [
+            'serie_form' => $serieForm
         ]);
     }
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SerieRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SerieRepository::class)]
 class Serie
@@ -15,15 +16,29 @@ class Serie
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'La série doit avoir un titre !!!')]
+    #[Assert\Length(
+        min: 3,
+        max: 15,
+        minMessage: "La série doit avoir au moins {{ limit }} caractères",
+        maxMessage: "La série doit avoir au maximum {{ limit }} caractères"
+    )]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $overview = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Vous devez choisir un statut')]
+    #[Assert\Choice( choices: ['returning', 'ended', 'Cancelled'], message: 'Choix invalide')]
     private ?string $status = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\Range(
+        notInRangeMessage: 'La note doit être comprise entre {{ min }} et {{ max }}',
+        min: 0,
+        max: 10
+    )]
     private ?float $vote = null;
 
     #[ORM\Column(nullable: true)]
@@ -33,9 +48,11 @@ class Serie
     private ?string $genres = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\LessThan('today', message: 'Cette date doit être antérieure à aujourd\'hui')]
     private ?\DateTime $firstAirDate = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Assert\GreaterThan(propertyPath: 'firstAirDate', message: 'La date ne doit pas être anétrieure à la date de lancement')]
     private ?\DateTime $lastAirDate = null;
 
     #[ORM\Column(length: 255, nullable: true)]

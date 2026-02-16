@@ -17,11 +17,19 @@
         <nav>
             <ul>
                 <li><a href="{{ path('app_home') }}">Home</a></li>
-                <li><a href="{{ path('app_serie_liste') }}">Catalogue</a></li>
+                <li><a href="{{ path('app_serie_liste_find_by') }}">Catalogue</a></li>
             </ul>
         </nav>
     </header>
     <main>
+        {% for status, messages in app.flashes %}
+            {% for message in messages %}
+            <div class="alert alert-{{ status }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endfor %}
+
         {% block body %}{% endblock %}
 
     </main>
