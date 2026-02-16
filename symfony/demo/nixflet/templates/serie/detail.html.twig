@@ -15,4 +15,8 @@
     <span class="badge bg-info text-black">Note : {{ serie.vote }}</span>
     <br>
     <p>{{ serie.overview }}</p>
+    <br>
+    <div>
+        <a href="{{ path('app_serie_delete', {id: serie.id, token: csrf_token('serie_delete' ~ serie.id)}) }}" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette série ?')" >Supprimer</a>
+    </div>
 {% endblock %}

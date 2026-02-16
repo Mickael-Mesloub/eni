@@ -125,9 +125,25 @@ final class SerieController extends AbstractController
         }
 
         return $this->render('serie/edit.html.twig', [
-            'serie_form' => $serieForm
+            'serie_form' => $serieForm,
+            'serie' => $serie
         ]);
+
     }
 
+    #[Route('/delete/{id}', name: '_delete', requirements: ['id' => '\d+'])]
+    public function delete(Serie $serie, EntityManagerInterface $em, Request $request): Response {
+        $token = $request->query->get('_token');
 
+        if($this->isCsrfTokenValid('serie_delete' . $serie->getId(), $token)) {
+            $em->remove($serie);
+            $em->flush();
+
+            $this->addFlash('success', 'La série a bien été supprimée');
+            return $this->redirectToRoute('app_serie_liste_find_by');
+        }
+
+        $this->addFlash('danger', 'Tié un malade Bernard, on fait pas ça !');
+        return $this->redirectToRoute('app_serie_detail', ['id' => $serie->getId()]);
+    }
 }
