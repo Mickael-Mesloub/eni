@@ -1,17 +1,20 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Liste de souhaits{% endblock %}
+{% block title %}{{ parent() }} | Liste de souhaits{% endblock %}
 
 {% block main %}
     <h2>Liste de souhaits</h2>
-    <ul class="wishlist">
-        {% for id, wish in wishes %}
-            <li class="wish">
-                <a class="nav-link" href="{{ path('app_wish_details', {id: id}) }}">{{ id }} - {{ wish }}</a>
-            </li>
-        {% else %}
-            <li>La liste de souhait est vide.</li>
-        {% endfor %}
-    </ul>
+    <div class="wishlist">
+        {% set publishedWishes = wishes|filter(wish => wish.published) %}
 
+        {% if publishedWishes is empty %}
+            <p>Aucun souhait publié pour le moment.</p>
+        {% else %}
+            {% for wish in publishedWishes %}
+                <a class="wish" href="{{ path('app_wishlist_wish_details', {id: wish.id}) }}">
+                    {{ wish.id }} - {{ wish.title }}
+                </a>
+            {% endfor %}
+        {% endif %}
+    </div>
 {% endblock %}

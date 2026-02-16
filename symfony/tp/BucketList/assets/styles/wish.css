@@ -10,6 +10,7 @@
     background-color: rgb(17, 107, 169);
     color: #eef2fa;
     border-radius: 1rem;
+    cursor: pointer;
 
     &:hover {
         opacity: 0.8;

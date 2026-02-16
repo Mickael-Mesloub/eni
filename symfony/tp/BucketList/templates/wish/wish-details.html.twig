@@ -1,8 +1,9 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Détails du souhait {{ id }}{% endblock %}
+{% block title %}{{ parent() }} | Détails du souhait {{ wish.id }}{% endblock %}
 
 {% block main %}
-    <h2>Détails du souhait {{ id }}</h2>
-    <p>{{ wish }}</p>
+    <h2>Détails du souhait {{ wish.id }}</h2>
+    <p>{{ wish.title }}</p>
+    <p>{{ wish.description }}</p>
 {% endblock %}
