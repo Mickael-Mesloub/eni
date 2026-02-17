@@ -5,9 +5,13 @@ namespace App\Entity;
 use App\Repository\SerieRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SerieRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\UniqueConstraint(columns: ['name', 'first_air_date'])]
+#[UniqueEntity(fields: ['name', 'first_air_date'], message: 'La série {name} existe déjà')]
 class Serie
 {
     #[ORM\Id]
@@ -16,7 +20,7 @@ class Serie
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'La série doit avoir un titre !!!')]
+    #[Assert\NotBlank(message: 'La série doit avoir un titre !')]
     #[Assert\Length(
         min: 3,
         max: 15,
@@ -52,7 +56,20 @@ class Serie
     private ?\DateTime $firstAirDate = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Assert\Type("\DateTimeInterface")]
     #[Assert\GreaterThan(propertyPath: 'firstAirDate', message: 'La date ne doit pas être anétrieure à la date de lancement')]
+    #[Assert\When(
+        expression: "this.getStatus() == 'returning'",
+        constraints: [
+            new Assert\Blank(message:"Une série en cours ne peut pas avoir de date de fin")
+        ]
+    )]
+    #[Assert\When(
+        expression: "this.getStatus() != 'returning'",
+        constraints: [
+            new Assert\Blank(message:"Vous devez renseigner une date de fin si la série est terminée ou abandonnée")
+        ]
+    )]
     private ?\DateTime $lastAirDate = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -69,6 +86,16 @@ class Serie
 
     #[ORM\Column(nullable: true)]
     private ?\DateTime $dateModified = null;
+
+    #[ORM\PrePersist]
+    public function onPersist(): void {
+        $this->dateCreated = new \DateTime();
+    }
+
+    #[ORM\PreUpdate]
+    public function onUpdate(): void {
+        $this->dateModified = new \DateTime();
+    }
 
     public function getId(): ?int
     {
