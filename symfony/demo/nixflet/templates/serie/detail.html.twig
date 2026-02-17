@@ -19,6 +19,8 @@
         <ul>
             {% for season in serie.seasons %}
                 <li>{{ season.number }} : {{ season.overview }} - {{ season.firstAirDate|date('d/m/Y') }}</li>
+                <span><a href="{{ path('app_season_update', { id: season.id }) }}" class="btn btn-outline-info ">Modifier la saison</a></span>
+
             {% endfor %}
         </ul>
     </section>

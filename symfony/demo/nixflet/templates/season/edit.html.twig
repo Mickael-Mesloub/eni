@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Éditer une saison{% endblock %}
+
+{% block body %}
+    {% if season is defined %}
+        <h2>Modifier la saison {{ season.number }}</h2>
+    {% else %}
+        <h2>Créer une nouvelle saison</h2>
+    {% endif %}
+    {{ form_start(season_form) }}
+
+    {{ form_widget(season_form) }}
+    <button class="btn btn-primary">Enregistrer</button>
+    {{ form_end(season_form) }}
+
+{% endblock %}
