@@ -91,8 +91,7 @@ final class SerieController extends AbstractController
     #[Route('/detail/{id}', name: '_detail', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function detail(
         SerieRepository $serieRepository,
-        // int $id,
-        Serie $serie
+         int $id,
     ): Response {
         // On peut directement passer la série en param pour se passer du find.
         // Bon à savoir : Le find() ne fonctionne qu'avec une clé primaire !
@@ -102,6 +101,8 @@ final class SerieController extends AbstractController
 //        if(!$serie) {
 //            throw $this->createNotFoundException("Le serie $id n'existe pas.");
 //        }
+
+        $serie = $serieRepository->getSerieWithSeasons($id);
 
         return $this->render('serie/detail.html.twig', [
             'serie' => $serie
