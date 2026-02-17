@@ -11,8 +11,15 @@
             <p>Aucun souhait publié pour le moment.</p>
         {% else %}
             {% for wish in publishedWishes %}
-                <a class="wish" href="{{ path('app_wishlist_wish_details', {id: wish.id}) }}">
-                    {{ wish.id }} - {{ wish.title }}
+                <a href="{{ path('app_wishlist_wish_details', {id: wish.id}) }}" class="card shadow-lg">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h3 class="card-title mb-0">Souhait n°{{ wish.id }}</h3>
+                        <span class="badge bg-primary">{{ wish.category.name }}</span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{ wish.title }}</h4>
+                        <p class="card-text">{{ wish.description }}</p>
+                    </div>
                 </a>
             {% endfor %}
         {% endif %}
