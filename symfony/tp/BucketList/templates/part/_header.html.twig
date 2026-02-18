@@ -12,12 +12,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_about_us') }}">À propos de nous</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_wishlist_list') }}">Wishlist</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_wishlist_create_wish') }}">Créer un souhait</a>
-                </li>
+                {% if is_granted('IS_AUTHENTICATED') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_wishlist_list') }}">Wishlist</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_wishlist_create_wish') }}">Créer un souhait</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Register</a></li>
+                {% endif %}
             </ul>
         </div>
     </nav>

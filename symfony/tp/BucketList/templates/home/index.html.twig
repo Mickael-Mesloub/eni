@@ -1,7 +1,11 @@
-{%  extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}{{ parent() }} | Page d'accueil{% endblock %}
 
 {% block main %}
-<h1>Bienvenue sur votre application de Bucket list</h1>
+    {% if app.user.username is defined %}
+        <h2>Bonjour {{ app.user.username }} 👋</h2>
+    {% else %}
+        <h2>Bienvenue sur votre application de Bucket list !</h2>
+    {% endif %}
 {% endblock %}
