@@ -17,9 +17,17 @@
         <nav>
             <ul>
                 <li><a href="{{ path('app_home') }}">Home</a></li>
+                {% if is_granted('IS_AUTHENTICATED') %}
                 <li><a href="{{ path('app_serie_liste_find_by') }}">Catalogue</a></li>
+                    {% if is_granted('ROLE_CONTRIB') %}
                 <li><a href="{{ path('app_serie_create') }}">Nouvelle série</a></li>
                 <li><a href="{{ path('app_season_create') }}">Nouvelle saison</a></li>
+
+                {% endif %}
+                <li><a href="{{ path('app_logout') }}">Logout</a></li>
+                {% else %}
+                <li><a href="{{ path('app_login') }}">Login</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
