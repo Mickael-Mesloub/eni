@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\DataTransformer\SlashTransformer;
 use App\Entity\Serie;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -24,7 +26,29 @@ class SerieType extends AbstractType
             ->add('overview', TextType::class, [
                 'label' => 'Résumé',
             ])
-            ->add('genres')
+            ->add('genres', ChoiceType::class, [
+                    'label' => 'Genre',
+                    'choices' => [
+                        'War' => 'War',
+                        'Politics' => 'Politics',
+                        'Drama' => 'Drama',
+                        'Thriller' => 'Thriller',
+                        'Horror' => 'Horror',
+                        'Comedy' => 'Comedy',
+                        'Romance' => 'Romance',
+                        'Sci-Fi' => 'Sci-Fi',
+                        'Crime' => 'Crime',
+                        'Aventure' => 'Aventure',
+                        'Mystery' => 'Mystery',
+                        'Action' => 'Action',
+                        'Fantasy' => 'Fantasy',
+                        'History' => 'History',
+                        'Kids' => 'Kids',
+                        'Family' => 'Family',
+                        'Soap' => 'Soap',
+                    ],
+                'multiple' => true,
+                ])
 
             ->add('status', ChoiceType::class, [
                 'label' => 'Statut',
@@ -83,6 +107,7 @@ class SerieType extends AbstractType
                 ]
             ])
         ;
+        $builder->get('genres')->addModelTransformer(new SlashTransformer());
     }
 
     public function configureOptions(OptionsResolver $resolver): void
