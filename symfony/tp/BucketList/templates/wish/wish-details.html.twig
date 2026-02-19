@@ -4,6 +4,13 @@
 
 {% block main %}
     <h2>Détails du souhait {{ wish.id }}</h2>
+    <em>Créé par {{ wish.author }}</em>
     <p>{{ wish.title }}</p>
     <p>{{ wish.description }}</p>
+    {% if is_granted('ROLE_USER') %}
+        <div>
+            <a href="{{ path('app_wishlist_update_wish', { id: wish.id }) }}" class="btn btn-primary">Modifier</a>&nbsp;
+            <a href="{{ path('app_wishlist_delete_wish', { id: wish.id, token: csrf_token('wish_delete' ~ wish.id) }) }}" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer ce souhait ?')">Supprimer</a>
+        </div>
+    {% endif %}
 {% endblock %}

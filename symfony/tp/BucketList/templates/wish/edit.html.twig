@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | {{ wish is defined ? 'Editer le souhait ' ~ wish.id : 'Créer un souhait' }}
+{% endblock %}
+
+{% block main %}
+    {% if wish is defined %}
+        <h2>Modifier le souhait {{ wish.title }}</h2>
+    {% else %}
+        <h2>Créer un nouveau souhait</h2>
+    {% endif %}
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+            {{ form(wish_form) }}
+        </div>
+    </div>
+{% endblock %}
