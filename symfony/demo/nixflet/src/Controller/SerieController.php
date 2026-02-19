@@ -4,17 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Serie;
 use App\Form\SerieType;
+use App\Helper\FileManager;
 use App\Repository\SerieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/serie', name: 'app_serie')]
 #[IsGranted("ROLE_USER")]
@@ -115,7 +114,7 @@ final class SerieController extends AbstractController
 
     #[Route('/create', name: '_create')]
     #[IsGranted("ROLE_CONTRIB")]
-    public function create(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
+    public function create(Request $request, EntityManagerInterface $em, FileManager $fileManager): Response
     {
         $serie = new Serie();
         $serieForm = $this->createForm(SerieType::class, $serie);
@@ -124,9 +123,10 @@ final class SerieController extends AbstractController
             $file = $serieForm->get('posterFile')->getData();
 
             if($file instanceof UploadedFile) {
-                $newFileName =  sprintf('%s-%s.%s', $slugger->slug($serie->getName()), uniqid(), $file->guessExtension());
                 $dir = $this->getParameter('poster_path');
-                $file->move($dir, $newFileName);
+                $baseName = $serie->getName();
+                $newFileName = $fileManager->upload($file, $dir, $baseName);
+
                 $serie->setPoster($newFileName);
             }
 
@@ -144,11 +144,21 @@ final class SerieController extends AbstractController
 
     #[Route('/update/{id}', name: '_update', requirements: ['id' => '\d+'])]
     #[IsGranted("ROLE_CONTRIB")]
-    public function update(Request $request, EntityManagerInterface $em, Serie $serie): Response
+    public function update(Request $request, EntityManagerInterface $em, Serie $serie, FileManager $fileManager): Response
     {
         $serieForm = $this->createForm(SerieType::class, $serie);
         $serieForm->handleRequest($request);
         if ($serieForm->isSubmitted() && $serieForm->isValid()) {
+            $file = $serieForm->get('posterFile')->getData();
+
+            if($file instanceof UploadedFile) {
+                $dir = $this->getParameter('poster_path');
+                $baseName = $serie->getName();
+                $newFileName = $fileManager->upload($file, $dir, $baseName, $serie->getPoster());
+
+                $serie->setPoster($newFileName);
+            }
+
             $em->flush();
             $this->addFlash('success', "La série {$serie->getName()} a été modifiée");
             return $this->redirectToRoute('app_serie_detail', ['id' => $serie->getId()]);
@@ -171,7 +181,7 @@ final class SerieController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Une série a été supprimée');
-            return $this->redirectToRoute('app_serie_liste');
+            return $this->redirectToRoute('app_serie_liste_find_by');
         }
 
         $this->addFlash('danger', 'Cette action est impossible!');
