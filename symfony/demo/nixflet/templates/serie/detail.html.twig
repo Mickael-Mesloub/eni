@@ -7,7 +7,9 @@
             url("{{ asset('resources/backdrops/' ~ serie.backdrop) }}")
         }
     </style>
-
+    <img src="{{ asset(poster_path ~ '/' ~ serie.poster ) }}" width="250px"
+         alt="{{ 'Poster de ' ~ serie.name }}" loading="lazy">
+    <br>
     <h2>{{ serie.name }}</h2>
     <span class="badge bg-info">{{ serie.status }}</span>
     <span class="badge bg-info">{{ serie.firstAirDate|date('d/m/Y') }}</span>

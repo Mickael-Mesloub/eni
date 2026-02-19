@@ -8,11 +8,13 @@ use App\Repository\SerieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/serie', name: 'app_serie')]
 #[IsGranted("ROLE_USER")]
@@ -113,12 +115,21 @@ final class SerieController extends AbstractController
 
     #[Route('/create', name: '_create')]
     #[IsGranted("ROLE_CONTRIB")]
-    public function create(Request $request, EntityManagerInterface $em): Response
+    public function create(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
         $serie = new Serie();
         $serieForm = $this->createForm(SerieType::class, $serie);
         $serieForm->handleRequest($request);
         if ($serieForm->isSubmitted() && $serieForm->isValid()) {
+            $file = $serieForm->get('posterFile')->getData();
+
+            if($file instanceof UploadedFile) {
+                $newFileName =  sprintf('%s-%s.%s', $slugger->slug($serie->getName()), uniqid(), $file->guessExtension());
+                $dir = $this->getParameter('poster_path');
+                $file->move($dir, $newFileName);
+                $serie->setPoster($newFileName);
+            }
+
             $em->persist($serie);
             $em->flush();
 

@@ -6,10 +6,12 @@ use App\Entity\Serie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class SerieType extends AbstractType
 {
@@ -57,7 +59,23 @@ class SerieType extends AbstractType
                 ],
             ])
             ->add('backdrop')
-            ->add('poster')
+            ->add('posterFile', FileType::class, [
+                'label' => 'Poster',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'maxSizeMessage' => 'Votre fichier est trop lourd ! Max: 1MO',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Format de fichier invalide ! Formats acceptés: jpg, jpeg, png',
+                    ])
+                ]
+            ])
             ->add('submit' , SubmitType::class, [
                 'label' => 'Enregistrer',
                 'attr' => [

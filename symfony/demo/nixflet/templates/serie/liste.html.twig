@@ -18,7 +18,7 @@
     <section class="series-list">
         {% for serie in series %}
             <a href="{{ path('app_serie_detail', {id: serie.id}) }}">
-                <img src="{{ asset('resources/posters/series/' ~ serie.poster ) }}" width="250px"
+                <img src="{{ asset(poster_path ~ '/' ~ serie.poster ) }}" width="250px"
                      alt="{{ 'Poster de ' ~ serie.name }}" loading="lazy">
             </a>
         {% else %}
