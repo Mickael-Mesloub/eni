@@ -4,6 +4,7 @@ import fr.eni.demo.bo.Adresse;
 import fr.eni.demo.bo.Employe;
 import fr.eni.demo.dal.AdresseRepository;
 import fr.eni.demo.dal.EmployeRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +55,7 @@ public class EmployeServiceImpl implements EmployeService
     }
 
     @Override
+    @Transactional
     public void ajouter(Employe e, Adresse adresse) {
         ajouter(e);
 
