@@ -35,5 +35,9 @@ public class Employe {
 
     @Column(name = "CELL_PHONE_NUMBER", length = 12)
     private String numPort;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "ADDRESS_ID")
+    private Adresse adresse;
 }
 
