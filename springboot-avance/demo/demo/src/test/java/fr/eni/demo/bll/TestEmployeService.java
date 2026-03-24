@@ -1,7 +1,7 @@
 package fr.eni.demo.bll;
 
 import fr.eni.demo.bo.Employe;
-import fr.eni.demo.dal.EmployeDAO;
+import fr.eni.demo.dal.EmployeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -23,7 +23,7 @@ public class TestEmployeService {
     private EmployeService employeService;
 
     @MockitoBean
-    private EmployeDAO employeDAO;
+    private EmployeRepository employeRepository;
 
     @Test
     void test_lireTousLesEmployes() {
@@ -50,7 +50,7 @@ public class TestEmployeService {
                 .build()
         );
 
-        Mockito.when(employeDAO.findAll()).thenReturn(employes);
+        Mockito.when(employeRepository.findAll()).thenReturn(employes);
 
         List<Employe> listeEmployes = employeService.lireTousLesEmployes();
 
@@ -80,7 +80,8 @@ public class TestEmployeService {
 
         Optional<Employe> optionalEmploye = Optional.of(employe);
 
-        Mockito.when(employeDAO.findByImmatriculation("HCDA100-1")).thenReturn(optionalEmploye);
+        // TODO replace
+      //  Mockito.when(employeRepository.findByImmatriculation("HCDA100-1")).thenReturn(optionalEmploye);
 
         assertThrows(
                 RuntimeException.class,

@@ -1,7 +1,7 @@
 package fr.eni.demo.bll;
 
 import fr.eni.demo.bo.Employe;
-import fr.eni.demo.dal.EmployeDAO;
+import fr.eni.demo.dal.EmployeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class EmployeServiceImpl implements EmployeService
 {
-    private EmployeDAO employeDAO;
+    private EmployeRepository employeRepository;
 
 
     @Override
@@ -37,25 +37,29 @@ public class EmployeServiceImpl implements EmployeService
         }
 
         // Appel au repository pour trouver un employé par immatriculation
-        Optional<Employe> optionalEmploye = employeDAO.findByImmatriculation(e.getImmatriculation());
+
+        // TODO replace
+        //Optional<Employe> optionalEmploye = employeRepository.findByImmatriculation(e.getImmatriculation());
 
         // Vérifier si l'immatriculation existe. Si oui, lancer une exception
-        if(optionalEmploye.isPresent()) {
-            throw new RuntimeException("L'immatriculation existe déjà");
-        }
+        // TODO replace
+//        if(optionalEmploye.isPresent()) {
+//            throw new RuntimeException("L'immatriculation existe déjà");
+//        }
 
         // Créer l'employé
-        employeDAO.create(e);
+        employeRepository.save(e);
     }
 
     @Override
     public Employe lire(Integer id) {
-        Optional<Employe> optionalEmploye =  employeDAO.read(id);
+        Optional<Employe> optionalEmploye =  employeRepository.findById(id);
+
         return optionalEmploye.orElse(null);
     }
 
     @Override
     public List<Employe> lireTousLesEmployes() {
-        return employeDAO.findAll();
+        return employeRepository.findAll();
     }
 }
