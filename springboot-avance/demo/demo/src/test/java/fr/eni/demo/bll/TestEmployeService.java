@@ -1,6 +1,7 @@
 package fr.eni.demo.bll;
 
 import fr.eni.demo.bo.Employe;
+import fr.eni.demo.dal.AdresseRepository;
 import fr.eni.demo.dal.EmployeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -13,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Slf4j
@@ -24,6 +25,9 @@ public class TestEmployeService {
 
     @MockitoBean
     private EmployeRepository employeRepository;
+
+    @MockitoBean
+    private AdresseRepository adresseRepository;
 
     @Test
     void test_lireTousLesEmployes() {

@@ -1,6 +1,8 @@
 package fr.eni.demo.bll;
 
+import fr.eni.demo.bo.Adresse;
 import fr.eni.demo.bo.Employe;
+import fr.eni.demo.dal.AdresseRepository;
 import fr.eni.demo.dal.EmployeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,7 @@ import java.util.Optional;
 public class EmployeServiceImpl implements EmployeService
 {
     private EmployeRepository employeRepository;
-
+    private AdresseRepository adresseRepository;
 
     @Override
     public void ajouter(Employe e) {
@@ -49,6 +51,17 @@ public class EmployeServiceImpl implements EmployeService
 
         // Créer l'employé
         employeRepository.save(e);
+    }
+
+    @Override
+    public void ajouter(Employe e, Adresse adresse) {
+        ajouter(e);
+
+        if(adresse == null) {
+            throw new RuntimeException("L'adresse est obligatoire");
+        }
+
+        adresseRepository.save(adresse);
     }
 
     @Override
