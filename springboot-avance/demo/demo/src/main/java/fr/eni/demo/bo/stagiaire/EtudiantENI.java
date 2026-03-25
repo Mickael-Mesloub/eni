@@ -20,8 +20,11 @@ public class EtudiantENI {
     @Column(name = "STUDENT_REGISTRATION", nullable = false, length = 255)
     private String immatriculation;
 
-
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "DATA_ID")
     private DonneesPerso donneesPerso;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CLASS_ID")
+    private Promo promo;
 }

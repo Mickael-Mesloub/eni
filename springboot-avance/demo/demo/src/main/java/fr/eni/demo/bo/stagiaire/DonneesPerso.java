@@ -8,6 +8,7 @@ import lombok.*;
 @Data
 @Builder
 @ToString(exclude = {"etudiantENI"})
+@EqualsAndHashCode(exclude = {"etudiantENI"})
 @Entity
 @Table(name = "STUDENT_DATA")
 public class DonneesPerso {
