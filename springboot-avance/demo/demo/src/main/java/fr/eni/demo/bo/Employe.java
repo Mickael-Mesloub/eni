@@ -39,5 +39,10 @@ public class Employe {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "ADDRESS_ID")
     private Adresse adresse;
+
+    @ManyToOne
+    @JoinColumn(name = "CIVILITY_ID")
+    private Civilite civilite;
+
 }
 
