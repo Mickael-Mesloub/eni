@@ -1,10 +1,9 @@
-package fr.eni.cave.dal.association;
+package fr.eni.cave.association;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
-import java.util.Optional;import java.util.stream.Collectors;
+import java.util.Optional;
 
 import fr.eni.cave.dal.LignesPanierRepository;import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
