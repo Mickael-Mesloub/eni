@@ -25,4 +25,9 @@ public class Client {
 
     @Column(name = "FIRST_NAME", length = 150, nullable = false)
     private String prenom;
+
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "ADDRESS_ID")
+    private Adresse adresse;
 }
