@@ -1,5 +1,6 @@
 package fr.eni.cave.bo;
 
+import fr.eni.cave.bo.client.Client;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import lombok.extern.slf4j.Slf4j;

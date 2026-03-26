@@ -2,21 +2,23 @@ package fr.eni.cave.bo;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Builder
+@Getter
+@Setter
+@SuperBuilder
 @EqualsAndHashCode(of = {"pseudo"})
+@ToString(exclude = {"password"})
 @Entity
-@Table(name = "CLIENT")
-public class Client {
-
+@Table(name = "CAV_USER")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Utilisateur {
     @Id
     @Column(name = "LOGIN", length = 255, nullable = false, unique = true)
     private String pseudo;
 
-    @ToString.Exclude
     @Column(name = "PASSWORD", length = 68, nullable = false, unique = true)
     private String password;
 
@@ -25,9 +27,4 @@ public class Client {
 
     @Column(name = "FIRST_NAME", length = 150, nullable = false)
     private String prenom;
-
-
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "ADDRESS_ID")
-    private Adresse adresse;
 }

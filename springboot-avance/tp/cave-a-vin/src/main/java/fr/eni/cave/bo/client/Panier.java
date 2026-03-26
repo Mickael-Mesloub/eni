@@ -12,7 +12,7 @@ import java.util.List;
 @EqualsAndHashCode(of = {"id"})
 @Builder
 @Entity
-@Table(name = "SHOPPING_CART")
+@Table(name = "CAV_SHOPPING_CART")
 public class Panier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

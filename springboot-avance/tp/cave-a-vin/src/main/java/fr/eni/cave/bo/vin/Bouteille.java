@@ -10,7 +10,7 @@ import lombok.*;
 @Data
 @Builder
 @Entity
-@Table(name = "BOTTLE")
+@Table(name = "CAV_BOTTLE")
 public class Bouteille {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

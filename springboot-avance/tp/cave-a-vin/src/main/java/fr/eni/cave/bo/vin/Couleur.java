@@ -8,7 +8,7 @@ import lombok.*;
 @Data
 @Builder
 @Entity
-@Table(name = "COLOR")
+@Table(name = "CAV_COLOR")
 public class Couleur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

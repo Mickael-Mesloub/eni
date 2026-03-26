@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Entity
-@Table(name = "REGION")
+@Table(name = "CAV_REGION")
 public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,6 +1,6 @@
 package fr.eni.cave.dal;
 
-import fr.eni.cave.bo.Client;
+import fr.eni.cave.bo.client.Client;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
