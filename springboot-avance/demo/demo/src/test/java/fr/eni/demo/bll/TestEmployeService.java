@@ -66,7 +66,7 @@ public class TestEmployeService {
     void test_ajouterEmployeNull() {
         assertThrows(
                 RuntimeException.class,
-                ()->employeService.ajouter(null)
+                () -> employeService.ajouter(null)
         );
     }
 
@@ -84,12 +84,11 @@ public class TestEmployeService {
 
         Optional<Employe> optionalEmploye = Optional.of(employe);
 
-        // TODO replace
-      //  Mockito.when(employeRepository.findByImmatriculation("HCDA100-1")).thenReturn(optionalEmploye);
+        Mockito.when(employeRepository.findByImmatriculation("HCDA100-1")).thenReturn(optionalEmploye);
 
         assertThrows(
                 RuntimeException.class,
-                ()->employeService.ajouter(employe)
+                () -> employeService.ajouter(employe)
         );
     }
 }

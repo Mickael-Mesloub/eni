@@ -41,14 +41,12 @@ public class EmployeServiceImpl implements EmployeService
 
         // Appel au repository pour trouver un employé par immatriculation
 
-        // TODO replace
-        //Optional<Employe> optionalEmploye = employeRepository.findByImmatriculation(e.getImmatriculation());
+        Optional<Employe> employe = employeRepository.findByImmatriculation(e.getImmatriculation());
 
         // Vérifier si l'immatriculation existe. Si oui, lancer une exception
-        // TODO replace
-//        if(optionalEmploye.isPresent()) {
-//            throw new RuntimeException("L'immatriculation existe déjà");
-//        }
+        if(employe.isPresent()) {
+            throw new RuntimeException("L'immatriculation existe déjà");
+        }
 
         // Créer l'employé
         employeRepository.save(e);
