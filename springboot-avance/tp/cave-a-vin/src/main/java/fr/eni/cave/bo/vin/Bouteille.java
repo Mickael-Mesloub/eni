@@ -38,6 +38,4 @@ public class Bouteille {
     @ManyToOne
     @JoinColumn(name = "REGION_ID")
     private Region region;
-
-
 }

@@ -1,6 +1,6 @@
 package fr.eni.cave.heritage;
 
-import fr.eni.cave.bo.vin.Proprio;import fr.eni.cave.bo.Utilisateur;import fr.eni.cave.bo.client.Client;
+import fr.eni.cave.bo.proprio.Proprio;import fr.eni.cave.bo.Utilisateur;import fr.eni.cave.bo.client.Client;
 import fr.eni.cave.dal.ClientRepository;
 import fr.eni.cave.dal.ProprioRepository;
 import fr.eni.cave.dal.UtilisateurRepository;

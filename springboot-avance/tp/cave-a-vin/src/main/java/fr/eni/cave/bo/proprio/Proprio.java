@@ -1,4 +1,4 @@
-package fr.eni.cave.bo.vin;
+package fr.eni.cave.bo.proprio;
 
 import fr.eni.cave.bo.Utilisateur;
 import jakarta.persistence.Column;
