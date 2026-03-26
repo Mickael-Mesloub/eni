@@ -2,6 +2,7 @@ package fr.eni.demo.bo;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -9,9 +10,10 @@ import lombok.*;
 @Setter
 @ToString
 @EqualsAndHashCode(of = {"immatriculation"}) // Comparer les employés QUE via leur immatriculation
-@Builder // Pour créer des instances
+@SuperBuilder
 @Entity
 @Table(name = "EMPLOYEE") // Nom de la table en base pour le mapping
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Employe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
