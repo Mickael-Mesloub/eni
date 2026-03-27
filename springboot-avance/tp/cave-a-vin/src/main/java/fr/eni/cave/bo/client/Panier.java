@@ -29,5 +29,10 @@ public class Panier {
     private Boolean paye;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private @Builder.Default  List<LignePanier> lignesPanier = new ArrayList<>();
+    private @Builder.Default List<LignePanier> lignesPanier = new ArrayList<>();
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "CLIENT_ID")
+    private Client client;
+
 }
