@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -27,6 +28,9 @@ public class TestManyToOneLignePanierBouteille {
 
 	private Bouteille b1;
 	private LignePanier lp1;
+	private Couleur blanc;
+	private Region paysDeLaLoire;
+
     @Autowired
     private BouteilleRepository bouteilleRepository;
 
@@ -34,14 +38,14 @@ public class TestManyToOneLignePanierBouteille {
 	public void initDB() {
 		Integer quantite = 2;
 
-		final Couleur blanc = Couleur
+		blanc = Couleur
 				.builder()
 				.nom("Blanc")
 				.build();
 
 		entityManager.persist(blanc);
 
-		final Region paysDeLaLoire = Region
+		paysDeLaLoire = Region
 				.builder()
 				.nom("Pays de la Loire")
 				.build();
@@ -72,7 +76,6 @@ public class TestManyToOneLignePanierBouteille {
 		entityManager.flush();
 	}
 
-	//TODO
 	@Test
 	void test_save() {
 		Integer lpDBId = lp1.getId();
@@ -91,8 +94,6 @@ public class TestManyToOneLignePanierBouteille {
 		Integer lpDBId = lp1.getId();
 		Integer b1DbId = b1.getId();
 
-		entityManager.clear();
-
 		lignesPanierRepository.delete(lp1);
 		entityManager.flush();
 		entityManager.clear();
@@ -103,13 +104,5 @@ public class TestManyToOneLignePanierBouteille {
 		Assertions.assertThat(optionalLignePanier).isEmpty();
 		Assertions.assertThat(optionalBouteille).isPresent();
 		Assertions.assertThat(optionalBouteille.get().getId()).isEqualTo(b1DbId);
-
-
-
-
-
-
-
 	}
-
 }
