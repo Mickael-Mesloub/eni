@@ -1,4 +1,4 @@
-package fr.eni.tp.bo.dal;
+package fr.eni.tp.dal;
 
 import fr.eni.tp.bo.Avis;
 import org.springframework.data.mongodb.repository.MongoRepository;

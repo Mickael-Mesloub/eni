@@ -1,7 +1,6 @@
 package fr.eni.tp.dal;
 
 import fr.eni.tp.bo.Avis;
-import fr.eni.tp.bo.dal.AvisRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer;
