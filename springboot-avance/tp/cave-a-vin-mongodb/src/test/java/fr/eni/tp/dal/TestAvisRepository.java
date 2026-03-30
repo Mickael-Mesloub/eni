@@ -1,6 +1,7 @@
 package fr.eni.tp.dal;
 
 import fr.eni.tp.bo.Avis;
+import fr.eni.tp.bo.Client;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer;
@@ -32,7 +33,6 @@ public class TestAvisRepository {
 
         Assertions.assertThat(avisDB.getId()).isNotBlank();
         log.info(avisDB.toString());
-
     }
 
     @Test
@@ -41,5 +41,26 @@ public class TestAvisRepository {
 
         Assertions.assertThat(listeAvis.size()).isGreaterThan(0);
         log.info(listeAvis.toString());
+    }
+
+    @Test
+    void test03_insertAvisAvecClient() {
+        Client client = Client.builder()
+                .pseudo("jean.jeanj@campus-eni.fr")
+                .quantiteCommandeee(16)
+                .build();
+
+        Avis avis = Avis.builder()
+                .note(1)
+                .commentaire("Pas ouf le vin surgelé sans alcool...")
+                .date(LocalDateTime.now())
+                .client(client)
+                .build();
+
+        Avis avisDB = avisRepository.save(avis);
+
+        Assertions.assertThat(avisDB.getId()).isNotBlank();
+        Assertions.assertThat(avisDB.getClient()).isEqualTo(client);
+        log.info(avisDB.toString());
     }
 }
