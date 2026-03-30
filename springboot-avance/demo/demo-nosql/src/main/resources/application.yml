@@ -10,6 +10,7 @@ spring:
       port: 27017
       database: Demo_ENI_Ecole
       authentication-database: admin
+      auto-index-creation: true
 
 # Log
 logging:
