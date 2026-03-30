@@ -1,10 +1,12 @@
 package fr.eni.demo.bo;
 
+import fr.eni.demo.bo.clecomposite.Cours;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -37,4 +39,9 @@ public class Avis {
     @Field(name = "trainer_id")
     @DocumentReference
     private Formateur formateur;
+
+    @DBRef
+    @Field(name = "computer_course_id")
+    private Cours cours;
+
 }
