@@ -29,4 +29,7 @@ public class Avis {
 
     @Field(name = "course_commentary")
     private String commentaireCours;
+
+    @Field(name = "student")
+    private Stagiaire stagiaire;
 }
