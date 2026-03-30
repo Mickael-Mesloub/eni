@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: "demo-nosql"
+  # Data source
+  data:
+    mongodb:
+      username: sa
+      password: MotDePasse
+      host: localhost
+      port: 27017
+      database: Demo_ENI_Ecole
+      authentication-database: admin
+
+# Log
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb:
+            core:
+              MongoTemplate: DEBUG
