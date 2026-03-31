@@ -16,5 +16,5 @@ public class Client {
     private String pseudo;
 
     @Field(name = "quantity_ordered")
-    private Integer quantiteCommandeee;
+    private Integer quantiteCommandee;
 }

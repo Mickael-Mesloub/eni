@@ -47,7 +47,7 @@ public class TestAvisRepository {
     void test03_insertAvisAvecClient() {
         Client client = Client.builder()
                 .pseudo("jean.jeanj@campus-eni.fr")
-                .quantiteCommandeee(16)
+                .quantiteCommandee(16)
                 .build();
 
         Avis avis = Avis.builder()
