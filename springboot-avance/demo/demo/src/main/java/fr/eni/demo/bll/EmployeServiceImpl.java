@@ -13,66 +13,64 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @Service
-public class EmployeServiceImpl implements EmployeService
-{
+public class EmployeServiceImpl implements EmployeService {
+
     private EmployeRepository employeRepository;
     private AdresseRepository adresseRepository;
 
     @Override
     public void ajouter(Employe e) {
-        // Vérifier qu'on reçoit bien un employé
-        if(e ==  null){
+
+        if(e == null){
             throw new RuntimeException("L'employé n'est pas renseigné");
         }
-
-        // Vérifier que le nom a bien été renseigné
-        if(e.getNom() == null || e.getNom().isBlank()) {
-            throw new RuntimeException("Le nom de l'employé n'est pas renseigné");
-        }
-        // Vérifier que le prénom a bien été renseigné
-        if(e.getPrenom() == null || e.getPrenom().isBlank()) {
-            throw new RuntimeException("Le pré de l'employé n'est pas renseigné");
+        if(e.getNom() == null || e.getNom().isBlank()){
+            throw new RuntimeException("Le nom de l'mployé doit être renseigné");
         }
 
-        // Vérifier que l'immarticulation' a bien été renseigné
-        if(e.getImmatriculation() == null || e.getImmatriculation().isBlank()) {
-            throw new RuntimeException("L'immatriculation de l'employé n'est pas renseigné");
+        if(e.getPrenom() == null || e.getPrenom().isBlank()){
+            throw new RuntimeException("Le prénom de l'employé doit être renseigné");
         }
 
-        // Appel au repository pour trouver un employé par immatriculation
+        if(e.getImmatriculation() == null || e.getImmatriculation().isBlank()){
+            throw new RuntimeException("L'immatriculation doit être renseignée");
+        }
 
         Optional<Employe> employe = employeRepository.findByImmatriculation(e.getImmatriculation());
-
-        // Vérifier si l'immatriculation existe. Si oui, lancer une exception
-        if(employe.isPresent()) {
+        if(employe.isPresent()){
             throw new RuntimeException("L'immatriculation existe déjà");
         }
 
-        // Créer l'employé
-        employeRepository.save(e);
-    }
-
-    @Override
-    @Transactional
-    public void ajouter(Employe e, Adresse adresse) {
-        ajouter(e);
-
-        if(adresse == null) {
-            throw new RuntimeException("L'adresse est obligatoire");
+        try{
+            employeRepository.save(e);
+        }catch (RuntimeException ex){
+            throw new RuntimeException("Création de l'employe impossible : " + e);
         }
 
-        adresseRepository.save(adresse);
     }
 
     @Override
     public Employe lire(Integer id) {
-        Optional<Employe> optionalEmploye =  employeRepository.findById(id);
-
-        return optionalEmploye.orElse(null);
+        Optional<Employe> optionalEmploye = employeRepository.findById(id);
+        if(optionalEmploye.isPresent()){
+            return optionalEmploye.get();
+        }
+        throw new RuntimeException("L'employé n'existe pas.");
     }
 
     @Override
     public List<Employe> lireTousLesEmployes() {
         return employeRepository.findAll();
+    }
+
+    @Transactional
+    @Override
+    public void ajouter(Employe e, Adresse adresse) {
+        ajouter(e);
+
+        if(adresse == null){
+            throw new RuntimeException("L'adresse est obligatoire");
+        }
+        adresseRepository.save(adresse);
     }
 }
