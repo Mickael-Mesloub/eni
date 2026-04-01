@@ -21,30 +21,31 @@ public class Bouteille {
     private Integer id;
 
     @NotBlank
-    @Size(max = 250)
+    @Size(max = 250, message = "{bottle.name.size-error}")
     @Column(name = "NAME", length = 250, nullable = false, unique = true)
     private String nom;
 
     @Column(name = "SPARKLING")
     private Boolean petillant;
 
-    @Size(min = 4, max = 4)
+    @Size(min = 4, max = 4, message = "{bottle.vintage.size-error}")
     @Column(name = "VINTAGE")
     private String millesime;
 
-    @Min(1)
+    @Min(value = 1, message = "{bottle.quantity.min-error}")
     @Column(name = "QUANTITY")
     private Integer quantite;
-    @Min(1)
+
+    @Min(value = 1, message = "{bottle.price.min-error}")
     @Column(name = "PRICE", precision = 2)
     private Float prix;
 
-    @NotNull
+    @NotNull(message = "{bottle.color.not-null}")
     @ManyToOne
     @JoinColumn(name = "COLOR_ID")
     private Couleur couleur;
 
-    @NotNull
+    @NotNull(message = "{bottle.region.not-null}")
     @ManyToOne
     @JoinColumn(name = "REGION_ID")
     private Region region;
