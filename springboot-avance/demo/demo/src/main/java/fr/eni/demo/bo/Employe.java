@@ -3,6 +3,7 @@ package fr.eni.demo.bo;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -23,24 +24,24 @@ public class Employe {
     @Column(name = "EMPLOYEE_ID")
     private Integer id;
 
-    @NotBlank
-    @Size(max = 90)
+    @NotBlank(message = "{employee.ln.blank-error}")
+    @Size(max = 90, message = "{employee.ln.size-error}")
     @Column(name = "LAST_NAME", length = 90, nullable = false)
     private String nom;
 
-    @NotBlank
-    @Size(max = 90)
+    @NotBlank(message = "{employee.fn.blank-error}")
+    @Size(max = 90, message = "{employee.fn.size-error}")
     @Column(name = "FIRST_NAME", length = 90, nullable = false)
     private String prenom;
 
-    @NotBlank
+    @NotBlank(message = "{employee.email.blank-error}")
     @Email
-    @Size(max = 255)
+    @Size(max = 255, message = "{employee.email.size-error}")
     @Column(name = "EMAIL", length = 255, nullable = false, unique = true)
     private String email;
 
-    @NotBlank
-    @Size(max = 90)
+    @NotBlank(message = "{employee.registration.blank-error}")
+    @Size(max = 90, message = "{employee.registration.size-error}")
     @Column(name = "EMPLOYEE_REGISTRATION", length = 90, nullable = false, unique = true)
     private String immatriculation;
 
@@ -52,11 +53,12 @@ public class Employe {
     @Column(name = "CELL_PHONE_NUMBER", length = 12)
     private String numPort;
 
+    @NotNull(message = "{employee.address.error}")
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "ADDRESS_ID")
     private Adresse adresse;
 
-    @NonNull
+    @NotNull(message = "{employee.civility.error}")
     @ManyToOne
     @JoinColumn(name = "CIVILITY_ID")
     private Civilite civilite;
