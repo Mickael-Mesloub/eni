@@ -1,6 +1,5 @@
 package fr.eni.demo.bo;
 
-import fr.eni.demo.bo.clecomposite.Cours;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

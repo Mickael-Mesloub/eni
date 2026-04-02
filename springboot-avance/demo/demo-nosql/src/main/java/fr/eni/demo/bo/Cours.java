@@ -1,4 +1,4 @@
-package fr.eni.demo.bo.clecomposite;
+package fr.eni.demo.bo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +15,10 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document(collection = "computer_course")
 public class Cours {
     @Id
-    private CoursId coursId;
+    private String reference;
+
+    @Field(name= "computer_science_course")
+    private String filiere;
 
     @Field(name = "title")
     private String titre;

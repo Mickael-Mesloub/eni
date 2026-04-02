@@ -1,8 +1,7 @@
 package fr.eni.demo.association;
 
 import fr.eni.demo.bo.Avis;
-import fr.eni.demo.bo.clecomposite.Cours;
-import fr.eni.demo.bo.clecomposite.CoursId;
+import fr.eni.demo.bo.Cours;
 import fr.eni.demo.dal.AvisRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
@@ -21,13 +20,10 @@ public class TestAssoDbRef {
 
     @Test
     void _test01_insertAvisAvecCours(){
-        CoursId coursId = CoursId.builder()
-                .reference("COURS_DIGI")
-                .filiere("DEV_DIGI")
-                .build();
 
         Cours cours = Cours.builder()
-                .coursId(coursId)
+                .reference("COURS_DIGI")
+                .filiere("DEV_DIGI")
                 .titre("Développement digital avec les doigts digitaux doigteux")
                 .duree(55)
                 .build();

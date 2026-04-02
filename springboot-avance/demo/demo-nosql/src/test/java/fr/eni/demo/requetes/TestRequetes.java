@@ -3,8 +3,7 @@ package fr.eni.demo.requetes;
 import fr.eni.demo.bo.Avis;
 import fr.eni.demo.bo.Formateur;
 import fr.eni.demo.bo.Stagiaire;
-import fr.eni.demo.bo.clecomposite.Cours;
-import fr.eni.demo.bo.clecomposite.CoursId;
+import fr.eni.demo.bo.Cours;
 import fr.eni.demo.dal.AvisRepository;
 import fr.eni.demo.dal.CoursRepository;
 import fr.eni.demo.dal.FormateurRepository;
@@ -57,21 +56,15 @@ public class TestRequetes {
         final List<Cours> listeCours = new ArrayList<>();
         listeCours.add(Cours
                 .builder()
-                .coursId(CoursId
-                        .builder()
-                        .reference("M030")
-                        .filiere("Développement")
-                        .build())
+                .reference("M030")
+                .filiere("Développement")
                 .titre("Web Client")
                 .duree(5)
                 .build());
         listeCours.add(Cours
                 .builder()
-                .coursId(CoursId
-                        .builder()
-                        .reference("M070")
-                        .filiere("Développement")
-                        .build())
+                .reference("M070")
+                .filiere("Développement")
                 .titre("POO")
                 .duree(10)
                 .build());
