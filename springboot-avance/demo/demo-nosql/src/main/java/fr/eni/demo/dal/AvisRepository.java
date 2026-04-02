@@ -5,9 +5,11 @@ import fr.eni.demo.bo.Formateur;
 import fr.eni.demo.bo.Stagiaire;
 import fr.eni.demo.bo.clecomposite.Cours;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
+@RepositoryRestResource(collectionResourceRel = "avis", path = "avis")
 public interface AvisRepository extends MongoRepository<Avis, String> {
     List<Avis> findByNoteCours(int noteCours);
     List<Avis> findByNoteCoursGreaterThan(int noteCours);
