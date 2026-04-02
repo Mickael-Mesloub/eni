@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import fr.eni.tp.bo.Avis;
 import fr.eni.tp.bo.Client;
 import fr.eni.tp.bo.vin.Bouteille;
-import fr.eni.tp.bo.vin.BouteilleId;
 import fr.eni.tp.dal.AvisRepository;
 import fr.eni.tp.dal.BouteilleRepository;
 
@@ -32,34 +31,25 @@ class DataPourRequetes {
 
 		listeBouteilles.add(Bouteille
 				.builder()
-				.bouteilleId(BouteilleId
-						.builder()
-						.idBouteille(18298)
-						.idRegion(3)
-						.idCouleur(1)
-						.build())
+				.bouteilleId(18298)
+				.regionId(3)
+				.couleurId(1)
 				.nom("Vin ENI Edition")
 				.build());
 
 		listeBouteilles.add(Bouteille
 				.builder()
-				.bouteilleId(BouteilleId
-						.builder()
-						.idBouteille(1298)
-						.idRegion(3)
-						.idCouleur(2)
-						.build())
+				.bouteilleId(1298)
+				.regionId(3)
+				.couleurId(2)
 				.nom("Vin ENI Service")
 				.build());
 
 		listeBouteilles.add(Bouteille
 				.builder()
-				.bouteilleId(BouteilleId
-						.builder()
-						.idBouteille(1999)
-						.idRegion(2)
-						.idCouleur(3)
-						.build())
+				.bouteilleId(1999)
+				.regionId(2)
+				.couleurId(3)
 				.nom("Vin ENI Ecole")
 				.build());
 

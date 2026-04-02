@@ -1,7 +1,6 @@
 package fr.eni.tp.dal;
 
 import fr.eni.tp.bo.vin.Bouteille;
-import fr.eni.tp.bo.vin.BouteilleId;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer;
@@ -21,14 +20,12 @@ public class TestBouteilleRepository {
 
     @Test
     void test01_saveAndRead(){
-        BouteilleId bouteilleId = BouteilleId.builder()
-                .idBouteille(1)
-                .idRegion(22).
-                idCouleur(333)
-                .build();
+        Integer bouteilleId = 1;
 
         Bouteille bouteille = Bouteille.builder()
-                .bouteilleId(bouteilleId)
+                .bouteilleId(1)
+                .regionId(22)
+                .couleurId(333)
                 .nom("Glouglou miamiam")
                 .build();
 

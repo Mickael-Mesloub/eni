@@ -16,7 +16,14 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document(collection = "bottles")
 public class Bouteille {
     @Id
-    private BouteilleId bouteilleId;
+    @Field(name = "bottle_id")
+    private Integer bouteilleId;
+
+    @Field(name = "region_id")
+    private Integer regionId;
+
+    @Field(name = "color_id")
+    private Integer couleurId;
 
     @Field(name = "name")
     private String nom;

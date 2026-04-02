@@ -31,15 +31,15 @@ public class TestRequetesAvecMotsCles {
     void test01_findAvisNoteLessThan3(){
         List<Avis> listeAvis = avisRepository.findByNoteLessThan(3);
 
-        assertThat(listeAvis.size()).isEqualTo(3);
+        assertThat(listeAvis.size()).isEqualTo(4);
         log.info("Le nombre d'Avis avec une note < 3 est de : {}", listeAvis.size());
         log.info(listeAvis.toString());
     }
 
     @Test
-    void test_02_findAvisNoteGreaterThanEqual3() {
+    void test02_findAvisNoteGreaterThanEqual3() {
         List<Avis> listeAvis = avisRepository.findByNoteGreaterThanEqual(3);
-        assertThat(listeAvis.size()).isEqualTo(6);
+        assertThat(listeAvis.size()).isEqualTo(8);
         log.info("Le nombre d'Avis avec une note >= 2 est de : {}", listeAvis.size());
         log.info(listeAvis.toString());
     }
@@ -48,8 +48,8 @@ public class TestRequetesAvecMotsCles {
     void test03_findAvisByBouteille() {
         Bouteille bouteille = bouteilleRepository.findAll().getFirst();
 
-        List<Avis> listeAvis = avisRepository.findByBouteille(bouteille);
-        assertThat(listeAvis.size()).isEqualTo(3);
+        List<Avis> listeAvis = avisRepository.findByBouteilleBouteilleId(bouteille.getBouteilleId());
+        assertThat(listeAvis.size()).isEqualTo(4);
         log.info("Le nombre d'Avis associés avec la bouteille id {} est de : {}", bouteille.getBouteilleId(), listeAvis.size());
         log.info(listeAvis.toString());
     }
@@ -57,7 +57,7 @@ public class TestRequetesAvecMotsCles {
     @Test
     void test04_findAvisByPseudoClient() {
         String pseudo = "bobeponge@email.fr";
-        List<Avis> listeAvis = avisRepository.findByClient_Pseudo(pseudo);
+        List<Avis> listeAvis = avisRepository.findByClientPseudo(pseudo);
         assertThat(listeAvis.size()).isEqualTo(3);
         log.info("Le nombre d'Avis associés avec le client {} est de : {}", pseudo, listeAvis.size());
         log.info(listeAvis.toString());
@@ -66,7 +66,7 @@ public class TestRequetesAvecMotsCles {
     @Test
     void test05_findAvisByQuantiteCommandeeGreaterThan100() {
         Integer quantite = 100;
-        List<Avis> listeAvis = avisRepository.findByClient_QuantiteCommandeeGreaterThan(100);
+        List<Avis> listeAvis = avisRepository.findByClientQuantiteCommandeeGreaterThan(100);
         assertThat(listeAvis.size()).isEqualTo(4);
         log.info("Le nombre d'Avis concernant une commande de plus de {} bouteilles est de : {}", quantite, listeAvis.size());
         log.info(listeAvis.toString());
