@@ -29,6 +29,7 @@ public class Panier {
     private Boolean paye;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "SHOPPING_CART_ID")
     private @Builder.Default List<LignePanier> lignesPanier = new ArrayList<>();
 
     @ManyToOne(cascade = CascadeType.PERSIST)
