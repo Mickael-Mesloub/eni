@@ -58,7 +58,9 @@ final class WishController extends AbstractController
     #[Route('/update/{id}', name: '_update_wish', requirements: ['id' => '\d+'])]
     public function update(Request $request, EntityManagerInterface $em, Wish $wish): Response
     {
-        $user = $this->getUser();
+
+
+//        $user = $this->getUser();
         $wish->setAuthor($user->getUserIdentifier());
         $wishForm = $this->createForm(WishType::class, $wish);
         $wishForm->handleRequest($request);
