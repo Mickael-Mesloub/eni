@@ -1,0 +1,12 @@
+<div class="flex flex-col gap-4 p-6">
+  <p>Nombre de clics : {{ clickCount }}</p>
+  <button
+    type="button"
+    (click)="toggle()"
+    class="cursor-pointer text-white bg-gray-800 box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-2xl text-sm px-4 py-2.5 focus:outline-none"
+  >
+    {{ imageVisible ? "Cacher l'image" : "Afficher l'image" }}
+  </button>
+
+  <img [hidden]="!imageVisible" class="mt-4 rounded-lg" [src]="imgUrl" alt="Cat" />
+</div>

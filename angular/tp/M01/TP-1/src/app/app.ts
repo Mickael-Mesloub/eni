@@ -1,12 +1,14 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { HelloWorld } from './pages/hello-world/hello-world';
+import { Header } from './components/partial/header/header';
+import { ImageToggle } from './components/image-toggle/image-toggle';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [HelloWorld, Header, ImageToggle],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('TP-1');
+  isLoggedIn: boolean = true;
 }
