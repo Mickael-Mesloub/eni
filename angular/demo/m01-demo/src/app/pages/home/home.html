@@ -1,0 +1,26 @@
+<main class="flex flex-col items-center gap-8 p-4">
+<h1 class="text-2xl/7 font-bold text-gray-800 sm:truncate sm:text-3xl sm:tracking-tight">
+  {{ title }}
+</h1>
+<img [src]="imgUrl" alt="Cat" width="200" />
+
+<p class="m-4">
+  <span class="p-4">Compteur : {{ count }}</span>
+
+  <button
+    type="button"
+    (click)="addMore()"
+    class="cursor-pointer text-white bg-gray-800 box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-2xl text-sm px-4 py-2.5 focus:outline-none"
+  >
+    +1
+  </button>
+</p>
+
+<div class="p-8 bg-gray-200 w-fit">
+        <label for="name">Nom: </label>
+        <input class="border-2 border-gray-500 rounded-lg"  type="text" [(ngModel)]="name">
+       
+         <p>{{name}}</p>
+</div>
+</main>
+
