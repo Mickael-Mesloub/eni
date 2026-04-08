@@ -2,12 +2,11 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm",
-    "analytics": false
+    "packageManager": "npm"
   },
   "newProjectRoot": "projects",
   "projects": {
-    "TP-1": {
+    "tp-todo-list": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -82,10 +81,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "TP-1:build:production"
+              "buildTarget": "tp-todo-list:build:production"
             },
             "development": {
-              "buildTarget": "TP-1:build:development"
+              "buildTarget": "tp-todo-list:build:development"
             }
           },
           "defaultConfiguration": "development"
