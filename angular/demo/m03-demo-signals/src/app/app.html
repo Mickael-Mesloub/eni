@@ -1,0 +1,10 @@
+<h2>Shopping cart</h2>
+
+<ul>
+  @for(item of cartItems(); track item.name) {
+    <li>{{item.name}} - {{item.quantity}} x {{item.price}} = {{item.quantity * item.price}}</li>
+  }
+</ul>
+<p>Total items: {{ totalItems() }}</p>
+<p>Total price: {{ totalPrice() }}</p>
+<button (click)="addItem()">Add item</button>
