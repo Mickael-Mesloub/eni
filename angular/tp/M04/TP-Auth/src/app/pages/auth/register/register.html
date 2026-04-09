@@ -1,3 +1,7 @@
+@if (userAlreadyExistsMessage) {
+  <p class="py-4 font-bold text-red-600 text-center">{{ userAlreadyExistsMessage }}</p>
+}
+
 <div class="flex flex-col gap-4 p-6 max-w-sm mx-auto">
   <h2 class="text-2xl font-bold">Register</h2>
   <div class="mb-5">
@@ -7,7 +11,8 @@
     <input
       type="text"
       id="username"
-      [(ngModel)]="username"]
+      [(ngModel)]="username"
+      ]
       class="bg-transparent border border-slate-700 text-slate-900 text-sm rounded-lg focus:ring-blue-700 focus:border-blue-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
       placeholder="Username"
       required
@@ -17,7 +22,8 @@
     <label for="email" class="block mb-2.5 text-sm font-medium text-slate-900">Your email</label>
     <input
       type="email"
-      [(ngModel)]="email"]
+      [(ngModel)]="email"
+      ]
       id="email"
       class="bg-transparent border border-slate-700 text-slate-900 text-sm rounded-lg focus:ring-blue-700 focus:border-blue-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
       placeholder="user@campus-eni.fr"
@@ -30,7 +36,8 @@
     >
     <input
       type="password"
-      [(ngModel)]="password"]
+      [(ngModel)]="password"
+      ]
       id="password"
       class="bg-transparent border border-slate-700 text-slate-900 text-sm rounded-lg focus:ring-blue-700 focus:border-blue-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
       placeholder="••••••••"
