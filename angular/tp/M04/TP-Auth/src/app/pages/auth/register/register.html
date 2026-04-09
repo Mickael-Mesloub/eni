@@ -1,1 +1,43 @@
-<p>register works!</p>
+<div class="flex flex-col gap-4 p-6 max-w-sm mx-auto">
+  <h2 class="text-2xl font-bold">Register</h2>
+  <div class="mb-5">
+    <label for="username" class="block mb-2.5 text-sm font-medium text-slate-900"
+      >Your username</label
+    >
+    <input
+      type="text"
+      id="username"
+      class="bg-transparent border border-slate-700 text-slate-900 text-sm rounded-lg focus:ring-blue-700 focus:border-blue-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+      placeholder="Username"
+      required
+    />
+  </div>
+  <div class="mb-5">
+    <label for="email" class="block mb-2.5 text-sm font-medium text-slate-900">Your email</label>
+    <input
+      type="email"
+      id="email"
+      class="bg-transparent border border-slate-700 text-slate-900 text-sm rounded-lg focus:ring-blue-700 focus:border-blue-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+      placeholder="user@campus-eni.fr"
+      required
+    />
+  </div>
+  <div class="mb-5">
+    <label for="password" class="block mb-2.5 text-sm font-medium text-slate-900"
+      >Your password</label
+    >
+    <input
+      type="password"
+      id="password"
+      class="bg-transparent border border-slate-700 text-slate-900 text-sm rounded-lg focus:ring-blue-700 focus:border-blue-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+      placeholder="••••••••"
+      required
+    />
+  </div>
+  <button
+    type="submit"
+    class="text-white bg-blue-700 box-border border border-transparent hover:bg-blue-900 focus:ring-4 focus:ring-blue-700 shadow-xs font-medium leading-5 rounded-lg text-sm px-4 py-2.5 focus:outline-none"
+  >
+    Submit
+  </button>
+</div>
