@@ -1,5 +1,4 @@
-import { Component, computed, inject, OnInit, Signal, signal, WritableSignal } from '@angular/core';
-import { Todo } from '../../types/todo';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TodoService } from '../../services/todo-service';
 
@@ -9,55 +8,24 @@ import { TodoService } from '../../services/todo-service';
   templateUrl: './todo-list.html',
   styleUrl: './todo-list.css',
 })
-export class TodoList implements OnInit {
-  private readonly todoService: TodoService = inject(TodoService);
+export class TodoList {
+  protected readonly todoService: TodoService = inject(TodoService);
 
-  todos: WritableSignal<Todo[] | []> = signal<Todo[] | []>([]);
-  editingId: number | null = null;
+  // TODO : constructeur + récupérer les todos depuis le service
 
-  completedTodos: Signal<Todo[] | []> = computed(() => this.todos().filter((todo) => todo.isDone));
-  incompleteTodos: Signal<Todo[] | []> = computed(() =>
-    this.todos().filter((todo) => !todo.isDone),
-  );
-
-  ngOnInit() {
-    // Initialiser les listes filtrées
-    this.todos.set(this.todoService.getTodos());
+  handleAddTodo(title: string) {
+    this.todoService.addTodo(title);
   }
 
-  addTodo(title: string): void {
-    if (!title.trim()) return;
-
-    const newTodo: Todo = {
-      id: Date.now(),
-      title: title.trim(),
-      isDone: false,
-      createdAt: new Date(),
-    };
-
-    this.todos.update((todos) => [...todos, newTodo]);
+  handleUpdateTodo(id: number, newTitle: string) {
+    this.todoService.updateTodo(id, newTitle);
   }
 
-  removeTodo(id: number): void {
-    this.todos.update((todos) => todos.filter((todo) => todo.id !== id));
+  handleRemoveTodo(id: number) {
+    this.todoService.removeTodo(id);
   }
 
-  toggleTodo(id: number): void {
-    this.todos.update((todos) =>
-      todos.map((todo) => (todo.id === id ? { ...todo, isDone: !todo.isDone } : todo)),
-    );
-  }
-
-  startEdit(id: number) {
-    this.editingId = id;
-  }
-
-  updateTodo(id: number, newTitle: string) {
-    if (newTitle.trim()) {
-      this.todos.update((todos) =>
-        todos.map((todo) => (todo.id === id ? { ...todo, title: newTitle.trim() } : todo)),
-      );
-    }
-    this.editingId = null;
+  handleToggleTodo(id: number) {
+    this.todoService.toggleTodo(id);
   }
 }
