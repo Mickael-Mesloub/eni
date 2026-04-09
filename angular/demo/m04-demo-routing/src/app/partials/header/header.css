@@ -1,0 +1,4 @@
+.active {
+  background-color: var(--color-gray-500);
+  color: var(--color-red-50);
+}
