@@ -1,45 +1,48 @@
-import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router } from "@angular/router";
+import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginBody } from '../../../types/auth/login-body';
 import { AuthService } from '../../../services/auth';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login {
   private readonly authService: AuthService = inject(AuthService);
   private readonly router: Router = inject(Router);
-  
-  login: string = '';
-  password: string = '';
+
+  loginBody: WritableSignal<LoginBody | null> = signal<LoginBody | null>(null);
+
+  loginForm = new FormGroup({
+    login: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+  });
 
   invalidCredentialsMessage: string | null = null;
 
   submit() {
     const body: LoginBody = {
-      login: this.login,
-      password: this.password 
+      login: this.loginBody()?.login ?? '',
+      password: this.loginBody()?.password ?? '',
     };
 
-    console.log("BODY : ", body);
-    
+    console.log('BODY : ', body);
 
-   const isLoggedIn = this.authService.login(body);
+    const isLoggedIn = this.authService.login(body);
 
-   if(!isLoggedIn) {
-      this.invalidCredentialsMessage = "Identifiants incorrects";
+    if (!isLoggedIn) {
+      this.invalidCredentialsMessage = 'Identifiants incorrects';
 
       return;
-   }
+    }
 
-   this.router.navigate(['/']);
+    this.router.navigate(['/']);
   }
 
   navigateToRegister(): void {
-    this.router.navigate(['/auth/register'])
+    this.router.navigate(['/auth/register']);
   }
 }
