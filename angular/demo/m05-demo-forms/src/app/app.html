@@ -1,0 +1,48 @@
+<!-- app.html -->
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+  <div class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="text-center mb-8">
+      <h1
+        class="text-4xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-primary-600 to-indigo-600 bg-clip-text text-transparent"
+      >
+        Demo Angular 20
+      </h1>
+      <p class="text-gray-600 text-lg">
+        Application de démonstration avec Tailwind CSS
+      </p>
+    </header>
+
+    <!-- Navigation -->
+    <nav
+      class="flex flex-wrap justify-center gap-4 mb-8 p-4 bg-white rounded-lg shadow-sm"
+    >
+      <a
+        routerLink="/home"
+        routerLinkActive="active"
+        class="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-primary-50 hover:text-primary-700"
+      >
+        🏠 Accueil
+      </a>
+      <a
+        routerLink="/contact"
+        routerLinkActive="active"
+        class="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-primary-50 hover:text-primary-700"
+      >
+        📞 Contact
+      </a>
+      <a
+        routerLink="/register"
+        routerLinkActive="active"
+        class="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-primary-50 hover:text-primary-700"
+      >
+        ✍️ Inscription
+      </a>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="animate-fade-in">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

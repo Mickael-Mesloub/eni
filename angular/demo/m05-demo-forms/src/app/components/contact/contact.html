@@ -1,0 +1,51 @@
+<form
+  #contactForm="ngForm"
+  (ngSubmit)="onSubmit(contactForm)"
+  class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md space-y-6"
+>
+  <div class="form-field">
+    <label for="nom" class="form-label">Nom :</label>
+    <input
+      type="text"
+      id="nom"
+      name="nom"
+      minlength="2"
+      required
+      [(ngModel)]="contact.nom"
+      #nomField="ngModel"
+      class="form-input"
+    />
+    @if (nomField.invalid && nomField.touched) {
+    <div class="error-message">
+      @if (nomField.errors?.['required']) { Le nom est obligatoire } @if
+      (nomField.errors?.['minlength']) { Le nom doit faire au moins 2 caractères
+      }
+    </div>
+    }
+  </div>
+  <div class="form-field">
+    <label for="email" class="form-label">Email :</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      required
+      [(ngModel)]="contact.email"
+      #emailField="ngModel"
+      class="form-input"
+    />
+    @if (emailField.invalid && emailField.touched) {
+    <div class="error-message">
+      @if (emailField.errors?.['required']) { L'email est obligatoire } @if
+      (emailField.errors?.['email']) { L'email doit être valide }
+    </div>
+    }
+  </div>
+  <button
+    type="submit"
+    [disabled]="contactForm.invalid"
+    class="btn btn-primary w-full"
+  >
+    Envoyer
+  </button>
+</form>

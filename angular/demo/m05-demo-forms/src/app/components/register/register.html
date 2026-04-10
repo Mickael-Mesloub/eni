@@ -1,0 +1,83 @@
+<!-- user-form.component.html -->
+<div class="form-container">
+  <h2>Formulaire Utilisateur</h2>
+  
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
+    
+    <!-- Champ Nom -->
+    <div class="form-group">
+      <label for="name">Nom *</label>
+      <input id="name" type="text" formControlName="name" class="form-control" placeholder="Votre nom"
+        [class.is-invalid]="isFieldInvalid('name')" >
+      
+      @if (isFieldInvalid('name')) {
+      <div class="error-message">
+        {{ getFieldError('name') }}
+      </div>
+      }
+    </div>
+
+    <!-- Champ Email -->
+    <div class="form-group">
+      <label for="email">Email ENI *</label>
+      <input id="email" type="email" formControlName="email" class="form-control" placeholder="votre.nom@eni.fr"
+        [class.is-invalid]="isFieldInvalid('email')" >
+      
+      @if (isFieldInvalid('email')) {
+      <div class="error-message">
+        {{ getFieldError('email') }}
+      </div>
+      }
+      
+      <!-- Message d'aide -->
+      <small class="form-text text-muted">
+        L'email doit être une adresse valide se terminant par &#64;eni.fr
+      </small>
+    </div>
+
+    <!-- Champ Email Professionnel (exemple avec validator paramétrable) -->
+    <div class="form-group">
+      <label for="workEmail">Email Professionnel *</label>
+      <input
+        id="workEmail"
+        type="email"
+        formControlName="workEmail"
+        class="form-control"
+        [class.is-invalid]="isFieldInvalid('workEmail')"
+        placeholder="votre.nom@eni-ecole.fr">
+      
+      @if (isFieldInvalid('workEmail')) {
+      <div class="error-message">
+        {{ getFieldError('workEmail') }}
+      </div>
+      }
+    </div>
+
+    <!-- Boutons -->
+    <div class="form-actions">
+      <button 
+        type="submit" 
+        class="btn btn-primary"
+        [disabled]="userForm.invalid">
+        Valider
+      </button>
+      
+      <button 
+        type="button" 
+        class="btn btn-secondary"
+        (click)="userForm.reset()">
+        Réinitialiser
+      </button>
+    </div>
+
+    <!-- Debug info (à supprimer en production) -->
+    @if (userForm.dirty) {
+    <div class="debug-info">
+      <h4>État du formulaire (Debug)</h4>
+      <p><strong>Valide:</strong> {{ userForm.valid }}</p>
+      <p><strong>Valeur:</strong> {{ userForm.value | json }}</p>
+      <p><strong>Erreurs email:</strong> {{ userForm.get('email')?.errors | json }}</p>
+    </div>
+    }
+  </form>
+</div>
