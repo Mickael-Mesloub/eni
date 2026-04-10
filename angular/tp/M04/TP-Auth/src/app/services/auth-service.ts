@@ -1,59 +1,44 @@
-import { Injectable, OnInit } from '@angular/core';
-import { User } from '../types/user';
+import { computed, Injectable, signal } from '@angular/core';
+import { User, UserInStorage } from '../types/user';
 import { RegisterBody } from '../types/auth/register-body';
 import { LoginBody } from '../types/auth/login-body';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  // Attributs
-  isAuth!: boolean;
   users: User[] = [];
-
-  // Fonction login
-  // Récupérer un User (avec username et password)
-  // Vérifier si je le trouve en localStorage
-  // Vérifier si les informations correspondent
-  // Si oui => isAuth passe à true + redirection vers /profile
-  // Si non => afficher un message d'erreur (redirection ?)
-
-  // Fonction register
-  // Je dois créer un array d'users
-  //  utilisateur en localStorage avec :
-  // username: Minimum 2 caractères
-  // email
-  // password: Minimum 6 caractères
-  // PENSER A TRIM
+  private readonly currentUserSignal = signal<User | null>(null);
+  public isAuthenticated = computed(() => this.currentUserSignal() !== null);
+  public currentUser = computed(() => this.currentUserSignal());
 
   constructor() {
+    const storedUser = sessionStorage.getItem('currentUser');
+
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      this.currentUserSignal.set(user);
+    }
     const usersFromLocalStorage = localStorage.getItem('users');
     this.users = usersFromLocalStorage ? JSON.parse(usersFromLocalStorage) : [];
     console.log([...this.users]);
   }
 
-  // TODO: check if user exists with email AND username + check if password is correct
   login(body: LoginBody): boolean {
-    const userExists: boolean = this.users.some(
-      (user) =>
-        user.email.trim() === body.login.trim() && user.username.trim() === body.login.trim(),
-    );
-
-    const isPasswordCorrect: boolean = this.users.some(
-      (user) =>
-        user.email.trim() === body.login.trim() && user.password.trim() === body.password.trim(),
-    );
-
-    if (isPasswordCorrect && userExists) {
-      this.isAuth = true;
-
-      return true;
+    if (!this.validateCredentials(body.login, body.password)) {
+      console.log(body.login, ' / ', body.password);
+      return false;
     }
 
-    this.isAuth = false;
+    const user: UserInStorage = {
+      username: body.login.trim(),
+      token: 'jwt-token',
+    };
 
-    return false;
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    console.log('Connexion réussie !');
+
+    return true;
   }
 
   register(body: RegisterBody): boolean {
@@ -71,7 +56,6 @@ export class AuthService {
     );
 
     // If user exists, return nothing to stop execution
-    // TODO: Send error message ?
     if (userExists) return false;
 
     // Add user in array of users
@@ -79,8 +63,12 @@ export class AuthService {
 
     // Add array in localStorage
     localStorage.setItem('users', JSON.stringify(this.users));
-    console.log([...this.users]);
+    console.log('Inscription réussie !');
 
     return true;
+  }
+
+  validateCredentials(login: string, password: string): boolean {
+    return this.users.some((user) => user.username === login && user.password === password);
   }
 }
