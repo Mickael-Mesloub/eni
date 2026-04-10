@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { AuthService } from '../../../services/auth-service';
 import { LoginBody } from '../../../types/auth/login-body';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -23,6 +24,9 @@ export class Login {
       login: this.login,
       password: this.password 
     };
+
+    console.log("BODY : ", body);
+    
 
    const isLoggedIn = this.authService.login(body);
 

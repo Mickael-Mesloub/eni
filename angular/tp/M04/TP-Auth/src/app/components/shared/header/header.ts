@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, Signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
 
@@ -11,9 +11,9 @@ import { AuthService } from '../../../services/auth-service';
 export class Header {
   // Récupérer la valeur depuis un service
   private readonly authService: AuthService = inject(AuthService);
-  isAuth: boolean = false;
+  isAuth: Signal<boolean> = signal(false);
 
   ngOnInit() {
-    this.isAuth = this.authService.isAuth;
+    this.isAuth = this.authService.isAuthenticated;
   }
 }
