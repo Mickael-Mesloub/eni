@@ -1,0 +1,13 @@
+@defer {
+  <ul class="p-6">
+    @for (product of products(); track product.id) {
+      <li>{{ product.title }}</li>
+    } @empty {
+      <li>Aucun produit</li>
+    }
+  </ul>
+}
+
+@placeholder(minimum 1500ms) {
+    <p>Loading...</p>
+}
