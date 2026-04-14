@@ -4,6 +4,11 @@ import { Router } from '@angular/router';
 import { LoginBody } from '../../../types/auth/login-body';
 import { AuthService } from '../../../services/auth';
 
+interface LoginFormGroup {
+    login: FormControl<LoginBody['login']>;
+    password: FormControl<LoginBody['password']>;
+  }
+
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule],
@@ -14,11 +19,21 @@ export class Login {
   private readonly authService: AuthService = inject(AuthService);
   private readonly router: Router = inject(Router);
 
-  loginBody: WritableSignal<LoginBody | null> = signal<LoginBody | null>(null);
 
-  loginForm = new FormGroup({
-    login: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+  loginModel: WritableSignal<LoginBody> = signal<LoginBody>({
+    login: '',
+    password:''
+  });
+
+  loginForm: FormGroup<LoginFormGroup> = new FormGroup({
+    login: new FormControl('',  {
+      nonNullable: true, 
+      validators: [Validators.required, Validators.minLength(2)]
+    }),
+    password: new FormControl('', {
+      nonNullable: true, 
+      validators: [Validators.required, Validators.minLength(6)]
+    }),
   });
 
   invalidCredentialsMessage: string | null = null;
@@ -32,14 +47,11 @@ export class Login {
   }
 
   submit() {
-    const body: LoginBody = {
-      login: this.loginBody()?.login ?? '',
-      password: this.loginBody()?.password ?? '',
-    };
+    const formData = this.loginForm.value;
 
-    console.log('BODY : ', body);
+    console.log('BODY : ', formData);
 
-    const isLoggedIn = this.authService.login(body);
+    const isLoggedIn = this.authService.login(formData as LoginBody);
 
     if (!isLoggedIn) {
       this.invalidCredentialsMessage = 'Identifiants incorrects';
@@ -53,4 +65,9 @@ export class Login {
   navigateToRegister(): void {
     this.router.navigate(['/auth/register']);
   }
+
+  // isFieldValid(): boolean {
+
+  //   return  this.login?.invalid && (this.login?.dirty || this.login?.touched)
+  // }
 }
