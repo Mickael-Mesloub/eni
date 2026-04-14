@@ -23,6 +23,14 @@ export class Login {
 
   invalidCredentialsMessage: string | null = null;
 
+  get login() {
+    return this.loginForm.get('login')
+  }
+
+  get password() {
+    return this.loginForm.get('password')
+  }
+
   submit() {
     const body: LoginBody = {
       login: this.loginBody()?.login ?? '',
