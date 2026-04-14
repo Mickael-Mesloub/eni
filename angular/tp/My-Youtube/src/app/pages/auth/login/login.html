@@ -4,7 +4,7 @@
 
 <form
   [formGroup]="loginForm"
-  (ngSubmit)="submit()"
+  (ngSubmit)="onSubmit()"
   class="flex flex-col gap-6 p-6 max-w-sm mx-auto"
 >
   <h2 class="text-2xl font-bold">Se connecter</h2>
@@ -15,18 +15,23 @@
     <input
       type="text"
       id="login"
-      class="bg-transparent border border-slate-700 text-slate-900 text-sm rounded-lg focus:ring-blue-700 focus:border-blue-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+      class="bg-transparent border text-slate-900 text-sm rounded-lg focus:ring-blue-700 focus:border-blue-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
       placeholder="Nom d'utilisateur"
       formControlName="login"
+      [ngClass]="{
+    'border-red-500': login?.invalid && isFieldDirtyOrTouched(login),
+    'border-green-700': login?.valid && login?.touched,
+    'border-slate-700': login?.pristine || !login?.touched
+  }"
     />
-    <!-- TODO: extract -->
-    @if (login?.invalid && (login?.dirty || login?.touched)) {
+    <!-- TODO: extract and make it dynamic -->
+    @if (login?.invalid && isFieldDirtyOrTouched(login)) {
       <div class="text-sm text-red-500">
         @if (login?.hasError('required')) {
-          <div>Login is required.</div>
+          <div>Le login est obligatoire</div>
         }
         @if (login?.hasError('minlength')) {
-          <div>Login must be at least 4 characters long.</div>
+          <div>Le login doit contenir au moins 2 caractères</div>
         }
       </div>
     }
@@ -38,25 +43,30 @@
     <input
       type="password"
       id="password"
-      class="bg-transparent border border-slate-700 text-slate-900 text-sm rounded-lg focus:ring-blue-700 focus:border-blue-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+      class="bg-transparent border text-slate-900 text-sm rounded-lg focus:ring-blue-700 focus:border-blue-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
       placeholder="••••••••"
       formControlName="password"
+      [ngClass]="{
+    'border-red-500': password?.invalid && isFieldDirtyOrTouched(password),
+    'border-green-700': password?.valid && password?.touched,
+    'border-slate-700': password?.pristine || !password?.touched
+  }"
     />
 
-    <!-- TODO: extract -->
-    @if (password?.invalid && (password?.dirty || password?.touched)) {
+    <!-- TODO: extract and make it dynamic -->
+    @if (password?.invalid && isFieldDirtyOrTouched(password)) {
       <div class="text-sm text-red-500">
         @if (password?.hasError('required')) {
-          <div>Password is required.</div>
+          <div>Le mot de passe est obligatoire</div>
         }
         @if (password?.hasError('minlength')) {
-          <div>Password must be at least 4 characters long.</div>
+          <div>Le mot de passe doit contenir au moins 8 caractères</div>
         }
       </div>
     }
   </div>
   <button
-    (click)="submit()"
+  [disabled]="loginForm.invalid"
     class="cursor-pointer text-white bg-blue-700 box-border border border-transparent hover:bg-blue-900 focus:ring-4 shadow-xs leading-5 rounded-lg text-sm px-4 py-2.5 disabled:bg-slate-300 disabled:text-slate-500 disabled:cursor-not-allowed"
   >
     Se connecter

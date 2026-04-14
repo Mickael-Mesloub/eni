@@ -1,8 +1,9 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginBody } from '../../../types/auth/login-body';
 import { AuthService } from '../../../services/auth';
+import { NgClass } from '@angular/common';
 
 interface LoginFormGroup {
     login: FormControl<LoginBody['login']>;
@@ -11,21 +12,22 @@ interface LoginFormGroup {
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgClass],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login {
   private readonly authService: AuthService = inject(AuthService);
   private readonly router: Router = inject(Router);
+  private readonly fb: FormBuilder = inject(FormBuilder);
+
+  protected readonly loginForm = this.fb.group({
+    login: ["", [Validators.required, Validators.minLength(2)]],
+    password: ["", [Validators.required, Validators.minLength(8)]]
+  })
 
 
-  loginModel: WritableSignal<LoginBody> = signal<LoginBody>({
-    login: '',
-    password:''
-  });
-
-  loginForm: FormGroup<LoginFormGroup> = new FormGroup({
+/*   protected loginForm: FormGroup<LoginFormGroup> = new FormGroup({
     login: new FormControl('',  {
       nonNullable: true, 
       validators: [Validators.required, Validators.minLength(2)]
@@ -34,7 +36,7 @@ export class Login {
       nonNullable: true, 
       validators: [Validators.required, Validators.minLength(6)]
     }),
-  });
+  }); */
 
   invalidCredentialsMessage: string | null = null;
 
@@ -46,7 +48,7 @@ export class Login {
     return this.loginForm.get('password')
   }
 
-  submit() {
+  onSubmit() {
     const formData = this.loginForm.value;
 
     console.log('BODY : ', formData);
@@ -66,8 +68,8 @@ export class Login {
     this.router.navigate(['/auth/register']);
   }
 
-  // isFieldValid(): boolean {
-
-  //   return  this.login?.invalid && (this.login?.dirty || this.login?.touched)
-  // }
+  // TODO: extract 
+  isFieldDirtyOrTouched(field: AbstractControl | null) : boolean {
+    return (field?.dirty || field?.touched) ?? false;
+  }
 }
