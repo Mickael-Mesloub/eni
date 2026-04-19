@@ -1,0 +1,28 @@
+<div>
+  <label for="{{ name() }}" class="block mb-2.5 text-sm font-medium text-slate-900">{{
+    label()
+  }}</label>
+  <input
+    formControlName="{{name()}}"
+    required="{{isRequired()}}"
+    type="{{ type() }}"
+    id="{{ name() }}"
+    class="bg-transparent border text-slate-900 text-sm rounded-lg focus:ring-blue-700 focus:border-blue-700 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+    placeholder="{{ placeholder() }}"
+    [ngClass]="{
+      'border-red-500': !isValid() && isDirtyOrTouched(),
+      'border-green-700': isValid() && isTouched(),
+      'border-slate-700': isPristine() || !isTouched(),
+    }"
+  />
+  @if (!isValid && isDirtyOrTouched()) {
+    <div class="text-sm text-red-500">
+      @if (login?.hasError('required')) {
+        <div>Le login est obligatoire</div>
+      }
+      @if (login?.hasError('minlength')) {
+        <div>Le login doit contenir au moins 2 caractères</div>
+      }
+    </div>
+  }
+</div>
