@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LoginBody } from '../../../types/auth/login-body';
 import { AuthService } from '../../../services/auth';
 import { NgClass } from '@angular/common';
+import { TextInput } from "../../../components/shared/inputs/text-input/text-input";
 
 interface LoginFormGroup {
     login: FormControl<LoginBody['login']>;
@@ -12,7 +13,7 @@ interface LoginFormGroup {
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, NgClass],
+  imports: [ReactiveFormsModule, NgClass, TextInput],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })

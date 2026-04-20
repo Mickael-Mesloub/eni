@@ -1,4 +1,4 @@
-@if (invalidCredentialsMessage) {
+<!-- @if (invalidCredentialsMessage) {
   <p class="py-4 font-bold text-red-600 text-center">{{ invalidCredentialsMessage }}</p>
 }
 
@@ -24,7 +24,6 @@
     'border-slate-700': login?.pristine || !login?.touched
   }"
     />
-    <!-- TODO: extract and make it dynamic -->
     @if (login?.invalid && isFieldDirtyOrTouched(login)) {
       <div class="text-sm text-red-500">
         @if (login?.hasError('required')) {
@@ -53,7 +52,6 @@
   }"
     />
 
-    <!-- TODO: extract and make it dynamic -->
     @if (password?.invalid && isFieldDirtyOrTouched(password)) {
       <div class="text-sm text-red-500">
         @if (password?.hasError('required')) {
@@ -76,3 +74,11 @@
     <span class="text-blue-500 cursor-pointer" (click)="navigateToRegister()">S'inscrire</span>
   </div>
 </form>
+ -->
+<app-text-input 
+  id="login" 
+  name="login"
+  label="Login"
+  [control]="loginForm.get('login')!"
+
+  />
