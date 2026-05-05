@@ -47,62 +47,56 @@ class MyHomePage extends StatelessWidget {
         foregroundColor: Colors.white,
         title: Text(title),
       ),
-      bottomNavigationBar: NavigationBar(
-        destinations: const <Widget>[
-          NavigationDestination(icon: Icon(Icons.home), label: 'Accueil'),
-          NavigationDestination(
-            icon: Icon(Icons.folder_copy),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.folder_open),
             label: 'Projets',
           ),
-          NavigationDestination(icon: Icon(Icons.person), label: 'Profil'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_circle_outline),
+            label: 'Contribuer',
+          ),
         ],
       ),
-      body: Column(
-        children: [
-          Padding(padding: const EdgeInsets.all(16.0)),
-          Text(
-            'Liste de projets',
-            style: TextStyle(fontWeight: FontWeight(700), fontSize: 24),
-          ),
-          Padding(padding: const EdgeInsets.all(16.0)),
-          Expanded(
-            child: ListView.builder(
-              itemCount: projects.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  color: Colors.black,
-                  elevation: 4,
-                  child: ListTile(
-                    leading: Icon(Icons.folder),
-                    title: Text(
-                      projects[index].title,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    subtitle: Text(
-                      projects[index].description,
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    trailing: Icon(Icons.chevron_right),
-                  ),
-                );
-              },
+      body: Container(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: Text(
+                'Liste de projets',
+                style: TextStyle(fontWeight: FontWeight(700), fontSize: 24),
+              ),
             ),
-          ),
-        ],
+            Expanded(
+              child: ListView.builder(
+                itemCount: projects.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    color: Colors.black,
+                    elevation: 4,
+                    child: ListTile(
+                      leading: Icon(Icons.folder),
+                      title: Text(
+                        projects[index].title,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      subtitle: Text(
+                        projects[index].description,
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      trailing: Icon(Icons.chevron_right),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-
-// class ProjectCard extends StatelessWidget {
-//   final Project project;
-//
-//   ProjectCard({super.key, required this.project});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card()
-//   }
-//
-//
-// }
