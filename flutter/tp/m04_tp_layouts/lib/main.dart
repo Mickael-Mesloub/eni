@@ -11,10 +11,28 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final colorScheme = ColorScheme.fromSeed(seedColor: Colors.indigo);
+
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.indigo)),
+      theme: ThemeData(
+        colorScheme: colorScheme,
+        scaffoldBackgroundColor: const Color(0xfff3f3f3),
+        appBarTheme: AppBarTheme(backgroundColor: colorScheme.inversePrimary),
+        textTheme: TextTheme(
+          titleLarge: TextStyle(
+            fontSize: 24,
+            color: colorScheme.primary,
+            fontWeight: FontWeight(700)
+          )
+        ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Colors.black,
+          unselectedItemColor: Colors.grey,
+          selectedItemColor: Colors.blue,
+        )
+      ),
       home: MyHomePage(title: 'TP Layouts'),
     );
   }
@@ -34,15 +52,9 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.rocket_launch),
-              onPressed: null,
-              color: Colors.white,
-            );
-          },
-        ),
+        leading: Icon(Icons.rocket_launch, color: Colors.white),
+        elevation: 8,
+        shadowColor: Colors.black,
         backgroundColor: Colors.indigo,
         centerTitle: true,
         foregroundColor: Colors.white,
@@ -69,7 +81,7 @@ class MyHomePage extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 16),
               child: Text(
                 'Liste de projets',
-                style: TextStyle(fontWeight: FontWeight(700), fontSize: 24),
+                  style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
             Expanded(
