@@ -1,18 +1,44 @@
-class Project {
-  String _title;
-  String _description;
+import 'package:flutter/material.dart';
 
-  Project(this._title, this._description);
+enum ProjectStatus { enCours, termine, aVenir }
 
-  String get description => _description;
+final class Project {
+  String _name;
+  String _desc;
+  ProjectStatus _status;
+  DateTime? _date;
 
-  set description(String value) {
-    _description = value;
+  Project(
+      {required String name,
+        required String desc,
+        ProjectStatus status = ProjectStatus.aVenir,
+        DateTime? date})
+      : _name = name,
+        _desc = desc,
+        _status = status,
+        _date = date;
+
+  set name(String value) {
+    _name = value;
   }
 
-  String get title => _title;
+  String get name => _name;
 
-  set title(String value) {
-    _title = value;
+  set desc(String value) {
+    _desc = value;
   }
+
+  String get desc => _desc;
+
+  set status(ProjectStatus value) {
+    _status = value;
+  }
+
+  ProjectStatus get status => _status;
+
+  set date(DateTime? date) {
+    _date = date;
+  }
+
+  DateTime? get date => _date;
 }
