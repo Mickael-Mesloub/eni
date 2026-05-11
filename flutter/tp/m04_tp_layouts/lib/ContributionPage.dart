@@ -3,8 +3,9 @@ import 'entities/Project.dart';
 
 class ContributionPage extends StatefulWidget {
   final Function(Project) onProjectSubmitted;
+  final Project? project;
 
-  const ContributionPage({required this.onProjectSubmitted});
+  const ContributionPage({required this.onProjectSubmitted, this.project});
 
   @override
   _ContributionPageState createState() => _ContributionPageState();
@@ -12,11 +13,14 @@ class ContributionPage extends StatefulWidget {
 
 class _ContributionPageState extends State<ContributionPage> {
   final _formKey = GlobalKey<FormState>();
-  String? _title;
-  String? _desc;
-  ProjectStatus _status = ProjectStatus.aVenir;
+  late String? _title = widget.project?.name ?? '';
+  late String? _desc = widget.project?.desc ?? '';
+  late ProjectStatus _status = widget.project?.status ?? ProjectStatus.aVenir;
+  late DateTime? _selectedDate = widget.project?.date ?? DateTime.now();
   final TextEditingController _dateController = TextEditingController();
-  DateTime? _selectedDate;
+  final TextEditingController _projectNameController = TextEditingController();
+  final TextEditingController _projectDescController = TextEditingController();
+
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
@@ -51,6 +55,9 @@ class _ContributionPageState extends State<ContributionPage> {
   @override
   void initState() {
     super.initState();
+    _projectNameController.text = _title!;
+    _projectDescController.text = _desc!;
+
     _dateController.text = _selectedDate != null
         ? "${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}"
         : "";
@@ -71,6 +78,7 @@ class _ContributionPageState extends State<ContributionPage> {
         child: ListView(
           children: [
             TextFormField(
+              controller: _projectNameController,
               cursorColor: Colors.black,
               style: TextStyle(
                 color: Colors.black,
@@ -90,6 +98,7 @@ class _ContributionPageState extends State<ContributionPage> {
             ),
             const SizedBox(height: 16),
             TextFormField(
+              controller: _projectDescController,
               maxLines: 4,
               style: TextStyle(
                 color: Colors.black, // couleur du texte saisi

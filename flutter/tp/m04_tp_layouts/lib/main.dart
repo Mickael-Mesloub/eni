@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m04_tp_layouts/ContributionPage.dart';
+import 'package:m04_tp_layouts/EditProjectPage.dart';
 import 'package:m04_tp_layouts/ProjectDetailsPage.dart';
 import 'package:m04_tp_layouts/entities/Project.dart';
 
@@ -16,8 +17,6 @@ class ScreenArguments {
 
 class MyApp extends StatelessWidget {
 
-
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -25,15 +24,26 @@ class MyApp extends StatelessWidget {
         routes: [
           GoRoute(
               path: '/',
-            builder: (context, state) => MyHomePage(title: 'Mes projets')
+            builder: (context, state) => MyHomePage(title: 'Mes projets'),
+            routes: [
+              GoRoute(
+                  path: '/details',
+                  builder: (context, state) {
+                    final args = state.extra as ScreenArguments;
+                    return ProjectDetailsPage(project: args.project);
+                  },
+                routes: [
+                  GoRoute(
+                      path: '/edit',
+                      builder: (context, state) {
+                        final args = state.extra as ScreenArguments;
+                        return EditProjectPage(project: args.project);
+                      },
+                )
+              ]),
+            ]
           ),
-          GoRoute(
-              path: '/details',
-              builder: (context, state) {
-                final args = state.extra as ScreenArguments;
-                return ProjectDetailsPage(project: args.project);
-              }
-          ),
+
         ]
     );
 
